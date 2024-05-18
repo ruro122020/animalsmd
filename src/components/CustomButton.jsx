@@ -1,9 +1,10 @@
-import React from 'react'
+import { Button } from '@mui/material'
+
 
 const CustomButton = () => {
   return (
-    <div>
-
+    <div style={{ paddingTop: '12px' }}>
+      <Button variant="outlined" type='submit'>Submit</Button>
     </div>
   )
 }

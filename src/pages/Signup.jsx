@@ -1,11 +1,15 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import { Grid, Button } from '@mui/material'
+import { Grid } from '@mui/material'
 import CustomInput from '../components/CustomInput'
-import { useState } from 'react'
 import * as yup from 'yup'
-
+import CustomButton from '../components/CustomButton'
+import { useAuth } from '../context/AuthContext'
+import { postData } from '../api'
+import { useNavigate } from 'react-router-dom'
 const Signup = () => {
+  const { updateUser } = useAuth()
+  const navigate = useNavigate()
   const formSchema = yup.object().shape({
     name: yup.string().matches(/^[a-z ]+$/i, 'Only alphabetic characters allowed').required("Must enter a name").min(3),
     username: yup.string().matches(/^[a-z ]+$/i, 'Only alphabetic characters allowed').required('Must enter username'),
@@ -20,11 +24,16 @@ const Signup = () => {
       password: ''
     },
     validationSchema: formSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       //post values to api
-      console.log('values', values)
-      resetForm()
-      //redirect user to Pet Assessment or product page
+      const responseUser = await postData('signup', values)
+      if (responseUser) {
+        updateUser(responseUser)
+        resetForm()
+        navigate('/')
+      } else {
+        console.log('Something went wrong in signup.jsx submit function')
+      }
     }
   })
 
@@ -68,15 +77,13 @@ const Signup = () => {
               onChange={formik.handleChange}
               value={value}
             />
-            {formik.touched['name'] && formik.errors['name'] && (
-              <div style={{ color: 'red', paddingTop: '7px' }}>{formik.errors['name']}</div>
+            {formik.touched[name] && formik.errors[name] && (
+              <div style={{ color: 'red', paddingTop: '7px' }}>{formik.errors[name]}</div>
             )}
           </div>
 
         )}
-        <div style={{ paddingTop: '12px' }}>
-          <Button variant="outlined" type='submit'>Submit</Button>
-        </div>
+        <CustomButton />
       </form>
     </Grid>
   )
