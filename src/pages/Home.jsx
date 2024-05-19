@@ -1,10 +1,11 @@
 import React from 'react'
+import { Grid } from '@mui/material'
 
 const Home = () => {
   return (
-    <div>
-      Home page
-    </div>
+    <Grid>
+      <h1>Welcome!</h1>
+    </Grid>
   )
 }
 

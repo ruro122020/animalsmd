@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext';
+import { deleteData } from '../api'
 const pages = [
   {
     route: '/',
@@ -74,13 +75,13 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  // const handleLogout = async () => {
-  //   const success = await apiLogout()
-  //   if (success) {
-  //     logout()
-  //     updateUser(null)
-  //   }
-  // }
+  const handleLogout = async () => {
+    const success = await deleteData('logout')
+    if (success) {
+      logout()
+      updateUser(null)
+    }
+  }
   return (
     <AppBar position="static" sx={{ background: 'purple' }}>
       <Container maxWidth="xl">
@@ -257,7 +258,7 @@ const Navbar = () => {
                     textAlign="center"
                     as={NavLink}
                     to='/'
-                  // onClick={handleLogout}
+                    onClick={handleLogout}
                   >Logout</Typography>
                 </MenuItem>
               </Menu>

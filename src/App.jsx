@@ -5,7 +5,17 @@ import { useAuth } from './context/AuthContext'
 import { getData } from './api'
 const App = () => {
 
-  useEffect(() => { }, [])
+  useEffect(() => {
+    const checkUserStatus = async () => {
+      const response = await getData('check_session')
+      if (response) {
+        console.log('response in App', response)
+      }
+      console.log('response in App', response)
+
+    }
+    checkUserStatus()
+  }, [])
 
   return (
     <>
