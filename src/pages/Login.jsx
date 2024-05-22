@@ -24,7 +24,7 @@ const Login = () => {
     },
     validationSchema: formSchema,
     onSubmit: async (values, { resetForm }) => {
-      const responseUser = await postData('login', values)
+      const responseUser = await postData('/api/login', values)
       if (responseUser) {
         login()
         updateUser(responseUser)

@@ -23,7 +23,7 @@ const getData = async (url) => {
 
 const postData = async (url, body) => {
   try {
-    const res = await fetch(`${BASEURL}/${url}`, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
