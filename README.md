@@ -11,16 +11,11 @@ npm install
 npm run dv
 ```
 
-4. Connect application to api application
-
-To connect the application to the flask application.
-
-To go through vite :
-1. Go to vit.config.js file
-2. Add the following: 
+4. Connect front-end application to api application
+Add the following to your vite.config.js file under plugins. Inside the object that is being passed to defineConfig
 
 ```
-server: {
+  server: {
       port: 5173,
       proxy: {
         '/api': {
@@ -30,7 +25,7 @@ server: {
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
-    }
+    },
 ```
 Change the target to the url you api port is running on. 
 
