@@ -60,6 +60,7 @@ const Navbar = () => {
   const { isLoggedIn, logout, updateUser, user } = useAuth()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -76,7 +77,7 @@ const Navbar = () => {
   };
 
   const handleLogout = async () => {
-    const success = await deleteData('logout')
+    const success = await deleteData('/api/logout')
     if (success) {
       logout()
       updateUser(null)

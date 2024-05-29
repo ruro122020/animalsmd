@@ -16,7 +16,20 @@ import Select from '@mui/material/Select';
 
 const PetAssessment = () => {
   const [symptoms, setSymptoms] = useState([])
+  const [species, setSpecies] = useState([])
 
+  useEffect(() => {
+    const getSpecies = async () => {
+      const species = await getData('/api/species')
+      if (species) {
+        setSpecies(species)
+      } else {
+        console.log('species is false, please check api file')
+      }
+    }
+    getSpecies()
+  }, [])
+  console.log('species', species)
   const formSchema = yup.object().shape({
   })
   const formik = useFormik({

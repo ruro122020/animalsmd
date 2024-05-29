@@ -29,9 +29,4 @@ Add the following to your vite.config.js file under plugins. Inside the object t
 ```
 Change the target to the url you api port is running on. 
 
-Now when you make a fetch, add '/api/your-route' 
-
-To NOT go through vite:
-1. Go to the api.jsx file
-2. Replace the base url string with yours
-The api.jsx file has methods built to make crud fetches. You just need to import them where you need them. 
+Now when you make a fetch, add '/api/your-route' to all your routes

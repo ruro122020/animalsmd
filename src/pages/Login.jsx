@@ -27,10 +27,10 @@ const Login = () => {
       const responseUser = await postData('/api/login', values)
       if (responseUser) {
         login()
-        updateUser(responseUser)
+        // updateUser(responseUser)
         resetForm()
-        navigate('/')
         setError(false)
+        navigate('/')
       } else {
         console.log('Something went wrong in login.jsx submit function')
         setError(true)
