@@ -91,7 +91,7 @@ const Signup = () => {
           </div>
 
         )}
-        <CustomButton>Submit</CustomButton>
+        <CustomButton type_name='submit'>Submit</CustomButton>
       </form>
       <p>
         Already have an account?

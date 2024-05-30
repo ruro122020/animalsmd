@@ -6,6 +6,7 @@ import { getData } from './api'
 
 const App = () => {
   const { login, updateUser } = useAuth()
+
   useEffect(() => {
     const checkUserStatus = async () => {
       const response = await getData('/api/check_session')

@@ -1,10 +1,10 @@
 import { Button } from '@mui/material'
 
 
-const CustomButton = ({ children }) => {
+const CustomButton = ({ type_name, children }) => {
   return (
     <div style={{ paddingTop: '12px' }}>
-      <Button variant="outlined" type='submit'>{children}</Button>
+      <Button variant="outlined" type='Submit'>{children}</Button>
     </div>
   )
 }
