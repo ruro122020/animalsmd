@@ -7,9 +7,6 @@ const CustomLink = ({ route, children, onClickProp }) => {
 
   return (
     <Button sx={{ textDecoration: 'none' }} as={NavLink} onClick={() => {
-      if (onClickProp) {
-        onClickProp()
-      }
       navigate(route)
     }}> {children}</Button>
   )

@@ -30,3 +30,10 @@ Add the following to your vite.config.js file under plugins. Inside the object t
 Change the target to the url you api port is running on. 
 
 Now when you make a fetch, add '/api/your-route' to all your routes
+
+
+IMPORTANT NOTE: If you want to use GSAP's {useGSAP} plugin, you must install: 
+
+```
+npm install @gsap/react
+```

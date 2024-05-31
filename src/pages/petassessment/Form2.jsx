@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { usePetAssessment } from '../../context/PetAssessmentContext'
 import { getData } from '../../api'
-import CustomCheckbox from '../../components/CustomCheckbox'
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -10,14 +9,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import CustomButton from '../../components/CustomButton';
-import Checkbox from '@mui/material/Checkbox';
 import { useNavigate } from 'react-router-dom';
-
+import { Checkbox } from '@mui/material';
 /*
 IMPORTANT NOTE: 
   Formik doesn't have an internal way of handling updating nested arrays in inital values. In this case, for symptoms array.
-  Therefore, a work around has been implemented. A custom handleChange was created to be passed to the FormControlLabel component. 
-  In the handleSymptomsChange, any of the symptoms selected will be added to the sypmtoms array in formik.values
+  Therefore, a work around has been implemented. A custom handleChange was created to be passed to the FormControlLabel components. 
+  In the handleSymptomsChange, any of the symptoms selected will be added to the sypmtoms array in formik.values manuelly
 */
 const Form2 = () => {
   const { petInfo, updatePetInfo } = usePetAssessment()
@@ -41,7 +39,7 @@ const Form2 = () => {
   }, [])
 
   const formSchema = yup.object().shape({
-    symptoms: yup.array().min(1, 'At least one checkbox must be selected'),
+    symptoms: yup.array().min(2, 'At least 2 checkboxes must be selected'),
 
   })
 
@@ -49,7 +47,7 @@ const Form2 = () => {
     initialValues: {
       symptoms: []
     },
-    // validationSchema: formSchema,
+    validationSchema: formSchema,
     onSubmit: async (values, { resetForm }) => {
       updatePetInfo({ ...petInfo, symptoms: values.symptoms })
       //POST PETINFO TO DATABASE
@@ -62,31 +60,49 @@ const Form2 = () => {
     //get checked and name from event
     const { checked, name } = event.target
     const currentSymptoms = formik.values.symptoms
-    //update formik symptoms array with values if symptom is checked
+    //update symptoms array in formik with values if symptom is checked
     if (checked) {
       formik.setFieldValue("symptoms", [...currentSymptoms, name])
+    } else {
+      formik.setFieldValue('symptoms', currentSymptoms.filter(symptom => symptom !== name))
     }
+    //mark symptoms as touched
+    formik.setTouched({
+      ...formik.touched,
+      symptoms: true
+    })
   }
 
   return (
-    <form onSubmit={formik.handleSubmit} >
-      <FormControl sx={{}} >
-        <FormLabel component="legend">SYMPTOMS</FormLabel>
-        <FormGroup>
-          {symptoms.map(symptom =>
-            <FormControlLabel
-              control={<Checkbox color='secondary' />}
-              label={symptom}
-              labelPlacement='start'
-              onChange={handleSymptomsChange}
-              name={symptom}
-              value={formik.values.symptoms.includes(symptom)}
-            />
-          )}
+
+    <form onSubmit={formik.handleSubmit}>
+      <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
+      <FormControl style={{ display: 'flex', alignItems: 'end', flexDirection: 'column' }}>
+        <FormGroup >
+          <Grid container spacing={-30} >
+            {symptoms.map(symptom =>
+              <Grid xs={12} md={4}>
+                <FormControlLabel
+                  control={<Checkbox color='secondary' />}
+                  label={symptom}
+                  labelPlacement='end'
+                  onChange={handleSymptomsChange}
+                  name={symptom}
+                  value={formik.values.symptoms.includes(symptom)}
+                />
+              </Grid>
+            )}
+          </Grid>
         </FormGroup>
       </FormControl >
-      <CustomButton>Submit</CustomButton>
+      {formik.touched.symptoms && formik.errors.symptoms && (
+        <div style={{ color: 'red', paddingTop: '7px' }}>{formik.errors.symptoms}</div>
+      )}
+      <div style={{ textAlign: 'center' }}>
+        <CustomButton>Submit</CustomButton>
+      </div>
     </form>
+
   )
 }
 
