@@ -12,8 +12,15 @@ import * as yup from 'yup'
 import CustomButton from '../../components/CustomButton';
 import Checkbox from '@mui/material/Checkbox';
 import { useNavigate } from 'react-router-dom';
+
+/*
+IMPORTANT NOTE: 
+  Formik doesn't have an internal way of handling updating nested arrays in inital values. In this case, for symptoms array.
+  Therefore, a work around has been implemented. A custom handleChange was created to be passed to the FormControlLabel component. 
+  In the handleSymptomsChange, any of the symptoms selected will be added to the sypmtoms array in formik.values
+*/
 const Form2 = () => {
-  const { petInfo } = usePetAssessment()
+  const { petInfo, updatePetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])
   const navigate = useNavigate()
 
@@ -44,23 +51,26 @@ const Form2 = () => {
     },
     // validationSchema: formSchema,
     onSubmit: async (values, { resetForm }) => {
-      console.log('values', values)
-      // updatePetInfo(values)
-      // resetForm()
+      updatePetInfo({ ...petInfo, symptoms: values.symptoms })
+      //POST PETINFO TO DATABASE
+      resetForm()
     },
 
   })
 
   const handleSymptomsChange = (event) => {
-    //get values from event
-    //update formik symptoms array with values
-
+    //get checked and name from event
+    const { checked, name } = event.target
+    const currentSymptoms = formik.values.symptoms
+    //update formik symptoms array with values if symptom is checked
+    if (checked) {
+      formik.setFieldValue("symptoms", [...currentSymptoms, name])
+    }
   }
-
 
   return (
     <form onSubmit={formik.handleSubmit} >
-      <FormControl sx={{}} component="" variant="" >
+      <FormControl sx={{}} >
         <FormLabel component="legend">SYMPTOMS</FormLabel>
         <FormGroup>
           {symptoms.map(symptom =>
@@ -68,7 +78,7 @@ const Form2 = () => {
               control={<Checkbox color='secondary' />}
               label={symptom}
               labelPlacement='start'
-              onChange={formik.handleChange}
+              onChange={handleSymptomsChange}
               name={symptom}
               value={formik.values.symptoms.includes(symptom)}
             />
