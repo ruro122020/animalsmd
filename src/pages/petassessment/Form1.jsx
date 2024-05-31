@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import CustomInput from '../../components/CustomInput'
 import * as yup from 'yup'
 import { getData, postData } from '../../api'
@@ -7,10 +7,29 @@ import { usePetAssessment } from '../../context/PetAssessmentContext'
 import { useFormik } from 'formik'
 import CustomButton from '../../components/CustomButton'
 import { useNavigate } from 'react-router-dom'
+import { useGSAP } from "@gsap/react";
+import gsap from 'gsap'
+
+gsap.registerPlugin(useGSAP);
+
 const Form1 = () => {
   const [species, setSpecies] = useState([])
   const { updatePetInfo, petInfo } = usePetAssessment()
+  const [clicked, setClicked] = useState(false)
   const navigate = useNavigate()
+  /**Example code below */
+  const container = useRef()
+  const myAnimation = (element) => {
+    gsap.to(element, {
+      duration: 0.5,
+      opacity: 0,
+      y: -100,
+      stagger: 0.1,
+      ease: "back.in"
+    })
+  }
+  const elementRef = useGSAP(myAnimation, [clicked])
+
   useEffect(() => {
     const getSpecies = async () => {
       const species = await getData('/api/species')
@@ -42,9 +61,10 @@ const Form1 = () => {
     },
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
+      setClicked(!clicked)
       updatePetInfo(values)
-      resetForm()
-      navigate('/pet-assessment/form2')
+      // resetForm()
+      // navigate('/pet-assessment/form2')
     }
   })
   const fields = [
@@ -68,7 +88,11 @@ const Form1 = () => {
     }
   ]
   return (
-    <form onSubmit={formik.handleSubmit} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+    <form
+      onSubmit={formik.handleSubmit}
+      style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}
+      ref={elementRef}
+    >
       <div style={{ textAlign: "center" }}>
         {fields.map(({ label, name, type, value }) =>
           <div key={name}>

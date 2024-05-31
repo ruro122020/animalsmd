@@ -37,3 +37,5 @@ IMPORTANT NOTE: If you want to use GSAP's {useGSAP} plugin, you must install:
 ```
 npm install @gsap/react
 ```
+
+The useGSAP hook must be used to avoid any memory leaks and kill lingering animation. 
