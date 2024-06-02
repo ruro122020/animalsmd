@@ -47,10 +47,10 @@ const Form1 = () => {
   }, [])
 
   const formSchema = yup.object().shape({
-    type: yup.string().required("Type is required"),
-    name: yup.string().required("Name is required"),
-    age: yup.number().typeError("Age must be a valid number").integer("Age must be an integer").required('Age is required').min(1, 'Age must be at least 1'),
-    weight: yup.number().typeError("Weight must be a valid number").integer("Weight must be an integer").required('Weight is required').min(1, 'Weight must be at least 1'),
+    type: yup.string().required("*required"),
+    name: yup.string().required("*required"),
+    age: yup.number().typeError("Age must be a valid number").integer("Age must be an integer").required('*required').min(1, 'Age must be at least 1'),
+    weight: yup.number().typeError("Weight must be a valid number").integer("Weight must be an integer").required('*required').min(1, 'Weight must be at least 1'),
     //symptoms array is being validated in form 2
   })
 
@@ -89,6 +89,7 @@ const Form1 = () => {
       type: 'text',
       value: formik.values.weight
     }
+
   ]
   return (
     <form
@@ -97,31 +98,36 @@ const Form1 = () => {
       ref={form}
     >
       <div style={{ textAlign: "center" }}>
-        {fields.map(({ label, name, type, value }) =>
-          <div key={name}>
-            {formik.touched[name] && formik.errors[name] && (
-              <div style={{ color: 'red', paddingTop: '7px' }}>{formik.errors[name]}</div>
-            )}
+        {fields.map(({ label, name, type, value }) => {
+          const hasError = formik.touched[name] && formik.errors[name]
+          const errorMessage = <span style={{ color: 'red', fontSize: '12px', marginBottom: '100px' }}>{formik.errors[name]}</span>
+
+          return <div key={name}>
             <CustomInput
-              label={label}
+              label={<span>{label} {hasError && errorMessage}</span>}
               name={name}
               type={type}
               onChange={formik.handleChange}
               value={value} />
 
-          </div>)}
+          </div>
+        })
+        }
         <div>
-          {formik.touched.type && formik.errors.type && (
-            <div style={{ color: 'red', paddingTop: '7px' }}>{formik.errors.type}</div>
-          )}
           <CustomSelect
-            label='Type'
+            label={
+              <span >
+                Type
+                {formik.touched.type && formik.errors.type && (
+                  <span style={{ color: 'red', fontSize: '12px' }}> {formik.errors.type}</span>
+                )}
+              </span>
+            }
             selectName='type'
             options={species}
             handleChange={formik.handleChange}
             value={formik.values.type}
           />
-
         </div>
       </div>
       <div>

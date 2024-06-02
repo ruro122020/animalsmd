@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 const CustomSelect = ({ label, selectName, options, handleChange, value }) => {
 
   return (
-    <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+    <FormControl variant="filled" sx={{ m: 1, minWidth: 220 }}>
       <InputLabel id="demo-simple-select-filled-label">{label}</InputLabel>
       <Select
         labelId="demo-simple-select-filled-label"

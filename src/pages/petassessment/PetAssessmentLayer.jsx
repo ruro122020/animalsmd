@@ -5,6 +5,7 @@ import { Box, Grid } from '@mui/material'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import background from '../../assets/pet-assessment-media/pet-assessment-bg.jpg'
+import { Divider } from '@mui/material';
 
 
 const PetAssessmentLayer = () => {
@@ -35,13 +36,17 @@ const PetAssessmentLayer = () => {
         placeItems: 'center',
         backgroundImage: `url(${background})`,
         backgroundSize: 'cover',
+        opacity: '90%',
+        fontFamily: "cursive",
+        fontWeight: 700,
+        fontStyle: 'normal',
       }}
       minHeight="100vh">
       <PetAssessmentProvider>
         <Box
           ref={formBox}
           style={{
-            padding: '10px',
+            padding: '10px 35px',
             background: 'white',
             borderRadius: '5px',
             paddingBottom: '20px',
@@ -50,7 +55,7 @@ const PetAssessmentLayer = () => {
             width: '%90',      // responsive width
             m: 'auto',         // centering the box
           }}>
-          <h1 style={{ textAlign: 'center' }} ref={title}>Pet Assessment</h1>
+          <h1 style={{ textAlign: 'center', }} ref={title}>Pet Assessment</h1>
           <Outlet context={[setBoxTransition]} />
         </Box>
       </PetAssessmentProvider>
