@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Grid } from '@mui/material'
-import Form1 from './forms/Form1'
-import Form2 from './forms/Form2'
+import Form1 from './Form1'
+import Form2 from './Form2'
 import { useGSAP } from "@gsap/react";
 import background from '../../assets/pet-assessment-media/pet-assessment-bg.jpg'
 import gsap from 'gsap'

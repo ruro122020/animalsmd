@@ -5,7 +5,6 @@ import { Box, Grid } from '@mui/material'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import background from '../../assets/pet-assessment-media/pet-assessment-bg.jpg'
-import { Divider } from '@mui/material';
 
 
 const PetAssessmentLayer = () => {

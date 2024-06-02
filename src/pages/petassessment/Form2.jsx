@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { usePetAssessment } from '../../../context/PetAssessmentContext'
-import { getData } from '../../../api'
+import { usePetAssessment } from '../../context/PetAssessmentContext'
+import { getData } from '../../api'
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -8,7 +8,7 @@ import { Grid, setRef } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import CustomButton from '../../../components/CustomButton';
+import CustomButton from '../../components/form/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { Checkbox } from '@mui/material';
 import gsap from 'gsap';

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import CustomInput from '../../../components/CustomInput'
+import CustomInputText from '../../components/form/CustomInputText'
 import * as yup from 'yup'
-import { getData, postData } from '../../../api'
-import CustomSelect from '../../../components/CustomSelect'
-import { usePetAssessment } from '../../../context/PetAssessmentContext'
+import { getData, postData } from '../../api'
+import CustomSelect from '../../components/form/CustomSelect'
+import { usePetAssessment } from '../../context/PetAssessmentContext'
 import { useFormik } from 'formik'
-import CustomButton from '../../../components/CustomButton'
+import CustomButton from '../../components/form/CustomButton'
 import { useNavigate } from 'react-router-dom'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
@@ -103,13 +103,12 @@ const Form1 = () => {
           const errorMessage = <span style={{ color: 'red', fontSize: '12px', marginBottom: '100px' }}>{formik.errors[name]}</span>
 
           return <div key={name}>
-            <CustomInput
+            <CustomInputText
               label={<span>{label} {hasError && errorMessage}</span>}
               name={name}
               type={type}
               onChange={formik.handleChange}
               value={value} />
-
           </div>
         })
         }
@@ -123,7 +122,7 @@ const Form1 = () => {
                 )}
               </span>
             }
-            selectName='type'
+            name='type'
             options={species}
             handleChange={formik.handleChange}
             value={formik.values.type}

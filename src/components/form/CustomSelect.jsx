@@ -3,8 +3,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
-const CustomSelect = ({ label, selectName, options, handleChange, value }) => {
+/**
+ * When using this component, name must be a string with all 
+ * lowercase
+ * 
+ */
+const CustomSelect = ({ label, name, options, onChange, value }) => {
 
   return (
     <FormControl variant="filled" sx={{ m: 1, minWidth: 220 }}>
@@ -13,8 +17,8 @@ const CustomSelect = ({ label, selectName, options, handleChange, value }) => {
         labelId="demo-simple-select-filled-label"
         id="demo-simple-select-filled"
         value={value}
-        onChange={handleChange}
-        name={selectName}
+        onChange={onChange}
+        name={name}
       >
         <MenuItem value="">
           <em>None</em>

@@ -4,18 +4,19 @@ import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { Grid } from '@mui/material'
-import CustomButton from '../components/CustomButton'
-import CustomLink from '../components/CustomLink'
-import CustomInput from '../components/CustomInput'
+import CustomButton from '../components/form/CustomButton'
+import CustomLink from '../components/form/CustomLink'
+import CustomInputText from '../components/form/CustomInputText'
 import { postData } from '../api'
+import CustomFormFields from '../components/form/CustomFormFields'
 const Login = () => {
   const [error, setError] = useState(false)
   const { login, updateUser } = useAuth()
   let navigate = useNavigate()
 
   const formSchema = yup.object().shape({
-    username: yup.string().required('Must enter username'),
-    password: yup.string().required('Must enter password')
+    username: yup.string().required('*required'),
+    password: yup.string().required('*required')
   })
   const formik = useFormik({
     initialValues: {
@@ -40,7 +41,7 @@ const Login = () => {
 
   const fields = [
     {
-      label: 'username',
+      label: 'Username',
       name: 'username',
       type: 'text',
       value: formik.values.name
@@ -59,18 +60,9 @@ const Login = () => {
       <h1>Login</h1>
       <form onSubmit={formik.handleSubmit}>
         {error && <div style={{ color: 'red', paddingBottom: '4px' }}>Invalid Credentials</div>}
-        {fields.map(({ label, name, type, value }) =>
-          <div key={name} style={{ paddingBottom: '12px' }}>
-            <CustomInput
-              label={label}
-              name={name}
-              type={type}
-              onChange={formik.handleChange}
-              value={value}
-            />
-            {formik.touched[name] && formik.errors[name] && (
-              <div style={{ color: 'red', paddingTop: '7px' }}>{formik.errors[name]}</div>
-            )}
+        {fields.map((field) =>
+          <div key={field.name} style={{ paddingBottom: '12px' }}>
+            <CustomFormFields field={field} formik={formik} />
           </div>
 
         )}
