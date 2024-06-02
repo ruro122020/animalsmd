@@ -31,6 +31,10 @@ Change the target to the url you api port is running on.
 
 Now when you make a fetch, add '/api/your-route' to all your routes
 
+# Animating Elements
+
+Running npm install will install all the libraries used in this project. This is more for information purposes. 
+I'm using GSAP to animate the elements in this project. [Here](https://gsap.com/docs/v3/Installation/?tab=npm&module=esm&method=private+registry&tier=free&club=false&require=false&trial=true) are instructions on how to install gsap.
 
 IMPORTANT NOTE: If you want to use GSAP's {useGSAP} plugin, you must install: 
 

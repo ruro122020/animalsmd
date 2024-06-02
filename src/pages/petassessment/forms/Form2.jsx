@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { usePetAssessment } from '../../context/PetAssessmentContext'
-import { getData } from '../../api'
+import React, { useEffect, useState, useRef } from 'react'
+import { usePetAssessment } from '../../../context/PetAssessmentContext'
+import { getData } from '../../../api'
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -8,9 +8,12 @@ import { Grid } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../../components/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { Checkbox } from '@mui/material';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import Box from '@mui/material/Box';
 /*
 IMPORTANT NOTE: 
   Formik doesn't have an internal way of handling updating nested arrays in inital values. In this case, for symptoms array.
@@ -20,7 +23,23 @@ IMPORTANT NOTE:
 const Form2 = () => {
   const { petInfo, updatePetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
+  const form = useRef()
+
+  //animation for this page is in useGSAP
+  //refer to gsap docs for more info on dependencies https://gsap.com/resources/React/
+  useGSAP(() => {
+    if (form && form.current && !isLoading) {
+      gsap.from(form.current, {
+        duration: 1,
+        opacity: 0,
+        y: -40,
+        stagger: 0.1,
+        ease: "back.in"
+      })
+    }
+  }, { dependencies: [form, isLoading] }) //these dependencies are needed for when form and isLoading state changes
 
   useEffect(() => {
     const getSymptoms = async () => {
@@ -28,6 +47,7 @@ const Form2 = () => {
         const symptomsData = await getData(`/api/species/${petInfo.type}`)
         if (symptomsData) {
           setSymptoms(symptomsData.symptoms)
+          setIsLoading(false)
         } else {
           console.log('Fetched Data returned false')
         }
@@ -73,35 +93,39 @@ const Form2 = () => {
     })
   }
 
-  return (
+  if (isLoading) return <p>Loading...</p>
 
-    <form onSubmit={formik.handleSubmit}>
-      <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
-      <FormControl style={{ display: 'flex', alignItems: 'end', flexDirection: 'column' }}>
-        <FormGroup >
-          <Grid container spacing={-30} >
-            {symptoms.map(symptom =>
-              <Grid xs={12} md={4}>
-                <FormControlLabel
-                  control={<Checkbox color='secondary' />}
-                  label={symptom}
-                  labelPlacement='end'
-                  onChange={handleSymptomsChange}
-                  name={symptom}
-                  value={formik.values.symptoms.includes(symptom)}
-                />
-              </Grid>
-            )}
-          </Grid>
-        </FormGroup>
-      </FormControl >
-      {formik.touched.symptoms && formik.errors.symptoms && (
-        <div style={{ color: 'red', paddingTop: '7px' }}>{formik.errors.symptoms}</div>
-      )}
+  return (
+    <form onSubmit={formik.handleSubmit} ref={form}>
+      <Box
+        sx={{ padding: '12px' }}>
+        <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
+        {formik.touched.symptoms && formik.errors.symptoms && (
+          <div style={{ color: 'red', paddingTop: '7px', textAlign: 'center' }}>{formik.errors.symptoms}</div>
+        )}
+        <FormControl sx={{ paddingTop: '15px', paddingLeft: '20%' }}>
+          <FormGroup>
+            <Grid container  >
+              {symptoms.map(symptom =>
+                <Grid xs={12} md={6}>
+                  <FormControlLabel
+                    control={<Checkbox color='secondary' />}
+                    label={symptom}
+                    labelPlacement='end'
+                    onChange={handleSymptomsChange}
+                    name={symptom}
+                    value={formik.values.symptoms.includes(symptom)}
+                  />
+                </Grid>
+              )}
+            </Grid>
+          </FormGroup>
+        </FormControl >
+      </Box>
       <div style={{ textAlign: 'center' }}>
         <CustomButton>Submit</CustomButton>
       </div>
-    </form>
+    </form >
 
   )
 }
