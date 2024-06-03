@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react'
-import CustomInputText from '../../components/form/CustomInputText'
-import * as yup from 'yup'
-import { getData, postData } from '../../api'
-import CustomSelect from '../../components/form/CustomSelect'
+import { getData } from '../../api'
 import { usePetAssessment } from '../../context/PetAssessmentContext'
-import { useFormik } from 'formik'
 import CustomButton from '../../components/form/CustomButton'
 import { useNavigate } from 'react-router-dom'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
 import { useOutletContext } from "react-router-dom";
 import CustomFormFields from '../../components/form/CustomFormFields'
+import CustomFormik from '../../formik/CustomFormik'
+import form1Validation from '../../yup/petassessment/form1Validation'
 
 gsap.registerPlugin(useGSAP);
 
 const Form1 = () => {
   const [species, setSpecies] = useState([])
-  const { updatePetInfo, petInfo } = usePetAssessment()
+  const { updatePetInfo } = usePetAssessment()
   const navigate = useNavigate()
   const [setBoxTransition] = useOutletContext()
   const form = useRef()
@@ -33,7 +31,6 @@ const Form1 = () => {
     })
   })
 
-
   useEffect(() => {
     const getSpecies = async () => {
       const species = await getData('/api/species')
@@ -47,28 +44,23 @@ const Form1 = () => {
     getSpecies()
   }, [])
 
-  const formSchema = yup.object().shape({
-    type: yup.string().required("*required"),
-    name: yup.string().required("*required"),
-    age: yup.number().typeError("Age must be a valid number").integer("Age must be an integer").required('*required').min(1, 'Age must be at least 1'),
-    weight: yup.number().typeError("Weight must be a valid number").integer("Weight must be an integer").required('*required').min(1, 'Weight must be at least 1'),
-  })
+  const initialValues = {
+    name: '',
+    type: '',
+    age: '',
+    weight: '',
+  }
 
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      type: '',
-      age: '',
-      weight: '',
-    },
-    validationSchema: formSchema,
-    onSubmit: (values, { resetForm }) => {
-      setBoxTransition(true)
-      updatePetInfo(values)
-      resetForm()
-      navigate('/pet-assessment/form2')
-    }
-  })
+  const handleSubmit = (values, resetForm) => {
+    setBoxTransition(true)
+    updatePetInfo(values)
+    resetForm()
+    navigate('/pet-assessment/form2')
+  }
+
+  const formik = CustomFormik(initialValues, form1Validation, handleSubmit)
+
+
   const fields = [
     {
       label: 'Name',
