@@ -8,12 +8,13 @@ import { Grid, setRef } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import CustomButton from '../../components/form/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { Checkbox } from '@mui/material';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Box from '@mui/material/Box';
+import CustomButton from '../../components/form/CustomButton'
+import CustomFormFields from '../../components/form/CustomFormFields';
 /*
 IMPORTANT NOTE: 
   Formik doesn't have an internal way of handling updating nested arrays in inital values. In this case, for symptoms array.
@@ -64,15 +65,18 @@ const Form2 = () => {
     getSymptoms()
   }, [])
 
-
+  const formSchema = yup.object().shape({
+    symptoms: yup.array().min(2, 'At least 2 symptoms must be selected')
+  })
 
   const formik = useFormik({
     initialValues: {
       symptoms: []
     },
-    // validationSchema: formSchema,
+    validationSchema: formSchema,
     onSubmit: async (values, { resetForm }) => {
       updatePetInfo({ ...petInfo, symptoms: values.symptoms })
+      console.log('petInfo', petInfo)
       if (values.symptoms.length <= 1) {
         setIsError(true)
       } else {
@@ -81,21 +85,18 @@ const Form2 = () => {
         resetForm()
       }
     },
-
   })
 
-  const handleSymptomsChange = (event) => {
-    //get checked and name from event
-    const { checked, name } = event.target
-    const currentSymptoms = formik.values.symptoms
-    //update symptoms array in formik with values if symptom is checked
-    if (checked) {
-      formik.setFieldValue("symptoms", [...currentSymptoms, name])
-      //setting this will remove error message when user checks another box.
-      setIsError(false)
-    } else {
-      formik.setFieldValue('symptoms', currentSymptoms.filter(symptom => symptom !== name))
-    }
+  //This only requires an object to be passed to CustomFormFields because the 
+  //CustomCheckboxGroup component is iterating through options and creating 
+  //a checkboxe for each option 
+
+  const field =
+  {
+    options: symptoms,
+    name: 'symptoms',
+    labelPlacement: 'end',
+    type: 'checkbox'
   }
 
   if (isLoading) return <p>Loading...</p>
@@ -103,23 +104,10 @@ const Form2 = () => {
   return (
     <form onSubmit={formik.handleSubmit} ref={form} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
-      <div style={{ color: isError ? 'red' : 'rgba(0,0,0,0)', textAlign: 'center' }}>At least 2 checkboxes must be selected</div>
+      {/* <div style={{ color: isError ? 'red' : 'rgba(0,0,0,0)', textAlign: 'center' }}>At least 2 checkboxes must be selected</div> */}
       <FormControl sx={{ paddingTop: '15px', paddingLeft: '20%' }}>
         <FormGroup>
-          <Grid container>
-            {symptoms.map(symptom =>
-              <Grid xs={12} md={6}>
-                <FormControlLabel
-                  control={<Checkbox color='secondary' />}
-                  label={symptom}
-                  labelPlacement='end'
-                  onChange={handleSymptomsChange}
-                  name={symptom}
-                  value={formik.values.symptoms.includes(symptom)}
-                />
-              </Grid>
-            )}
-          </Grid>
+          <CustomFormFields field={field} formik={formik} />
         </FormGroup>
       </FormControl >
       <div>

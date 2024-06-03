@@ -1,13 +1,11 @@
 import App from './App'
 import Home from './pages/Home'
 import Login from './pages/Login'
-// import Form1 from './pages/petassessment/forms/Form1'
+import Form1 from './pages/petassessment/Form1'
 import Form2 from './pages/petassessment/Form2'
-import PetAssessment from './pages/petassessment/PetAssessment'
 import PetAssessmentLayer from './pages/petassessment/PetAssessmentLayer'
 import Products from './pages/Products'
 import Signup from './pages/Signup'
-import Form3 from './pages/petassessment/Form3'
 
 const routes = [
   {
@@ -32,7 +30,7 @@ const routes = [
         children: [
           {
             path: '/pet-assessment/',
-            element: <Form3 />
+            element: <Form1 />
           },
           {
             path: '/pet-assessment/form2',

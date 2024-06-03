@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
 import { useOutletContext } from "react-router-dom";
+import CustomFormFields from '../../components/form/CustomFormFields'
 
 gsap.registerPlugin(useGSAP);
 
@@ -51,7 +52,6 @@ const Form1 = () => {
     name: yup.string().required("*required"),
     age: yup.number().typeError("Age must be a valid number").integer("Age must be an integer").required('*required').min(1, 'Age must be at least 1'),
     weight: yup.number().typeError("Weight must be a valid number").integer("Weight must be an integer").required('*required').min(1, 'Weight must be at least 1'),
-    //symptoms array is being validated in form 2
   })
 
   const formik = useFormik({
@@ -60,7 +60,6 @@ const Form1 = () => {
       type: '',
       age: '',
       weight: '',
-      symptoms: []
     },
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
@@ -75,19 +74,27 @@ const Form1 = () => {
       label: 'Name',
       name: 'name',
       type: 'text',
-      value: formik.values.name
+      value: formik.values.name,
     },
     {
       label: 'Age',
       name: 'age',
       type: 'text',
-      value: formik.values.age
+      value: formik.values.age,
     },
     {
       label: 'Weight',
       name: 'weight',
       type: 'text',
       value: formik.values.weight
+
+    },
+    {
+      label: 'Type',
+      options: species,
+      name: 'type',
+      type: 'select',
+      value: formik.values.type,
     }
 
   ]
@@ -98,36 +105,7 @@ const Form1 = () => {
       ref={form}
     >
       <div style={{ textAlign: "center" }}>
-        {fields.map(({ label, name, type, value }) => {
-          const hasError = formik.touched[name] && formik.errors[name]
-          const errorMessage = <span style={{ color: 'red', fontSize: '12px', marginBottom: '100px' }}>{formik.errors[name]}</span>
-
-          return <div key={name}>
-            <CustomInputText
-              label={<span>{label} {hasError && errorMessage}</span>}
-              name={name}
-              type={type}
-              onChange={formik.handleChange}
-              value={value} />
-          </div>
-        })
-        }
-        <div>
-          <CustomSelect
-            label={
-              <span >
-                Type
-                {formik.touched.type && formik.errors.type && (
-                  <span style={{ color: 'red', fontSize: '12px' }}> {formik.errors.type}</span>
-                )}
-              </span>
-            }
-            name='type'
-            options={species}
-            handleChange={formik.handleChange}
-            value={formik.values.type}
-          />
-        </div>
+        {fields.map(field => <CustomFormFields field={field} formik={formik} />)}
       </div>
       <div>
         <CustomButton>Next</CustomButton>
