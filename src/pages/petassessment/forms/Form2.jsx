@@ -68,7 +68,7 @@ const Form2 = () => {
     //POST PETINFO TO DATABASE
     resetForm()
   }
-
+  console.log('petInfo', petInfo)
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
 
   if (isLoading) return <p>Loading...</p>
