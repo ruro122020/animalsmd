@@ -43,3 +43,42 @@ npm install @gsap/react
 ```
 
 The useGSAP hook must be used to avoid any memory leaks and kill lingering animation. 
+
+FORMS
+When building forms a config file must be created along with the form component. The config file but have an object with 3 properties:
+  1. initialValues
+  2. formSchema
+  3. field(s)
+
+Example:
+```
+import * as yup from 'yup';
+
+const formConfig = {
+
+  initialValue: {
+    username: '',
+    password: ''
+  },
+
+  fields: [
+    {
+      label: 'Username',
+      name: 'username',
+      type: 'text',
+    },
+    {
+      label: 'Password',
+      name: 'password',
+      type: 'password',
+    }
+  ],
+
+  formSchema: yup.object().shape({
+    username: yup.string().required('*required'),
+    password: yup.string().required('*required')
+  })
+}
+
+export default formConfig
+```
