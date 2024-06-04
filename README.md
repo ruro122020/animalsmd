@@ -45,6 +45,7 @@ npm install @gsap/react
 The useGSAP hook must be used to avoid any memory leaks and kill lingering animation. 
 
 FORMS
+
 When building forms a config file must be created along with the form component. The config file but have an object with 3 properties:
   1. initialValues
   2. formSchema
