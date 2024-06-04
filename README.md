@@ -31,7 +31,7 @@ Change the target to the url you api port is running on.
 
 Now when you make a fetch, add '/api/your-route' to all your routes
 
-# Animating Elements
+# Animation Library
 
 Running npm install will install all the libraries used in this project. This is more for information purposes. 
 I'm using GSAP to animate the elements in this project. [Here](https://gsap.com/docs/v3/Installation/?tab=npm&module=esm&method=private+registry&tier=free&club=false&require=false&trial=true) are instructions on how to install gsap.
@@ -46,7 +46,7 @@ The useGSAP hook must be used to avoid any memory leaks and kill lingering anima
 
 # FORMS
 
-When building forms a config file must be created along with the form component. The config file but have an object with 3 properties:
+When building forms a config file must be created along with the form component. The config file should have an object with 3 properties:
   1. initialValues
   2. formSchema
   3. field(s)

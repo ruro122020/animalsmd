@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { getData } from '../../api'
-import { usePetAssessment } from '../../context/PetAssessmentContext'
-import CustomButton from '../../components/form/CustomButton'
+import { getData } from '../../../api'
+import { usePetAssessment } from '../../../context/PetAssessmentContext'
+import CustomButton from '../../../components/form/CustomButton'
 import { useNavigate } from 'react-router-dom'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
 import { useOutletContext } from "react-router-dom";
-import CustomFormFields from '../../components/form/CustomFormFields'
-import CustomFormik from '../../formik/CustomFormik'
-import form1Config from './formConfigs/form1Config'
+import CustomFormFields from '../../../components/form/CustomFormFields'
+import CustomFormik from '../../../formik/CustomFormik'
+import form1Config from '../formConfigs/form1Config'
 
 gsap.registerPlugin(useGSAP);
 

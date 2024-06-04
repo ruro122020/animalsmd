@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { usePetAssessment } from '../../context/PetAssessmentContext'
-import { getData } from '../../api'
+import { usePetAssessment } from '../../../context/PetAssessmentContext'
+import { getData } from '../../../api'
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import CustomButton from '../../components/form/CustomButton'
-import CustomFormFields from '../../components/form/CustomFormFields';
-import CustomFormik from '../../formik/CustomFormik';
-import form2Config from './formConfigs/form2Config';
+import CustomButton from '../../../components/form/CustomButton'
+import CustomFormFields from '../../../components/form/CustomFormFields';
+import CustomFormik from '../../../formik/CustomFormik';
+import form2Config from '../formConfigs/form2Config';
 
 /*
 IMPORTANT NOTE: 
