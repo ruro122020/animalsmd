@@ -13,7 +13,7 @@ const CustomFormFields = ({ field, formik }) => {
   const hasError = formik.touched[field.name] && formik.errors[field.name]
 
   if (field.type === 'text' || field.type === 'email' || field.type === 'password') {
-    const { label, name, value } = field
+    const { label, name } = field
     //return input type text
     return <CustomInput
       label={<span>
@@ -21,7 +21,7 @@ const CustomFormFields = ({ field, formik }) => {
       </span>}
       name={name}
       onChange={formik.handleChange}
-      value={value} />
+      value={formik.values[name]} />
   }
 
   if (field.type === 'select') {
@@ -32,7 +32,7 @@ const CustomFormFields = ({ field, formik }) => {
         {label} <CustomError error={hasError} message={formik.errors[field.name]} />
       </span>}
       onChange={formik.handleChange}
-      value={value}
+      value={formik.values[name]}
       options={options}
       name={name}
     />

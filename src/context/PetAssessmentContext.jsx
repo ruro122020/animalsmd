@@ -9,11 +9,11 @@ export const usePetAssessment = () => useContext(PetAssessmentContext)
 export const PetAssessmentProvider = ({ children }) => {
   const [petInfo, setPetInfo] = useState({})
 
-  const updatePetInfo = (obj) => setPetInfo(obj)
+  // const updatePetInfo = (obj) => setPetInfo(obj)
 
   return (
     <div>
-      <PetAssessmentContext.Provider value={{ petInfo, updatePetInfo }}>
+      <PetAssessmentContext.Provider value={{ petInfo, setPetInfo }}>
         {children}
       </PetAssessmentContext.Provider>
     </div>

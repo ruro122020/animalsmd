@@ -1,11 +1,11 @@
 import App from './App'
 import Home from './pages/Home'
-import Login from './pages/Login'
+import Login from './pages/login/Login'
 import Form1 from './pages/petassessment/Form1'
 import Form2 from './pages/petassessment/Form2'
 import PetAssessmentLayer from './pages/petassessment/PetAssessmentLayer'
 import Products from './pages/Products'
-import Signup from './pages/Signup'
+import Signup from './pages/signup/Signup'
 
 const routes = [
   {

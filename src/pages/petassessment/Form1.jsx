@@ -8,16 +8,17 @@ import gsap from 'gsap'
 import { useOutletContext } from "react-router-dom";
 import CustomFormFields from '../../components/form/CustomFormFields'
 import CustomFormik from '../../formik/CustomFormik'
-import form1Validation from '../../yup/petassessment/form1Validation'
+import form1Config from './formConfigs/form1Config'
 
 gsap.registerPlugin(useGSAP);
 
 const Form1 = () => {
   const [species, setSpecies] = useState([])
-  const { updatePetInfo } = usePetAssessment()
+  const { setPetInfo } = usePetAssessment()
   const navigate = useNavigate()
   const [setBoxTransition] = useOutletContext()
   const form = useRef()
+  const { initialValues, formSchema, fields } = form1Config
 
   //this creates the animation
   //ref form is used to attach animation to form element
@@ -31,6 +32,7 @@ const Form1 = () => {
     })
   })
 
+  //Fetches species list 
   useEffect(() => {
     const getSpecies = async () => {
       const species = await getData('/api/species')
@@ -44,52 +46,22 @@ const Form1 = () => {
     getSpecies()
   }, [])
 
-  const initialValues = {
-    name: '',
-    type: '',
-    age: '',
-    weight: '',
-  }
-
+  //update options property from one of the objects in fields array
+  const updatedFields = fields.map(field => {
+    if (field.type === 'select') {
+      return { ...field, options: species }
+    }
+    return field
+  })
   const handleSubmit = (values, resetForm) => {
     setBoxTransition(true)
-    updatePetInfo(values)
+    setPetInfo(values)
     resetForm()
     navigate('/pet-assessment/form2')
   }
 
-  const formik = CustomFormik(initialValues, form1Validation, handleSubmit)
+  const formik = CustomFormik(initialValues, formSchema, handleSubmit)
 
-
-  const fields = [
-    {
-      label: 'Name',
-      name: 'name',
-      type: 'text',
-      value: formik.values.name,
-    },
-    {
-      label: 'Age',
-      name: 'age',
-      type: 'text',
-      value: formik.values.age,
-    },
-    {
-      label: 'Weight',
-      name: 'weight',
-      type: 'text',
-      value: formik.values.weight
-
-    },
-    {
-      label: 'Type',
-      options: species,
-      name: 'type',
-      type: 'select',
-      value: formik.values.type,
-    }
-
-  ]
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -97,7 +69,7 @@ const Form1 = () => {
       ref={form}
     >
       <div style={{ textAlign: "center" }}>
-        {fields.map(field => <CustomFormFields field={field} formik={formik} />)}
+        {updatedFields.map(field => <CustomFormFields field={field} formik={formik} />)}
       </div>
       <div>
         <CustomButton>Next</CustomButton>

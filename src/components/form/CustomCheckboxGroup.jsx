@@ -12,6 +12,8 @@ import { FormControl, FormGroup, Grid, FormControlLabel, Checkbox } from '@mui/m
  *    <CustomFormFields/> ---> CustomCheckboxGroup is being called in CustomFormFields component
  *  </FormGroup>
  * </FormControl>
+ * 
+ * This Approach was needed because TextField component from material ui can NOT be used as a checkbox
  */
 const CustomCheckboxGroup = ({ options, name, labelPlacement, onChange }) => {
   return (
