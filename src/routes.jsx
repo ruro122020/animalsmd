@@ -6,7 +6,10 @@ import Form2 from './pages/petassessment/forms/Form2'
 import PetAssessmentLayer from './pages/petassessment/PetAssessmentLayer'
 import Products from './pages/Products'
 import Signup from './pages/signup/Signup'
-
+import Dashboard from './protectedPages/Dashboard'
+import Profile from './protectedPages/Profile'
+import Account from './protectedPages/Account'
+import UserRoutes from './protectedPages/UserRoutes'
 const routes = [
   {
     path: "/",
@@ -41,6 +44,24 @@ const routes = [
       {
         path: '/products',
         element: <Products />
+      },
+      {
+        path: '/user',
+        element: <UserRoutes />,
+        children: [
+          {
+            path: '/user/account',
+            element: <Account />
+          },
+          {
+            path: '/user/profile',
+            element: <Profile />
+          },
+          {
+            path: '/user/dashboard',
+            element: <Dashboard />
+          }
+        ]
       }
     ]
   },

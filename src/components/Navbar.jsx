@@ -42,15 +42,15 @@ const identity = [
 
 const settings = [
   {
-    route: '/profile',
+    route: '/user/profile',
     page: 'Profile',
   },
   {
-    route: '/account',
+    route: '/user/account',
     page: 'Account'
   },
   {
-    route: '/user',
+    route: '/user/dashboard',
     page: 'Dashboard'
   }
 ]

@@ -67,6 +67,8 @@ const Form2 = () => {
     setPetInfo({ ...petInfo, symptoms: values.symptoms })
     //POST PETINFO TO DATABASE
     resetForm()
+    //redirect user to dashboard
+    navigate('/user/dashboard')
   }
   console.log('petInfo', petInfo)
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
