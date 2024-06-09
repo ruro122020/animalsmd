@@ -6,27 +6,21 @@ import Form2 from './pages/petassessment/forms/Form2'
 import PetAssessmentLayer from './pages/petassessment/PetAssessmentLayer'
 import Products from './pages/Products'
 import Signup from './pages/signup/Signup'
-import Dashboard from './protectedPages/Dashboard'
-import Profile from './protectedPages/Profile'
-import Account from './protectedPages/Account'
-import UserRoutes from './protectedPages/UserRoutes'
+import Dashboard from './protectedPages/dashboard/Dashboard'
+import Profile from './protectedPages/profile/Profile'
+import Account from './protectedPages/account/Account'
+import Pets from './protectedPages/dashboard/Pets'
+import UsersLayer from './protectedPages/UsersLayer'
+
 const routes = [
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: '/signup',
-        element: <Signup />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      },
+      { path: '/', element: <Home /> },
+      { path: '/signup', element: <Signup /> },
+      { path: '/login', element: <Login /> },
+      { path: '/products', element: <Products /> },
       {
         path: '/pet-assessment',
         element: <PetAssessmentLayer />,
@@ -42,13 +36,13 @@ const routes = [
         ]
       },
       {
-        path: '/products',
-        element: <Products />
-      },
-      {
         path: '/user',
-        element: <UserRoutes />,
+        element: <UsersLayer />,
         children: [
+          {
+            path: '/user/dashboard',
+            element: <Dashboard />,
+          },
           {
             path: '/user/account',
             element: <Account />
@@ -57,12 +51,9 @@ const routes = [
             path: '/user/profile',
             element: <Profile />
           },
-          {
-            path: '/user/dashboard',
-            element: <Dashboard />
-          }
         ]
-      }
+      },
+
     ]
   },
 ]

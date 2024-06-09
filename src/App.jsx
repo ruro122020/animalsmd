@@ -13,9 +13,7 @@ const App = () => {
       if (response) {
         login()
         updateUser(response)
-        console.log('response in App', response)
       }
-      console.log('response in App', response)
     }
     checkUserStatus()
   }, [])
@@ -23,7 +21,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div>
+      <div className='something'>
         <Outlet />
       </div>
     </>

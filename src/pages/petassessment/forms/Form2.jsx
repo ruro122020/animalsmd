@@ -70,7 +70,6 @@ const Form2 = () => {
     //redirect user to dashboard
     navigate('/user/dashboard')
   }
-  console.log('petInfo', petInfo)
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
 
   if (isLoading) return <p>Loading...</p>

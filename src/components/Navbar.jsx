@@ -39,18 +39,18 @@ const identity = [
     page: 'Login'
   }
 ]
-
+/**The routes are the same for these links to direct the user to the user's layer were the profile, account, and dashboard pages are rendered */
 const settings = [
   {
-    route: '/user/profile',
+    route: '/user',
     page: 'Profile',
   },
   {
-    route: '/user/account',
+    route: '/user',
     page: 'Account'
   },
   {
-    route: '/user/dashboard',
+    route: '/user',
     page: 'Dashboard'
   }
 ]
@@ -84,7 +84,7 @@ const Navbar = () => {
     }
   }
   return (
-    <AppBar position="static" sx={{ background: '#3995ae' }}>
+    <AppBar position="sticky" sx={{ background: '#3995ae' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
