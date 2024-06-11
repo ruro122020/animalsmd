@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import SideBarMenu from './SideBarMenu'
 import { Outlet } from 'react-router-dom'
 import { Container, Box } from '@mui/material'
+import SideBarMenu from './SideBarMenu'
 const UsersLayer = () => {
+  {/**maxwidth originally defaults to alot of padding on the right side */ }
   return (
-    <Container sx={{ marginLeft: 0 }}>
+    <Container maxWidth={false} sx={{ marginLeft: 0, padding: '0 !important' }}>
       <Box display="flex">
-        {/* zIndex: 0 is what is making the SideBarMenu render under the main navbar */}
-        <Box sx={{ zIndex: 0 }}>
-          <SideBarMenu />
-        </Box>
+        <SideBarMenu />
         <Box >
           <Outlet />
         </Box>

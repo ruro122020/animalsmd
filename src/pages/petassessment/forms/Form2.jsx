@@ -12,17 +12,7 @@ import CustomFormFields from '../../../components/form/CustomFormFields';
 import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
 
-/*
-IMPORTANT NOTE: 
-  Formik doesn't have an internal way of handling updating nested arrays in inital values. In this case, for symptoms array.
-  Therefore, a work around has been implemented. A custom handleChange called 'handleSymptomsChange' was created to be passed to the FormControlLabel components. 
-  In the handleSymptomsChange, any of the symptoms selected will be added to the sypmtoms array in formik.values manuelly
 
-  YUP library NOT used in this form for the following reasons:
-  When checking one boxe the error fires before user can check another symptom. As a work around, an isError state is created 
-  and a condition is set in the onSubmit function. If is formik.values.sypmtoms.length is less than or equal to 1, it'll set the error 
-  to true and display an error message. 
-*/
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])

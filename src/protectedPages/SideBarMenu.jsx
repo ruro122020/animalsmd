@@ -27,30 +27,17 @@ const drawerWidth = 200;
 const SideBarMenu = () => {
   const location = useLocation()
   return (
-    <>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-        anchor='left'
-      >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }} >
-          <List sx={{ paddingTop: '12px' }}>
-            {pages.map(({ route, page }) => (
-              <ListItem key={page} >
-                <ListItemButton selected={location.pathname === route} as={NavLink} to={route}>
-                  <ListItemText primary={page} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Drawer >
-    </>
+    <Box sx={{ overflow: 'auto', borderRight: '5px solid lightgrey', width: drawerWidth }} >
+      <List sx={{ paddingTop: '12px' }}>
+        {pages.map(({ route, page }) => (
+          <ListItem key={page} >
+            <ListItemButton selected={location.pathname === route} as={NavLink} to={route}>
+              <ListItemText primary={page} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   )
 }
 

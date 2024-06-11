@@ -42,15 +42,15 @@ const identity = [
 /**The routes are the same for these links to direct the user to the user's layer were the profile, account, and dashboard pages are rendered */
 const settings = [
   {
-    route: '/user',
+    route: '/user/profile',
     page: 'Profile',
   },
   {
-    route: '/user',
+    route: '/user/account',
     page: 'Account'
   },
   {
-    route: '/user',
+    route: '/user/dashboard',
     page: 'Dashboard'
   }
 ]

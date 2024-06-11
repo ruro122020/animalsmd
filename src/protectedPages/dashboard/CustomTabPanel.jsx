@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid'
-import Pets from './Pets';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
+  console.log('tabnames', props.tabNames)
   return (
     <div
       role="tabpanel"
@@ -15,12 +14,8 @@ function CustomTabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{ paddingLeft: '50px' }}
     >
-      {value === index &&
-        <Grid container spacing={6} sx={{ p: 3, border: '2px solid black' }}>
-          {children}
-        </Grid>}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -49,21 +44,21 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Pets" {...a11yProps(0)} />
-          <Tab label="Medications" {...a11yProps(1)} />
-          {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
+          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} />
         </Tabs>
       </Box>
-
-      <CustomTabPanel value={value} index={0} >
-        <Pets />
+      { }
+      <CustomTabPanel value={value} index={0}>
+        Item One
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two
       </CustomTabPanel>
-      {/* <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={value} index={2}>
         Item Three
-      </CustomTabPanel> */}
+      </CustomTabPanel>
     </Box>
   );
 }
