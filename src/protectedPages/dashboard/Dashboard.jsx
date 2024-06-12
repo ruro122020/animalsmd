@@ -15,10 +15,9 @@ function CustomTabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{ paddingLeft: '50px' }}
     >
       {value === index &&
-        <Grid container spacing={6} sx={{ p: 3, border: '2px solid black' }}>
+        <Grid container columnGap={2} rowGap={2} sx={{ p: 2 }}>
           {children}
         </Grid>}
     </div>
@@ -59,7 +58,7 @@ export default function BasicTabs() {
         <Pets />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        Medications
       </CustomTabPanel>
       {/* <CustomTabPanel value={value} index={2}>
         Item Three

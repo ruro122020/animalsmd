@@ -6,64 +6,72 @@ import CardContent from '@mui/joy/CardContent';
 import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
-
+import Grid from '@mui/material/Grid'
 export default function PetCard({ pet }) {
   console.log('pet', pet)
   const { age, name, symptoms, weight } = pet
 
-  const renderSymptoms = symptoms.map(({ name }) => <div> - {name}</div>)
+  const renderSymptoms = symptoms.map(({ name }) => <div> - {name} </div>)
 
   return (
-    <Card sx={{ width: 320, textAlign: 'center' }} className='pet-card'>
-      <div>
-        <Typography level="title-lg">{name.toUpperCase()}</Typography>
-        <Typography level="body-sm"></Typography>
-      </div>
+    <Card xs={3} sx={{
+      width: 320,
+      textAlign: 'center',
+      height: 'auto',
+      display: "flex",
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      padding: '8px'
+    }} className='pet-card'>
 
-      <CardContent orientation="horizontal" sx={{ justifyContent: 'space-around' }}>
+      <div>
+        <Typography sx={{ paddingBottom: '12px', paddingTop: '12px' }} level="title-lg">{name.toUpperCase()}</Typography>
         <div>
-          <Typography level="body-xs">Age</Typography>
-          <Typography fontSize="lg" fontWeight="lg">
-            {age}
-          </Typography>
+          <Typography>SYMPTOMS</Typography>
+          <Typography level='body-sm'>{renderSymptoms}</Typography>
         </div>
-        <div>
-          <Typography level="body-xs">Weight</Typography>
-          <Typography fontSize="lg" fontWeight="lg">
-            {weight}
-          </Typography>
-        </div>
-      </CardContent>
-      <CardContent orientation='vertical'>
-        <Typography>SYMPTOMS</Typography>
-        <div>
-          {renderSymptoms}
-        </div>
-        <div style={{ paddingTop: '12px', display: 'flex', justifyContent: 'space-between' }} >
+      </div>
+      <div>
+        <CardContent orientation="horizontal" sx={{ justifyContent: 'space-around' }}>
+          <div>
+            <Typography level="body-xs">Age</Typography>
+            <Typography fontSize="lg" fontWeight="lg">
+              {age}
+            </Typography>
+          </div>
+          <div>
+            <Typography level="body-xs">Weight</Typography>
+            <Typography fontSize="lg" fontWeight="lg">
+              {weight}
+            </Typography>
+          </div>
+
+        </CardContent>
+        <div style={{
+          paddingTop: '12px',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }} >
           <div>
             <Button
-              variant="solid"
+              variant="standard"
               size="md"
-              color="primary"
-              aria-label="Explore Bahamas Islands"
-              sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+              sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600, color: 'orange' }}
             >
               Edit
             </Button>
           </div>
           <div>
             <Button
-              variant="solid"
+              variant="standard"
               size="md"
-              color="primary"
-              aria-label="Explore Bahamas Islands"
-              sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+              sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600, color: 'red' }}
             >
               Delete
             </Button>
           </div>
         </div>
-      </CardContent>
+      </div>
     </Card>
   );
 }

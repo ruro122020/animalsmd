@@ -15,11 +15,7 @@ const Pets = () => {
     }
     getPets()
   }, [])
-  return pets.map(pet => {
-    return <Grid item xs={5} sx={{ border: '2px solid green' }}>
-      <PetCard pet={pet} />
-    </Grid>
-  })
+  return pets.map(pet => <PetCard pet={pet} />)
 }
 
 
