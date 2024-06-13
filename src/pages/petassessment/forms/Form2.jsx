@@ -12,7 +12,7 @@ import CustomFormFields from '../../../components/form/CustomFormFields';
 import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
 import { useAuth } from '../../../context/AuthContext'
-
+import { postData } from '../../../api';
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])
@@ -53,18 +53,27 @@ const Form2 = () => {
     }
     getSymptoms()
   }, [])
-
-  const handleSubmit = (values, resetForm) => {
-    setPetInfo({ ...petInfo, symptoms: values.symptoms })
-
-    if (isLoggedIn) {
-      //POST PETINFO TO DATABASE
-      resetForm()
-      //redirect user to dashboard
-      // navigate('/results')
-    } else {
-      navigate('/login')
+  //petInfo SYMPTOMS ARE NOT UPDATING IN TIME TO SEND TO BACK END. LEFT OFF TRYING TO FIGURE OUT BEST
+  //WAY TO SOLVE THIS ISSUE
+  useEffect(() => {
+    const postPetInfo = async () => {
+      if (isLoggedIn) {
+        //POST PETINFO TO DATABASE
+        const res = await postData('/api/user/pets', petInfo)
+        if (res) {
+          //redirect user to dashboard
+          // navigate('/results')
+          console.log('it worked')
+        }
+      }
     }
+
+    postPetInfo()
+
+  }, [])
+
+  const handleSubmit = async (values, resetForm) => {
+    setPetInfo({ ...petInfo, symptoms: values.symptoms })
   }
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
   console.log('petInfo', petInfo)

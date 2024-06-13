@@ -27,15 +27,15 @@ const postData = async (url, body) => {
       },
       body: JSON.stringify(body)
     })
+    const data = await res.json()
 
     if (!res.ok) {
-      throw new Error("Post to database failed")
+      throw new Error(data.error)
     }
 
-    const data = await res.json()
     return data
   } catch (error) {
-    console.log('post err', error)
+    console.log(error)
     return false
   }
 
