@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getData } from '../../api'
 import PetCard from './PetCard'
-import Grid from '@mui/material/Grid'
 
 const Pets = () => {
   const [pets, setPets] = useState([])

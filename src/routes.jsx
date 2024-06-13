@@ -1,5 +1,5 @@
 import App from './App'
-import Home from './pages/Home'
+import Home from './pages/home/Home'
 import Login from './pages/login/Login'
 import Form1 from './pages/petassessment/forms/Form1'
 import Form2 from './pages/petassessment/forms/Form2'
@@ -9,7 +9,6 @@ import Signup from './pages/signup/Signup'
 import Dashboard from './protectedPages/dashboard/Dashboard'
 import Profile from './protectedPages/profile/Profile'
 import Account from './protectedPages/account/Account'
-import Pets from './protectedPages/dashboard/Pets'
 import UsersLayer from './protectedPages/UsersLayer'
 
 const routes = [

@@ -55,6 +55,8 @@ const settings = [
   }
 ]
 
+
+
 const Navbar = () => {
   //useAuth is from AuthContext.jsx file
   const { isLoggedIn, logout, updateUser, user } = useAuth()
@@ -140,7 +142,7 @@ const Navbar = () => {
                   onClick={handleCloseNavMenu}
                   component={NavLink}
                   to={route}
-                  sx={{ my: 2, display: 'block' }}
+                  sx={{ my: 2, display: 'block', textDecoration: 'none' }}
                 >
                   {page}
                 </MenuItem>
@@ -152,7 +154,7 @@ const Navbar = () => {
                     onClick={handleCloseNavMenu}
                     component={NavLink}
                     to={route}
-                    sx={{ my: 2, display: 'block' }}
+                    sx={{ my: 2, display: 'block', textDecoration: 'none' }}
                   >
                     {page}
                   </MenuItem>
@@ -172,7 +174,6 @@ const Navbar = () => {
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none',
             }}
           >
             AnimalsMD
@@ -192,7 +193,9 @@ const Navbar = () => {
                   as={NavLink}
                   to={route}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block', textAlign: 'end' }}
+                  sx={{
+                    my: 2, color: 'white', display: 'block', textAlign: 'end', textDecoration: 'none',
+                  }}
                 >
                   {page}
                 </Button>
@@ -251,6 +254,9 @@ const Navbar = () => {
                       textAlign="center"
                       as={NavLink}
                       to={route}
+                      sx={{
+                        textDecoration: 'none',
+                      }}
                     >{page}</Typography>
                   </MenuItem>
                 ))}

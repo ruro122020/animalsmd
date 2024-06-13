@@ -60,9 +60,7 @@ export default function BasicTabs() {
       <CustomTabPanel value={value} index={1}>
         Medications
       </CustomTabPanel>
-      {/* <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel> */}
+
     </Box>
   );
 }
