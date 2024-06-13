@@ -13,7 +13,7 @@ import formConfig from './formConfig'
 
 const Login = () => {
   const [error, setError] = useState(false)
-  const { login, updateUser } = useAuth()
+  const { login, updateUser, logout } = useAuth()
   let navigate = useNavigate()
   const { initialValue, formSchema, fields } = formConfig
 
@@ -24,8 +24,10 @@ const Login = () => {
       updateUser(responseUser)
       resetForm()
       setError(false)
-      navigate('/')
+      //-1 means to redirect users to the previous page
+      navigate(-1)
     } else {
+      logout()
       console.log('Something went wrong in login.jsx submit function')
       setError(true)
     }

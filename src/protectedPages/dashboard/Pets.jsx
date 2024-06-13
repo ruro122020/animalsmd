@@ -7,7 +7,7 @@ const Pets = () => {
 
   useEffect(() => {
     const getPets = async () => {
-      const fetchedPets = await getData('/api/users/pets')
+      const fetchedPets = await getData('/api/user/pets')
       if (fetchedPets) {
         setPets(fetchedPets)
       }

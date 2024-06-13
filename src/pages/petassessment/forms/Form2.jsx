@@ -11,12 +11,13 @@ import CustomButton from '../../../components/form/CustomButton'
 import CustomFormFields from '../../../components/form/CustomFormFields';
 import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
-
+import { useAuth } from '../../../context/AuthContext'
 
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
   const form = useRef()
   const { initialValues, formSchema, field } = form2Config
@@ -55,13 +56,18 @@ const Form2 = () => {
 
   const handleSubmit = (values, resetForm) => {
     setPetInfo({ ...petInfo, symptoms: values.symptoms })
-    //POST PETINFO TO DATABASE
-    resetForm()
-    //redirect user to dashboard
-    navigate('/user/dashboard')
+
+    if (isLoggedIn) {
+      //POST PETINFO TO DATABASE
+      resetForm()
+      //redirect user to dashboard
+      // navigate('/results')
+    } else {
+      navigate('/login')
+    }
   }
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
-
+  console.log('petInfo', petInfo)
   if (isLoading) return <p>Loading...</p>
 
   return (
@@ -73,7 +79,7 @@ const Form2 = () => {
         </FormGroup>
       </FormControl >
       <div>
-        <CustomButton>Submit</CustomButton>
+        <CustomButton>Get Results</CustomButton>
       </div>
     </form >
 

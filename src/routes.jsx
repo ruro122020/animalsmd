@@ -10,6 +10,7 @@ import Dashboard from './protectedPages/dashboard/Dashboard'
 import Profile from './protectedPages/profile/Profile'
 import Account from './protectedPages/account/Account'
 import UsersLayer from './protectedPages/UsersLayer'
+import PetAssessmentResults from './pages/petassessment/PetAssessmentResults'
 
 const routes = [
   {
@@ -20,6 +21,7 @@ const routes = [
       { path: '/signup', element: <Signup /> },
       { path: '/login', element: <Login /> },
       { path: '/products', element: <Products /> },
+      { path: '/results', element: <PetAssessmentResults /> },
       {
         path: '/pet-assessment',
         element: <PetAssessmentLayer />,

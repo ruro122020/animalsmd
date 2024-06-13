@@ -213,7 +213,7 @@ const Navbar = () => {
                     as={NavLink}
                     to={route}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    sx={{ my: 2, color: 'white', display: 'block', textDecoration: 'none' }}
                   >
                     {page}
                   </Button>
@@ -266,6 +266,7 @@ const Navbar = () => {
                     as={NavLink}
                     to='/'
                     onClick={handleLogout}
+                    sx={{ textDecoration: 'none' }}
                   >Logout</Typography>
                 </MenuItem>
               </Menu>
