@@ -19,6 +19,7 @@ const getData = async (url) => {
 }
 
 const postData = async (url, body) => {
+  console.log('body', body)
   try {
     const res = await fetch(url, {
       method: 'POST',

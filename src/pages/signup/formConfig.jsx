@@ -9,7 +9,7 @@ const formConfig = {
   },
   formSchema: yup.object().shape({
     name: yup.string().matches(/^[a-z ]+$/i, 'Only alphabetic characters allowed').required("*required").min(3),
-    username: yup.string().matches(/^[a-z ]+$/i, 'Only alphabetic characters allowed').required('*required'),
+    username: yup.string().required('*required'),
     email: yup.string().email("Invalid email").required('*required'),
     password: yup.string().min(8, 'Password must be at least 8 characters').required('*required')
   }),

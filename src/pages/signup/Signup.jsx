@@ -21,7 +21,7 @@ const Signup = () => {
       login()
       updateUser(responseUser)
       resetForm()
-      navigate('/')
+      navigate(-2)
       setError(false)
     } else {
       console.log('Something went wrong in signup.jsx submit function')

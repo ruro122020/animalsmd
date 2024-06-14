@@ -17,6 +17,8 @@ const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isSymptoms, setIsSymptoms] = useState(false)
+
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
   const form = useRef()
@@ -56,27 +58,30 @@ const Form2 = () => {
   //petInfo SYMPTOMS ARE NOT UPDATING IN TIME TO SEND TO BACK END. LEFT OFF TRYING TO FIGURE OUT BEST
   //WAY TO SOLVE THIS ISSUE
   useEffect(() => {
+    console.log('petInfo', petInfo)
     const postPetInfo = async () => {
-      if (isLoggedIn) {
-        //POST PETINFO TO DATABASE
-        const res = await postData('/api/user/pets', petInfo)
-        if (res) {
-          //redirect user to dashboard
-          // navigate('/results')
-          console.log('it worked')
-        }
+      //POST PETINFO TO DATABASE
+      const res = await postData('/api/user/pets', petInfo)
+      if (res) {
+        //redirect user to dashboard
+        navigate('/results')
+      } else {
+        navigate('/login')
       }
+
+    }
+    if (petInfo.symptoms) {
+      postPetInfo()
     }
 
-    postPetInfo()
-
-  }, [])
+  }, [isSymptoms])
 
   const handleSubmit = async (values, resetForm) => {
     setPetInfo({ ...petInfo, symptoms: values.symptoms })
+    resetForm()
+    setIsSymptoms(true)
   }
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
-  console.log('petInfo', petInfo)
   if (isLoading) return <p>Loading...</p>
 
   return (
