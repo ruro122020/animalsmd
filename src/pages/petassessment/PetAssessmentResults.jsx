@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import { getData } from '../../api'
+import { getData, postData } from '../../api'
+import { usePetAssessment } from '../../context/PetAssessmentContext'
+import { Box, Button, Typography } from '@mui/material'
+
 const PetAssessmentResults = () => {
-  const [results, setResults] = useState('')
+  const { petInfo } = usePetAssessment()
+  const [results, setResults] = useState([])
+
   useEffect(() => {
     const getResults = async () => {
-      const res = await getData('/')//server needs an api route for results.  
-      if (res) {
-        setResults(res)
-      } else {
-        console.log('uh oh somthing went wrong')
+      // petInfo.symptoms is an array of symptoms object and the api expects symptoms to be an array of 
+      // string not an array of object. 
+      const symptoms_arr = petInfo.symptoms.map(symptom => symptom.name)
+      const postResults = await postData('/api/results', { ...petInfo, symptoms: symptoms_arr })
+      if (postResults) {
+        setResults(postResults)
       }
     }
     getResults()
   }, [])
   console.log('results', results)
   return (
-    <div>
-      results
-    </div>
+    <Box>
+      <Typography variant="h5">Results</Typography>
+      {results.map(({ name }) => <p>{name}</p>)}
+      <Button>Save</Button>
+      <Button>Start Over</Button>
+
+    </Box>
   )
 }
 

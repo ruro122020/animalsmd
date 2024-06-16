@@ -18,7 +18,6 @@ const Form2 = () => {
   const [symptoms, setSymptoms] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSymptoms, setIsSymptoms] = useState(false)
-
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
   const form = useRef()
@@ -58,13 +57,13 @@ const Form2 = () => {
   //petInfo SYMPTOMS ARE NOT UPDATING IN TIME TO SEND TO BACK END. LEFT OFF TRYING TO FIGURE OUT BEST
   //WAY TO SOLVE THIS ISSUE
   useEffect(() => {
-    console.log('petInfo', petInfo)
     const postPetInfo = async () => {
       //POST PETINFO TO DATABASE
       const res = await postData('/api/user/pets', petInfo)
       if (res) {
         //redirect user to dashboard
-        navigate('/results')
+        setPetInfo(res)
+        navigate('/pet-assessment/results')
       } else {
         navigate('/login')
       }

@@ -13,13 +13,9 @@ const getData = async (url) => {
     console.log('err', err)
     return false
   }
-
-
-
 }
 
 const postData = async (url, body) => {
-  console.log('body', body)
   try {
     const res = await fetch(url, {
       method: 'POST',

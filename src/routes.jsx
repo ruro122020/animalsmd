@@ -21,37 +21,23 @@ const routes = [
       { path: '/signup', element: <Signup /> },
       { path: '/login', element: <Login /> },
       { path: '/products', element: <Products /> },
-      { path: '/results', element: <PetAssessmentResults /> },
       {
         path: '/pet-assessment',
         element: <PetAssessmentLayer />,
         children: [
-          {
-            path: '/pet-assessment/',
-            element: <Form1 />
-          },
-          {
-            path: '/pet-assessment/form2',
-            element: <Form2 />
-          }
+          { path: '/pet-assessment/', element: <Form1 /> },
+          { path: '/pet-assessment/form2', element: <Form2 /> },
+          { path: '/pet-assessment/results', element: <PetAssessmentResults /> },
+
         ]
       },
       {
         path: '/user',
         element: <UsersLayer />,
         children: [
-          {
-            path: '/user/dashboard',
-            element: <Dashboard />,
-          },
-          {
-            path: '/user/account',
-            element: <Account />
-          },
-          {
-            path: '/user/profile',
-            element: <Profile />
-          },
+          { path: '/user/dashboard', element: <Dashboard />, },
+          { path: '/user/account', element: <Account /> },
+          { path: '/user/profile', element: <Profile /> },
         ]
       },
 
