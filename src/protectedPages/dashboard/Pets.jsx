@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getData } from '../../api'
 import PetCard from './PetCard'
-
+import { Grid } from '@mui/material'
 const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
   const [pets, setPets] = useState([])
   useEffect(() => {
@@ -14,7 +14,7 @@ const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
     getPets()
   }, [])
 
-  //update pets array with updatedPet object if pet exist
+  //update pets array with updatedPet object if updatedPet exist
   useEffect(() => {
     if (updatedPet) {
       const clonePets = [...pets]
@@ -39,7 +39,15 @@ const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
     setShowEditForm(true)
     setPet(petToEdit)
   }
-  return pets.map(pet => <PetCard pet={pet} onDelete={handleDelete} onEdit={handleEdit} />)
+  return (
+    <Grid container spacing={2} sx={{ p: 2 }}>
+      {pets.map(pet => (
+        <Grid item xs={4} key={pet.id} sx={{ display: 'flex' }} >
+          <PetCard pet={pet} onDelete={handleDelete} onEdit={handleEdit} />
+        </Grid>
+      ))}
+    </Grid>
+  )
 }
 
 

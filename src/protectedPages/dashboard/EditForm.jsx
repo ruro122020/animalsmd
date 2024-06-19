@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import editFormConfig from './editFormConfig'
 import CustomFormik from '../../formik/CustomFormik'
 import CustomFormFields from '../../components/form/CustomFormFields'
@@ -6,8 +6,6 @@ import { updateData } from '../../api'
 import CustomButton from '../../components/form/CustomButton'
 
 const EditForm = ({ pet, setShowEditForm, setPet }) => {
-  console.log('pet in editform', pet)
-
   const { formSchema, fields } = editFormConfig
   const initialValues = {
     name: pet.name,
@@ -34,8 +32,12 @@ const EditForm = ({ pet, setShowEditForm, setPet }) => {
       <div>
         {fields.map(field => <CustomFormFields field={field} formik={formik} />)}
       </div>
-      <CustomButton type='Submit'>Submit</CustomButton>
-      <CustomButton onClick={() => setShowEditForm(false)}>Cancel</CustomButton>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', paddingBottom: '12px' }}>
+        <div style={{ paddingRight: '12px' }}>
+          <CustomButton type='Submit'>Submit</CustomButton>
+        </div>
+        <CustomButton onClick={() => setShowEditForm(false)}>Cancel</CustomButton>
+      </div>
     </form>
   )
 }

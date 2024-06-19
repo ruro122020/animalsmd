@@ -4,10 +4,13 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import { deleteData } from '../../api';
+import { Grid } from '@mui/material';
+/**
+ * NOTE: The editing of pet is being handled in Pets component
+*/
 
 export default function PetCard({ pet, onDelete, onEdit }) {
   const { age, name, symptoms, weight, id } = pet
-  const renderSymptoms = symptoms.map(({ name }) => <div> <span className='material-symbols-outlined' style={{ fontSize: '12px' }}>pets</span> {name} </div>)
 
   const handleDelete = async () => {
     //Delete pet from database
@@ -19,11 +22,9 @@ export default function PetCard({ pet, onDelete, onEdit }) {
       console.log('oops something went wrong with handleDelete')
     }
   }
-  /**
-   * NOTE: The editing of pet is being handled in Pets component
-   */
+  const renderSymptoms = symptoms.map(({ name }) => <div> <span className='material-symbols-outlined' style={{ fontSize: '12px' }}>pets</span> {name} </div>)
   return (
-    <Card xs={3} sx={{
+    <Card className='pet-card' sx={{
       width: 320,
       textAlign: 'center',
       height: 'auto',
@@ -31,8 +32,7 @@ export default function PetCard({ pet, onDelete, onEdit }) {
       flexDirection: 'column',
       justifyContent: 'space-between',
       padding: '8px'
-    }} className='pet-card'>
-
+    }}>
       <div>
         <Typography sx={{ paddingBottom: '12px', paddingTop: '12px' }} level="title-lg">{name.toUpperCase()}</Typography>
         <div>
