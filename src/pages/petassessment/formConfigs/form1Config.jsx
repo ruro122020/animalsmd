@@ -3,10 +3,10 @@ import * as yup from 'yup'
 
 const form1Config = {
   initialValues: {
-    name: 'Andy',
-    type: 'dog',
-    age: 3,
-    weight: 12,
+    name: '',
+    type: '',
+    age: '',
+    weight: '',
   },
   formSchema: yup.object().shape({
     type: yup

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import editFormConfig from './editFormConfig'
 import CustomFormik from '../../formik/CustomFormik'
 import CustomFormFields from '../../components/form/CustomFormFields'
-import { getData } from '../../api'
+import { updateData } from '../../api'
 import CustomButton from '../../components/form/CustomButton'
 
 const EditForm = ({ pet, setShowEditForm, setPet }) => {
   console.log('pet in editform', pet)
+
   const { formSchema, fields } = editFormConfig
   const initialValues = {
     name: pet.name,
@@ -14,13 +15,17 @@ const EditForm = ({ pet, setShowEditForm, setPet }) => {
     weight: pet.weight,
   }
 
-  const handleSubmit = (values, resetForm) => {
+  const handleSubmit = async (values, resetForm) => {
     //need to create route to update pets in database
-
+    const updatedPet = await updateData(`/api/user/pets/${pet.id}`, values)
     //update pet in frontend
-    setPet({ ...pet, name: values.name, age: values.age, weight: values.weight })
-    resetForm()
-    setShowEditForm(false)
+    if (updatedPet) {
+      const { name, age, weight } = updatedPet
+      setPet({ ...pet, name: name, age: age, weight: weight })
+      resetForm()
+      setShowEditForm(false)
+
+    }
   }
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
 

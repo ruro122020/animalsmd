@@ -57,8 +57,7 @@ const Form2 = () => {
     }
     getSymptoms()
   }, [])
-  //petInfo SYMPTOMS ARE NOT UPDATING IN TIME TO SEND TO BACK END. LEFT OFF TRYING TO FIGURE OUT BEST
-  //WAY TO SOLVE THIS ISSUE
+
   useEffect(() => {
     const postPetInfo = async () => {
       //POST PETINFO TO DATABASE

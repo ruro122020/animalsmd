@@ -32,19 +32,32 @@ const PetAssessmentLayer = () => {
   }, { dependencies: [boxTransition] })
 
   return (
-    <Box
-      display="grid"
-      sx={{
-        placeItems: 'center',
-        backgroundImage: `url(${background})`,
-        backgroundSize: 'cover',
-        opacity: '90%',
-        fontFamily: "cursive",
-        fontWeight: 700,
-        fontStyle: 'normal',
-      }}
-      minHeight="100vh">
-      <PetAssessmentProvider>
+    <PetAssessmentProvider>
+      <Box
+        display="grid"
+        sx={{
+          position: 'relative',
+          placeItems: 'center',
+          background: 'rgba(0, 0, 0, 1.0)',
+          backgroundImage: `url(${background})`,
+          backgroundSize: 'cover',
+          opacity: '90%',
+          fontFamily: "cursive",
+          fontWeight: 700,
+          fontStyle: 'normal',
+        }}
+        minHeight="100vh">
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the opacity as needed
+            zIndex: 1,
+          }}
+        />
         <Box
           ref={formBox}
           style={{
@@ -56,12 +69,14 @@ const PetAssessmentLayer = () => {
             maxWidth: '500px', // max width but will scale responsively
             width: '%90',      // responsive width
             m: 'auto',         // centering the box
+            position: 'relative',
+            zIndex: 2,
           }}>
           <h1 style={{ textAlign: 'center', }} ref={title}>Pet Assessment</h1>
           <Outlet context={[setBoxTransition]} />
         </Box>
-      </PetAssessmentProvider>
-    </Box >
+      </Box >
+    </PetAssessmentProvider>
   )
 }
 
