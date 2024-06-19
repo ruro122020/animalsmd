@@ -61,7 +61,6 @@ const Form1 = () => {
   }
 
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
-
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -72,7 +71,7 @@ const Form1 = () => {
         {updatedFields.map(field => <CustomFormFields field={field} formik={formik} />)}
       </div>
       <div>
-        <CustomButton>Next</CustomButton>
+        <CustomButton type='Submit'>Next</CustomButton>
       </div>
     </form>
   )

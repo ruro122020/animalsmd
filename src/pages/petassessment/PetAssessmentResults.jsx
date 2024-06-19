@@ -20,7 +20,10 @@ const PetAssessmentResults = () => {
     }
     getResults()
   }, [])
-  console.log('results', results)
+
+  /**on the "start over" button make sure to delete the pet from pets database
+   * To be sure it appear in dashboard
+   */
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Typography variant="h5" sx={{ fontWeight: 100 }}>Results</Typography>

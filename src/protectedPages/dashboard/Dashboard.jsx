@@ -1,11 +1,13 @@
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid'
 import Pets from './Pets';
+import EditForm from '../../protectedPages/dashboard/EditForm';
 
+//This component is helping the bottom component render
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -37,12 +39,30 @@ function a11yProps(index) {
   };
 }
 
+//This is the component being displayed
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const [showEditForm, setShowEditForm] = useState(false)
+  const [pet, setPet] = useState(null)
+  const form = useRef()
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  }
+
+  //animation for this page is in useGSAP
+  //refer to gsap docs for more info on dependencies https://gsap.com/resources/React/
+  useGSAP(() => {
+    if (form && form.current && !isLoading) {
+      gsap.from(form.current, {
+        duration: 1,
+        opacity: 0,
+        y: -40,
+        stagger: 0.1,
+        ease: "back.in"
+      })
+    }
+  }, { dependencies: [form] }) //these dependencies are needed for when form and isLoading state changes
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -55,7 +75,10 @@ export default function BasicTabs() {
       </Box>
 
       <CustomTabPanel value={value} index={0} >
-        <Pets />
+        <div style={{ display: 'felx', flexDirection: 'column' }}>
+          {showEditForm && <EditForm pet={pet} setShowEditForm={setShowEditForm} setPet={setPet} />}
+          <Pets setShowEditForm={setShowEditForm} setPet={setPet} updatedPet={pet} />
+        </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Medications

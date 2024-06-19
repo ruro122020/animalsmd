@@ -92,7 +92,7 @@ const Form2 = () => {
         </FormGroup>
       </FormControl >
       <div>
-        <CustomButton>Get Results</CustomButton>
+        <CustomButton type='Submit'>Get Results</CustomButton>
       </div>
     </form >
 

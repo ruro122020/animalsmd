@@ -41,7 +41,7 @@ const Signup = () => {
             <CustomFormFields field={field} formik={formik} />
           </div>
         )}
-        <CustomButton type_name='submit'>Submit</CustomButton>
+        <CustomButton type='submit'>Submit</CustomButton>
       </form>
       <p>
         Already have an account?

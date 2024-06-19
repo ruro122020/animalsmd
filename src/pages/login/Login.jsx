@@ -46,7 +46,7 @@ const Login = () => {
           </div>
 
         )}
-        <CustomButton>Submit</CustomButton>
+        <CustomButton type='Submit'>Submit</CustomButton>
       </form>
       <p>
         Don't have an account?

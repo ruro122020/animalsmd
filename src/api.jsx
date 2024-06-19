@@ -3,14 +3,14 @@
 const getData = async (url) => {
   try {
     const res = await fetch(url)
+    const data = await res.json()
 
     if (!res.ok) {
-      throw new Error('Fetch to database failed')
+      throw new Error(data.error)
     }
-    const data = await res.json()
     return data
   } catch (err) {
-    console.log('err', err)
+    console.log(err)
     return false
   }
 }
@@ -24,6 +24,7 @@ const postData = async (url, body) => {
       },
       body: JSON.stringify(body)
     })
+
     const data = await res.json()
 
     if (!res.ok) {
@@ -49,13 +50,13 @@ const updateData = async (url, body) => {
       body: JSON.stringify(body)
     })
 
-    if (!res.ok) {
-      throw new Error('Update to database failed')
-    }
     const data = await res.json()
+    if (!res.ok) {
+      throw new Error(data.error)
+    }
     return data
   } catch (error) {
-    console.log('update err', error)
+    console.log(error)
     return false
   }
 
@@ -64,13 +65,13 @@ const updateData = async (url, body) => {
 const deleteData = async (url) => {
   try {
     const res = await fetch(url, { method: 'DELETE' })
-
+    const data = await res.json()
     if (!res.ok) {
-      throw new Error('Could not delete')
+      throw new Error(data.error)
     }
     return true
   } catch (err) {
-    console.log('delete error', err)
+    console.log(err)
     return false
   }
 }
