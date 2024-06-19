@@ -10,7 +10,10 @@ import background from '../../assets/pet-assessment-media/pet-assessment-bg.jpg'
 const PetAssessmentLayer = () => {
   const title = useRef()
   const formBox = useRef()
-  const [boxTransition, setBoxTransition] = useState(false)
+  /*boxTransition is just to trigger the useGSAP hook. 
+    anytime boxTransition value is changed, the code in useGSAP hook is run
+  */
+  const [boxTransition, setBoxTransition] = useState('start')
 
   useGSAP(() => {
     gsap.from(title.current, {

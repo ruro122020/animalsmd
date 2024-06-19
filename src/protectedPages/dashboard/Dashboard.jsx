@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -44,25 +44,10 @@ export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   const [showEditForm, setShowEditForm] = useState(false)
   const [pet, setPet] = useState(null)
-  const form = useRef()
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  }
-
-  //animation for this page is in useGSAP
-  //refer to gsap docs for more info on dependencies https://gsap.com/resources/React/
-  useGSAP(() => {
-    if (form && form.current && !isLoading) {
-      gsap.from(form.current, {
-        duration: 1,
-        opacity: 0,
-        y: -40,
-        stagger: 0.1,
-        ease: "back.in"
-      })
-    }
-  }, { dependencies: [form] }) //these dependencies are needed for when form and isLoading state changes
+  };
 
   return (
     <Box sx={{ width: '100%' }}>

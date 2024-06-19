@@ -13,6 +13,8 @@ import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
 import { useAuth } from '../../../context/AuthContext'
 import { postData } from '../../../api';
+import { useOutletContext } from "react-router-dom";
+
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])
@@ -23,6 +25,7 @@ const Form2 = () => {
   const form = useRef()
   const { initialValues, formSchema, field } = form2Config
   const updatedFields = { ...field, options: symptoms }
+  const [setBoxTransition] = useOutletContext()
 
   //animation for this page is in useGSAP
   //refer to gsap docs for more info on dependencies https://gsap.com/resources/React/
@@ -79,6 +82,7 @@ const Form2 = () => {
     setPetInfo({ ...petInfo, symptoms: values.symptoms })
     resetForm()
     setIsSymptoms(true)
+    setBoxTransition('form2')
   }
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
   if (isLoading) return <p>Loading...</p>

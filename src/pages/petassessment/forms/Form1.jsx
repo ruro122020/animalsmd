@@ -54,7 +54,7 @@ const Form1 = () => {
     return field
   })
   const handleSubmit = (values, resetForm) => {
-    setBoxTransition(true)
+    setBoxTransition('form1')
     setPetInfo(values)
     resetForm()
     navigate('/pet-assessment/form2')
