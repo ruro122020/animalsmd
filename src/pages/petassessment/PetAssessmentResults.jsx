@@ -3,38 +3,21 @@ import { deleteData, getData, postData } from '../../api'
 import { usePetAssessment } from '../../context/PetAssessmentContext'
 import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap'
+import { useOutletContext } from 'react-router-dom'
 
 const PetAssessmentResults = () => {
   const { petInfo } = usePetAssessment()
   const [results, setResults] = useState([])
   const navigate = useNavigate()
-  const form = useRef()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useOutletContext()
 
-  //animation for this page is in useGSAP
-  //refer to gsap docs for more info on dependencies https://gsap.com/resources/React/
-  useGSAP(() => {
-    if (form && form.current && !isLoading) {
-      gsap.from(form.current, {
-        duration: 1,
-        opacity: 0,
-        y: -40,
-        stagger: 0.1,
-        ease: "back.in"
-      })
-    }
-  }, { dependencies: [form, isLoading] }) //these dependencies are needed for when form and isLoading state changes
 
   useEffect(() => {
+    //FOR RESULTS TO STAY CONSITANT AFTER PAGE REFRESH STORE RESULTS IN LOCAL STORAGE
     const getResults = async () => {
-      // petInfo.symptoms is an array of symptoms object and the api expects symptoms to be an array of 
-      // string not an array of object. 
-      const symptoms_arr = petInfo.symptoms.map(symptom => symptom.name)
-      const postResults = await postData('/api/user/results', { ...petInfo, symptoms: symptoms_arr })
-      if (postResults) {
-        setResults(postResults)
+      const getResults = await getData(`/api/user/pets/${petInfo.id}/results`)
+      if (getResults) {
+        setResults(getResults)
         setIsLoading(false)
       }
     }
@@ -51,18 +34,39 @@ const PetAssessmentResults = () => {
       navigate('/pet-assessment')
     }
   }
-
-  if (isLoading) return <p>Loading...</p>
-
-  return (
-    <Box ref={form} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Typography variant="h5" sx={{ fontSize: '20px' }}>Results</Typography>
-      {results.map(({ name, description }) => {
-        return <div style={{ textAlign: 'center' }} key={name}>
-          <p>{name.toUpperCase()}</p>
-          <p>{description}</p>
+  const displayResults = results.map(({ name, description, id, medications, remedy, symptoms }) => {
+    return (
+      <div key={id}>
+        <div>
+          <div>Results</div>
+          <div>{name}</div>
+          <div>{description}</div>
         </div>
-      })}
+        <div>
+          <div>Remedies</div>
+          <div>{remedy}</div>
+        </div>
+        <div>
+          <div>Medications</div>
+          {medications.map(({ name, description, id }) => {
+            return (
+              <div key={id}>
+                <div>{name}</div>
+                <div>{description}</div>
+              </div>
+            )
+          })}
+        </div>
+        <div>
+          <div>Products</div>
+        </div>
+      </div>
+    )
+  })
+  if (isLoading) return <p>loading</p>
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {displayResults}
       <div style={{ display: 'flex' }}>
         <Button onClick={handleDelete}>Start Over</Button>
         <Button onClick={() => navigate('/user/dashboard')}>Save</Button>

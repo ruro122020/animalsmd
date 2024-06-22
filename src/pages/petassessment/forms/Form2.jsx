@@ -4,42 +4,23 @@ import { getData } from '../../../api'
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
-import { useNavigate } from 'react-router-dom';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import CustomButton from '../../../components/form/CustomButton'
 import CustomFormFields from '../../../components/form/CustomFormFields';
 import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
 import { useAuth } from '../../../context/AuthContext'
 import { postData } from '../../../api';
-import { useOutletContext } from "react-router-dom";
+import { CircularProgress } from '@mui/material';
 
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
   const [symptoms, setSymptoms] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [isSymptoms, setIsSymptoms] = useState(false)
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
-  const form = useRef()
   const { initialValues, formSchema, field } = form2Config
   const updatedFields = { ...field, options: symptoms }
-  const [setBoxTransition] = useOutletContext()
-
-  //animation for this page is in useGSAP
-  //refer to gsap docs for more info on dependencies https://gsap.com/resources/React/
-  useGSAP(() => {
-    if (form && form.current && !isLoading) {
-      gsap.from(form.current, {
-        duration: 1,
-        opacity: 0,
-        y: -40,
-        stagger: 0.1,
-        ease: "back.in"
-      })
-    }
-  }, { dependencies: [form, isLoading] }) //these dependencies are needed for when form and isLoading state changes
+  const [isLoading, setIsLoading] = useOutletContext()
 
   useEffect(() => {
     const getSymptoms = async () => {
@@ -57,16 +38,19 @@ const Form2 = () => {
     }
     getSymptoms()
   }, [])
-
+  //when form 2 component gets rendered, symptoms have not been selected yet. 
+  //Once the user clicks on 'get results' the petInfo and their symptoms need to be posted.
+  //since the component needs to be rerendered for petInfo to have the symptoms, 
+  //a useEffect is being used here so that petInfo will have the symptoms when it's being posted
   useEffect(() => {
     const postPetInfo = async () => {
       //POST PETINFO TO DATABASE
       const res = await postData('/api/user/pets', petInfo)
       if (res) {
-        //redirect user to dashboard
         setPetInfo(res)
         navigate('/pet-assessment/results')
-      } else {
+        setIsLoading(true)
+      } else if (!isLoggedIn) {
         navigate('/login')
       }
 
@@ -75,19 +59,17 @@ const Form2 = () => {
       postPetInfo()
     }
 
-  }, [isSymptoms])
+  }, [petInfo.symptoms])
 
   const handleSubmit = async (values, resetForm) => {
     setPetInfo({ ...petInfo, symptoms: values.symptoms })
     resetForm()
-    setIsSymptoms(true)
-    setBoxTransition('form2')
   }
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
-  if (isLoading) return <p>Loading...</p>
 
+  if (isLoading) return <p>loading</p>
   return (
-    <form onSubmit={formik.handleSubmit} ref={form} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+    <form onSubmit={formik.handleSubmit} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
       <FormControl sx={{ paddingTop: '15px', paddingLeft: '20%' }}>
         <FormGroup>
@@ -95,7 +77,10 @@ const Form2 = () => {
         </FormGroup>
       </FormControl >
       <div>
-        <CustomButton type='Submit'>Get Results</CustomButton>
+        <CustomButton type='Submit'>
+          <span style={{ paddingRight: petInfo.symptoms && '10px' }}>Get Results</span>
+          {petInfo.symptoms && <CircularProgress thickness={5} size='1rem' />}
+        </CustomButton>
       </div>
     </form >
 

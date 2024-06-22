@@ -2,35 +2,12 @@ import React, { useRef, useState } from 'react'
 import { PetAssessmentProvider } from '../../context/PetAssessmentContext'
 import { Outlet } from 'react-router-dom'
 import { Box, Grid } from '@mui/material'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
 import background from '../../assets/pet-assessment-media/pet-assessment-bg.jpg'
 
 
 const PetAssessmentLayer = () => {
-  const title = useRef()
-  const formBox = useRef()
-  /*boxTransition is just to trigger the useGSAP hook. 
-    anytime boxTransition value is changed, the code in useGSAP hook is run
-  */
-  const [boxTransition, setBoxTransition] = useState('start')
-
-  useGSAP(() => {
-    gsap.from(title.current, {
-      duration: 1,
-      opacity: 0,
-      y: -40,
-      stagger: 0.1,
-      ease: "back.in"
-    })
-    gsap.from(formBox.current, {
-      scale: 0.5,
-      duration: 1.5,
-      ease: 'power2.out',
-      autoAlpha: 0
-    })
-  }, { dependencies: [boxTransition] })
-
+  const [isLoading, setIsLoading] = useState(null)
+  console.log('isloading layer', isLoading)
   return (
     <PetAssessmentProvider>
       <Box
@@ -59,7 +36,6 @@ const PetAssessmentLayer = () => {
           }}
         />
         <Box
-          ref={formBox}
           style={{
             padding: '10px 35px',
             background: 'white',
@@ -72,8 +48,10 @@ const PetAssessmentLayer = () => {
             position: 'relative',
             zIndex: 2,
           }}>
-          <h1 style={{ textAlign: 'center', }} ref={title}>Pet Assessment</h1>
-          <Outlet context={[setBoxTransition]} />
+          <h1 style={{ textAlign: 'center', }}>Pet Assessment</h1>
+          <Outlet
+            context={[isLoading, setIsLoading]}
+          />
         </Box>
       </Box >
     </PetAssessmentProvider>
