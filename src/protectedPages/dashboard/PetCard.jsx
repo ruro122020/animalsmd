@@ -25,13 +25,14 @@ export default function PetCard({ pet, onDelete, onEdit }) {
   const renderSymptoms = symptoms.map(({ name }) => <div> <span className='material-symbols-outlined' style={{ fontSize: '12px' }}>pets</span> {name} </div>)
   return (
     <Card className='pet-card' sx={{
-      width: 320,
+      // width: 320,
       textAlign: 'center',
       height: 'auto',
       display: "flex",
       flexDirection: 'column',
       justifyContent: 'space-between',
-      padding: '8px'
+      padding: '10px 25px ',
+
     }}>
       <div>
         <Typography sx={{ paddingBottom: '12px', paddingTop: '12px' }} level="title-lg">{name.toUpperCase()}</Typography>

@@ -40,9 +40,9 @@ const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
     setPet(petToEdit)
   }
   return (
-    <Grid container spacing={2} sx={{ p: 2 }}>
+    <Grid container spacing={2} sx={{ p: 2, marginLeft: 0, marginTop: 0, display: 'flex' }}>
       {pets.map(pet => (
-        <Grid item xs={4} key={pet.id} sx={{ display: 'flex' }} >
+        <Grid item key={pet.id} sx={{ display: 'flex' }} >
           <PetCard pet={pet} onDelete={handleDelete} onEdit={handleEdit} />
         </Grid>
       ))}
