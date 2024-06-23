@@ -4,6 +4,7 @@ import { usePetAssessment } from '../../context/PetAssessmentContext'
 import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useOutletContext } from 'react-router-dom'
+import Results from '../../components/Results'
 
 const PetAssessmentResults = () => {
   const { petInfo } = usePetAssessment()
@@ -34,39 +35,11 @@ const PetAssessmentResults = () => {
       navigate('/pet-assessment')
     }
   }
-  const displayResults = results.map(({ name, description, id, medications, remedy, symptoms }) => {
-    return (
-      <div key={id}>
-        <div>
-          <div>Results</div>
-          <div>{name}</div>
-          <div>{description}</div>
-        </div>
-        <div>
-          <div>Remedies</div>
-          <div>{remedy}</div>
-        </div>
-        <div>
-          <div>Medications</div>
-          {medications.map(({ name, description, id }) => {
-            return (
-              <div key={id}>
-                <div>{name}</div>
-                <div>{description}</div>
-              </div>
-            )
-          })}
-        </div>
-        <div>
-          <div>Products</div>
-        </div>
-      </div>
-    )
-  })
+
   if (isLoading) return <p>loading</p>
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {displayResults}
+      <Results results={results} direction='column' />
       <div style={{ display: 'flex' }}>
         <Button onClick={handleDelete}>Start Over</Button>
         <Button onClick={() => navigate('/user/dashboard')}>Save</Button>

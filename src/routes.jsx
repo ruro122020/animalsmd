@@ -11,7 +11,7 @@ import Profile from './protectedPages/profile/Profile'
 import Account from './protectedPages/account/Account'
 import UsersLayer from './protectedPages/UsersLayer'
 import PetAssessmentResults from './pages/petassessment/PetAssessmentResults'
-
+import MorePetInfo from './protectedPages/dashboard/MorePetInfo'
 const routes = [
   {
     path: "/",
@@ -36,6 +36,7 @@ const routes = [
         element: <UsersLayer />,
         children: [
           { path: '/user/dashboard', element: <Dashboard />, },
+          { path: '/user/dashboard/pets/:id/results', element: <MorePetInfo /> },
           { path: '/user/account', element: <Account /> },
           { path: '/user/profile', element: <Profile /> },
         ]
