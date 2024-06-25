@@ -19,7 +19,7 @@ const CustomCheckboxGroup = ({ options, name, labelPlacement, onChange }) => {
   return (
     <Grid container>
       {options.map(option =>
-        <Grid xs={12} md={6}>
+        <Grid item xs={12} md={6} key={option}>
           <FormControlLabel
             control={<Checkbox color='secondary' />}
             label={option}

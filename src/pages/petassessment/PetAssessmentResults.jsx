@@ -4,7 +4,7 @@ import { usePetAssessment } from '../../context/PetAssessmentContext'
 import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useOutletContext } from 'react-router-dom'
-import Results from '../../components/Results'
+import Results from '../../components/results/Results'
 
 const PetAssessmentResults = () => {
   const { petInfo } = usePetAssessment()
@@ -13,13 +13,21 @@ const PetAssessmentResults = () => {
   const [isLoading, setIsLoading] = useOutletContext()
 
 
+  //FOR RESULTS TO STAY CONSITANT AFTER PAGE REFRESH RESULTS ARE STORED IN LOCAL STORAGE AFTER FETCH
   useEffect(() => {
-    //FOR RESULTS TO STAY CONSITANT AFTER PAGE REFRESH STORE RESULTS IN LOCAL STORAGE
+    const petResults = localStorage.getItem('petResults')
+    if (petResults) {
+      setResults(JSON.parse(petResults))
+    }
+  }, [])
+
+  useEffect(() => {
     const getResults = async () => {
       const getResults = await getData(`/api/user/pets/${petInfo.id}/results`)
       if (getResults) {
         setResults(getResults)
         setIsLoading(false)
+        localStorage.setItem('petResults', JSON.stringify(getResults))
       }
     }
     getResults()

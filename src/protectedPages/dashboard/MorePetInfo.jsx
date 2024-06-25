@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../../api'
 import { useParams } from 'react-router-dom';
-import Results from '../../components/Results';
-
+import Results from '../../components/results/Results';
+/**
+ * 
+ * IF at any point Grid is implemented, take into consideration the Results component has a Grid container
+ *  
+ * 
+ */
 const MorePetInfo = () => {
   const [pet, setPet] = useState({})
   const [petResults, setPetResults] = useState({})

@@ -42,7 +42,7 @@ const PetAssessmentLayer = () => {
             borderRadius: '5px',
             paddingBottom: '20px',
             boxShadow: '#3995ae 0px 0px 15px 3px',
-            maxWidth: '500px', // max width but will scale responsively
+            maxWidth: '65%', // max width but will scale responsively
             width: '%90',      // responsive width
             m: 'auto',         // centering the box
             position: 'relative',

@@ -29,9 +29,9 @@ export default function PetCard({ pet, onDelete, onEdit }) {
     navigate(`/user/dashboard/pets/${id}/results`)
   }
   const renderSymptoms = symptoms.map(({ name }) => <div> <span className='material-symbols-outlined' style={{ fontSize: '12px' }}>pets</span> {name} </div>)
+
   return (
     <Card className='pet-card' sx={{
-      // width: 320,
       textAlign: 'center',
       height: 'auto',
       display: "flex",
