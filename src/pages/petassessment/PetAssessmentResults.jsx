@@ -7,7 +7,7 @@ import { useOutletContext } from 'react-router-dom'
 import Results from '../../components/results/Results'
 
 const PetAssessmentResults = () => {
-  const { petInfo } = usePetAssessment()
+  const { petInfo, setPetInfo } = usePetAssessment()
   const [results, setResults] = useState([])
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useOutletContext()
@@ -19,6 +19,10 @@ const PetAssessmentResults = () => {
     if (petResults) {
       setResults(JSON.parse(petResults))
     }
+    const petlocalStorageInfo = localStorage.getItem('petInfo')
+    if (petlocalStorageInfo) {
+      setPetInfo(JSON.parse(petlocalStorageInfo))
+    }
   }, [])
 
   useEffect(() => {
@@ -28,6 +32,7 @@ const PetAssessmentResults = () => {
         setResults(getResults)
         setIsLoading(false)
         localStorage.setItem('petResults', JSON.stringify(getResults))
+        localStorage.setItem('petInfo', JSON.stringify(petInfo))
       }
     }
     getResults()

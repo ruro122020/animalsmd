@@ -19,9 +19,9 @@ const PetAssessmentLayer = () => {
           backgroundImage: `url(${background})`,
           backgroundSize: 'cover',
           opacity: '90%',
-          fontFamily: "cursive",
-          fontWeight: 700,
-          fontStyle: 'normal',
+          // fontFamily: "cursive",
+          // fontWeight: 700,
+          // fontStyle: 'normal',
         }}
         minHeight="100vh">
         <Box

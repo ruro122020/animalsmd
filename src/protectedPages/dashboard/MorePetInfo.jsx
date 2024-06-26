@@ -47,7 +47,7 @@ const MorePetInfo = () => {
 
   //STYLE OBJECTS
   const container = { padding: '15px' }
-  const petBox = { display: 'flex', flexDirection: 'column', alignItems: 'center' }
+  const petBox = { display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '15px' }
   const ageWeightDiv = { display: 'flex' }
   const age = { padding: '12px' }
   const weight = { padding: '12px' }

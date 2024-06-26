@@ -38,6 +38,10 @@ export default function PetCard({ pet, onDelete, onEdit }) {
       flexDirection: 'column',
       justifyContent: 'space-between',
       padding: '10px 25px ',
+      transition: '0.3s',
+      '&:hover': {
+        boxShadow: '0px 0px 8px lightblue'
+      }
     }}>
       <div onClick={handleMorePetInfo} style={{ cursor: 'pointer' }}>
         <Typography sx={{ paddingBottom: '12px', paddingTop: '12px' }} level="title-lg">{name.toUpperCase()}</Typography>

@@ -4,13 +4,13 @@ import MedicationCard from './MedicationCard'
 import Card from '@mui/material/Card'
 import { CardContent, Typography } from '@mui/material'
 import Divider from '@mui/material/Divider';
-
+import ProductCard from '../ProductCard'
 
 const Results = ({ results, direction }) => {
   //STYLE COMPONENTS
   const container = { display: 'flex', flexDirection: 'column' }
   const resultsAndRemediesBox = { textAlign: 'center' }
-  const resultsBox = { maxWidth: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px', textAlign: 'center' }
+  const illnessBox = { maxWidth: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px', textAlign: 'center' }
   const resultsTitle = { fontSize: '23px' }
   const resultsNameDiv = { fontSize: '12px' }
   const remediesBox = { maxWidth: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px', textAlign: 'center' }
@@ -24,13 +24,18 @@ const Results = ({ results, direction }) => {
     return (
       //Results and Remedies are in the same grid because there content has no mapping
       <Grid key={id} style={container}>
+
         {/**Results and Remedies divs are in one grid item */}
         <Grid item sx={resultsAndRemediesBox}>
           <Typography style={resultsTitle}>Results</Typography>
+
           <div style={{ display: 'flex' }}>
-            <div style={resultsBox}>
-              <Typography >{name.toUpperCase()}</Typography>
+
+            {/**ILLNESS BOX  */}
+            <div style={illnessBox}>
+              <Typography>ILLNESS</Typography>
               <CardContent>
+                <Typography sx={{ paddingBottom: '12px' }}>{name.toUpperCase()}</Typography>
                 <Typography>{description}</Typography>
               </CardContent>
             </div>
@@ -45,10 +50,11 @@ const Results = ({ results, direction }) => {
         </Grid>
 
         {/* Medications div is in one grid item */}
-        <Divider variant="middle" />
-        <Grid item>
+        {/** if medications is empty do not render the medications elements/components */}
+        {medications.length > 0 && <Divider variant="middle" />}
+        {medications.length > 0 && <Grid item>
           <div style={medicationsBox}>
-            <Typography style={medicationTitle}>Medications</Typography>
+            <Typography style={medicationTitle}>Medications for Illness</Typography>
             <div>
               {medications.map(medication => (
                 <div style={{ padding: '5px' }} key={medication.id}>
@@ -57,26 +63,21 @@ const Results = ({ results, direction }) => {
               ))}
             </div>
           </div>
-        </Grid>
+        </Grid>}
+
         {/* Products div is in one grid item */}
-        <Divider variant="middle" />
-
-        <Grid>
-          <div style={productsBox}>
-            <Typography style={productTitle}>Products</Typography>
-            {products.map(({ name, description, price, prescription, id }) => {
-              return (
-                <div key={id}>
-                  <div style={productNameDiv}>{name.toUpperCase()}</div>
-                  <div>{description}</div>
-                  <div>${price}</div>
-                  <div>{prescription && "Prescription Needed"}</div>
-
-                </div>
-              )
-            })}
+        {/** if products is empty do not render the products elements/components */}
+        {products.length > 0 && <Divider variant="middle" />}
+        {products.length > 0 && <Grid item sx={{ paddingTop: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography style={productTitle}>Products</Typography>
+          <div style={{ padding: '5px', display: 'flex' }}>
+            {products.map(product => (
+              <div key={product.id} style={{ padding: '12px' }}>
+                <ProductCard product={product} />
+              </div>
+            ))}
           </div>
-        </Grid>
+        </Grid>}
       </Grid >
     )
   })
