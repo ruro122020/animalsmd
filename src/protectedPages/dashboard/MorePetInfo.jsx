@@ -19,7 +19,6 @@ const MorePetInfo = () => {
   useEffect(() => {
     const getPetInfo = async () => {
       const pet = await getData(`/api/user/pets/${id}`)
-      console.log('pet in useEffect', pet)
       if (pet) {
         setPet(pet)
       } else {
@@ -58,7 +57,7 @@ const MorePetInfo = () => {
   return (
     <div style={container}>
       <div style={petBox}>
-        <div>{pet.name.toUpperCase()}</div>
+        <div style={{ fontSize: '25px' }}>{pet.name.toUpperCase()}</div>
         <div style={ageWeightDiv}>
           <div style={age}>Age: {pet.age}</div>
           <div style={weight}>Weight: {pet.weight}</div>
@@ -69,7 +68,7 @@ const MorePetInfo = () => {
         <div style={symptomsContainer}>
           {pet.symptoms.map(({ name }) => {
             return (
-              <div style={symptomBox}><span className='material-symbols-outlined' style={{ fontSize: '12px', padding: '3px' }}>pets</span>{name}</div>
+              <div key={name} style={symptomBox}><span className='material-symbols-outlined' style={{ fontSize: '12px', padding: '3px' }}>pets</span>{name}</div>
             )
           })}
         </div>

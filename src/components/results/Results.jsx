@@ -6,18 +6,16 @@ import { CardContent, Typography } from '@mui/material'
 import Divider from '@mui/material/Divider';
 import ProductCard from '../ProductCard'
 
-const Results = ({ results, direction }) => {
+const Results = ({ results }) => {
+
   //STYLE COMPONENTS
   const container = { display: 'flex', flexDirection: 'column' }
   const resultsAndRemediesBox = { textAlign: 'center' }
   const illnessBox = { maxWidth: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px', textAlign: 'center' }
   const resultsTitle = { fontSize: '23px' }
-  const resultsNameDiv = { fontSize: '12px' }
   const remediesBox = { maxWidth: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px', textAlign: 'center' }
   const medicationsBox = { display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', paddingTop: '12px' }
-  const productsBox = { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px', textAlign: 'center' }
   const productTitle = { fontSize: '23px' }
-  const productNameDiv = { fontSize: '12px' }
   const medicationTitle = { fontSize: '23px' }
 
   return results.map(({ name, description, id, medications, remedy, symptoms, products }) => {
