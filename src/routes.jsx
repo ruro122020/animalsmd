@@ -22,7 +22,6 @@ const routes = [
       { path: '/signup', element: <Signup /> },
       { path: '/login', element: <Login /> },
       { path: '/products', element: <Products />, },
-      { path: '/products/:id', element: <SingleProductPage /> },
 
       {
         path: '/pet-assessment',

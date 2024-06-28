@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext';
 import { deleteData } from '../api'
+import CartIcon from './CartIcon'
+
 const pages = [
   {
     route: '/',
@@ -59,7 +61,7 @@ const settings = [
 
 const Navbar = () => {
   //useAuth is from AuthContext.jsx file
-  const { isLoggedIn, logout, updateUser, user } = useAuth()
+  const { isLoggedIn, logout, updateUser, user, itemCount } = useAuth()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -220,6 +222,8 @@ const Navbar = () => {
                 ))}
             </Box>
           </Box>
+          {/**If user is logged in and the global state called itemCount is more than 0, display cart icon and the number of items */}
+          {isLoggedIn && itemCount > 0 && <CartIcon />}
           {
             isLoggedIn &&
             <Box sx={{ flexGrow: 0 }}>
