@@ -15,6 +15,11 @@ const ProductCard = ({ product }) => {
   const { name, description, prescription, price, id } = product
 
 
+  const handleProduct = async () => {
+    setItemCount(prevState => prevState + 1)
+    //POST ITEM TO USERS CART IN THE DATABASE
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -23,8 +28,8 @@ const ProductCard = ({ product }) => {
         title="medication bottle"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name}
+        <Typography gutterBottom component="div">
+          {name.toUpperCase()}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {description}
@@ -37,7 +42,8 @@ const ProductCard = ({ product }) => {
         </Typography>}
       </CardContent>
       <CardActions>
-        <CustomButton onClick={() => setItemCount(prevState => prevState + 1)}>Add to Cart</CustomButton>
+        {/**if product needs prescription, purchase button is disabled */}
+        <CustomButton isDisabled={prescription} onClick={handleProduct}>Add to Cart</CustomButton>
       </CardActions>
     </Card>
   )

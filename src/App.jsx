@@ -5,9 +5,14 @@ import { useAuth } from './context/AuthContext'
 import { getData } from './api'
 // import './index.css'
 
+/**IMPORTANT NOTE: AFTER CHECKING USER'S LOGIN STATUS,
+ * CHECK IF USER HAS ANY ITEMS STORED IN CART TABLE
+ * AND THEN SET ITEMSCOUNT FROM USEAUTH TO THE NUMBER OF ITEMS THEY HAVE
+ */
 const App = () => {
   const { login, updateUser } = useAuth()
   const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     const checkUserStatus = async () => {
       const response = await getData('/api/check_session')

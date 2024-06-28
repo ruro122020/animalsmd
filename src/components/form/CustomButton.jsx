@@ -1,11 +1,12 @@
 import { Button } from '@mui/material'
 
 
-const CustomButton = ({ type, onClick, children }) => {
+const CustomButton = ({ isDisabled, type, onClick, children }) => {
   if (type) {
     return (
       <div style={{ paddingTop: '12px' }}>
         <Button
+          disabled={isDisabled}
           variant="outlined"
           type={type}>{children}</Button>
       </div>
@@ -16,6 +17,7 @@ const CustomButton = ({ type, onClick, children }) => {
       <div style={{ paddingTop: '12px' }}>
         <Button
           variant="outlined"
+          disabled={isDisabled}
           onClick={onClick}>{children}</Button>
       </div>
     )

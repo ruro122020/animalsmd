@@ -13,6 +13,7 @@ import UsersLayer from './protectedPages/UsersLayer'
 import PetAssessmentResults from './pages/petassessment/PetAssessmentResults'
 import MorePetInfo from './protectedPages/dashboard/MorePetInfo'
 import SingleProductPage from './pages/products/SingleProductPage'
+import Cart from './pages/cart/Cart'
 const routes = [
   {
     path: "/",
@@ -41,6 +42,9 @@ const routes = [
           { path: '/user/dashboard/pets/:id/results', element: <MorePetInfo /> },
           { path: '/user/account', element: <Account /> },
           { path: '/user/profile', element: <Profile /> },
+          { path: '/user/cart', element: <Cart /> },
+
+
 
         ]
       },

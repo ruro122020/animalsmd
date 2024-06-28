@@ -1,9 +1,10 @@
 import React from 'react'
 import ShoppingCartCheckoutSharpIcon from '@mui/icons-material/ShoppingCartCheckoutSharp';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 const CartIcon = () => {
   const { itemCount } = useAuth()
-
+  const navigate = useNavigate()
   const styles = {
     container: {
       position: 'relative',
@@ -21,8 +22,9 @@ const CartIcon = () => {
     }
   };
 
+
   return (
-    <div style={{ paddingRight: '15px' }}>
+    <div style={{ paddingRight: '15px', cursor: 'pointer' }} onClick={() => { navigate('/user/cart') }}>
       <div style={styles.container}>
         <ShoppingCartCheckoutSharpIcon sx={{ fontSize: 30 }} />
         <span style={styles.productsCount}>{itemCount}</span>
