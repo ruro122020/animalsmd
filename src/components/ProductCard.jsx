@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
       <CardMedia
         sx={{ height: 140 }}
         image={medicineBottle}
