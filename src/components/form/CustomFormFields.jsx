@@ -1,6 +1,6 @@
 import React from 'react'
 import CustomError from './CustomError'
-import CustomInput from './CustomInputText'
+import CustomInput from './CustomInput'
 import CustomSelect from './CustomSelect'
 import CustomCheckboxGroup from './CustomCheckboxGroup'
 
@@ -21,7 +21,9 @@ const CustomFormFields = ({ field, formik }) => {
       </span>}
       name={name}
       onChange={formik.handleChange}
-      value={formik.values[name]} />
+      value={formik.values[name]}
+      type={field.type}
+    />
   }
 
   if (field.type === 'select') {
