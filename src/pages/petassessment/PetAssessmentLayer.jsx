@@ -7,7 +7,6 @@ import background from '../../assets/pet-assessment-media/pet-assessment-bg.jpg'
 
 const PetAssessmentLayer = () => {
   const [isLoading, setIsLoading] = useState(null)
-  console.log('isloading layer', isLoading)
   return (
     <PetAssessmentProvider>
       <Box

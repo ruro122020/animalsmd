@@ -31,7 +31,7 @@ const Products = () => {
 
       {/* refer to this grid setup to center grid items with the same width and height no matter the content in it without setting width and height. */}
       <Grid container columnGap={2} rowGap={2} justifyContent='center' sx={{}}>
-        {products.map(product => <Grid item xs={4} sx={{ display: 'flex' }}>
+        {products.map(product => <Grid item xs={4} sx={{ display: 'flex' }} key={product.id}>
           <ProductCard product={product} />
         </Grid>)}
       </Grid>

@@ -8,7 +8,8 @@ const Cart = () => {
   }, [])
   return (
     <div>
-      list of items user wants to puchase
+      <h1>Cart Items</h1>
+
     </div>
   )
 }

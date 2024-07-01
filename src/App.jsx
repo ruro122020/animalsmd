@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Navbar from './components/navbar/Navbar'
 import { useAuth } from './context/AuthContext'
 import { getData } from './api'
 // import './index.css'
@@ -10,7 +10,7 @@ import { getData } from './api'
  * AND THEN SET ITEMSCOUNT FROM USEAUTH TO THE NUMBER OF ITEMS THEY HAVE
  */
 const App = () => {
-  const { login, updateUser } = useAuth()
+  const { login, updateUser, user } = useAuth()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -19,10 +19,10 @@ const App = () => {
       if (response) {
         login()
         updateUser(response)
+        setIsLoading(false)
       }
     }
     checkUserStatus()
-    setIsLoading(false)
   }, [])
 
   if (isLoading) return <p>Loading ...</p>

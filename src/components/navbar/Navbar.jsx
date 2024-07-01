@@ -12,59 +12,29 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext';
-import { deleteData } from '../api'
-import CartIcon from './CartIcon'
-
-const pages = [
-  {
-    route: '/',
-    page: 'Home'
-  },
-  {
-    route: '/pet-assessment',
-    page: 'Pet Assessment'
-  },
-  {
-    route: '/products',
-    page: 'Products'
-  }
-]
-
-const identity = [
-  {
-    route: '/signup',
-    page: 'Signup'
-  },
-  {
-    route: '/login',
-    page: 'Login'
-  }
-]
-/**The routes are the same for these links to direct the user to the user's layer were the profile, account, and dashboard pages are rendered */
-const settings = [
-  {
-    route: '/user/profile',
-    page: 'Profile',
-  },
-  {
-    route: '/user/account',
-    page: 'Account'
-  },
-  {
-    route: '/user/dashboard',
-    page: 'Dashboard'
-  }
-]
-
+import { useAuth } from '../../context/AuthContext';
+import { deleteData, getData } from '../../api'
+import CartIcon from '../CartIcon'
+import { useCartContext } from '../../context/CartContext';
+import { pages, identity, settings } from './links'
 
 
 const Navbar = () => {
   //useAuth is from AuthContext.jsx file
-  const { isLoggedIn, logout, updateUser, user, itemCount } = useAuth()
+  const { isLoggedIn, logout, updateUser, user } = useAuth()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { cartItemsCount, setCartItemsCount } = useCartContext()
 
+  useEffect(() => {
+    const getCartProducts = async () => {
+      const cartProducts = await getData('/api/user/cart')
+      if (cartProducts.length > 0) {
+        setCartItemsCount(cartProducts.length)
+      }
+    }
+    getCartProducts()
+  }, [])
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -87,6 +57,7 @@ const Navbar = () => {
       updateUser(null)
     }
   }
+
   return (
     <AppBar position="sticky" sx={{ background: '#3995ae' }}>
       <Container maxWidth="xl">
@@ -222,8 +193,8 @@ const Navbar = () => {
                 ))}
             </Box>
           </Box>
-          {/**If user is logged in and the global state called itemCount is more than 0, display cart icon and the number of items */}
-          {isLoggedIn && itemCount > 0 && <CartIcon />}
+          {/**If user is logged in and the global state called cartItemsCount is more than 0, display cart icon and the number of items */}
+          {isLoggedIn && cartItemsCount > 0 && <CartIcon />}
           {
             isLoggedIn &&
             <Box sx={{ flexGrow: 0 }}>
