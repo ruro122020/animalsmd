@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getData } from '../../api'
+import { getData, updateData } from '../../api'
 import CartProductCard from './CartProductCard'
 
 const Cart = () => {
@@ -18,17 +18,25 @@ const Cart = () => {
     getCartProducts()
   }, [])
 
-  const handleProductQuantity = (quantity, cartId) => {
+  const handleCheckout = async () => {
+    //
+  }
+  const handleProductQuantity = async (quantity, cartId) => {
     //update product quantity in carts table 
-
+    const updateCart = await updateData(`/api/user/cart/${cartId}`, { "quantity": quantity })
+    //NO FURTHER ACTION IS NEEDED AT THIS TIME
   }
 
   if (isLoading) return <p>Loading ...</p>
   return (
-    <div>
+    <div >
       <h1>Cart Items</h1>
-      {cartProducts.map(product => <CartProductCard product={product} handleProductQuantity={handleProductQuantity} />)}
-      <button>Checkout</button>
+      <div >
+        {cartProducts.map(product =>
+          <CartProductCard product={product} handleProductQuantity={handleProductQuantity} />
+        )}
+      </div>
+      <button onClick={handleCheckout}>Checkout</button>
     </div>
   )
 }

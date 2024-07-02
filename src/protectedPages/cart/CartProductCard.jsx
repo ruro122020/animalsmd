@@ -4,7 +4,6 @@ const CartProductCard = ({ product, handleProductQuantity }) => {
 
   const { id: cartId, product: item, quantity } = product
   const [quantityChange, setQuantityChange] = useState(0)
-  console.log('product', product)
   useEffect(() => {
     setQuantityChange(quantity)
   }, [])
@@ -15,11 +14,12 @@ const CartProductCard = ({ product, handleProductQuantity }) => {
 
 
   return (
-    <div>
+    <div style={{ display: 'flex' }}>
       <div>{item.name}</div>
       <div>${item.price}</div>
       <input type='number' value={quantityChange} onChange={handleChange} />
       <button onClick={() => handleProductQuantity(quantityChange, cartId)}>Save</button>
+      <button>Delete</button>
     </div>
   )
 }
