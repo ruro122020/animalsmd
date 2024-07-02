@@ -20,6 +20,8 @@ const App = () => {
         login()
         updateUser(response)
         setIsLoading(false)
+      } else {
+        setIsLoading(false)
       }
     }
     checkUserStatus()

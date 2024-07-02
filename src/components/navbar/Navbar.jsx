@@ -33,8 +33,12 @@ const Navbar = () => {
         setCartItemsCount(cartProducts.length)
       }
     }
-    getCartProducts()
-  }, [])
+    if (isLoggedIn) {
+      getCartProducts()
+    }
+  }, [isLoggedIn])
+
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -193,7 +197,6 @@ const Navbar = () => {
                 ))}
             </Box>
           </Box>
-          {/**If user is logged in and the global state called cartItemsCount is more than 0, display cart icon and the number of items */}
           {isLoggedIn && cartItemsCount > 0 && <CartIcon />}
           {
             isLoggedIn &&

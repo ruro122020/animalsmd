@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate()
   const { setCartItemsCount } = useCartContext()
   const { name, description, prescription, price, id } = product
-  const { user } = useAuth()
+  const { user, isLoggedIn } = useAuth()
   const [showAlert, setShowAlert] = useState(false)
 
   const handleProduct = async () => {
@@ -27,11 +27,15 @@ const ProductCard = ({ product }) => {
       "quantity": 1
 
     }
-    const product = await postData('/api/user/cart', cartObj)
-    if (product) {
-      setCartItemsCount(prevState => prevState + 1)
+    if (isLoggedIn) {
+      const product = await postData('/api/user/cart', cartObj)
+      if (product) {
+        setCartItemsCount(prevState => prevState + 1)
+      } else {
+        setShowAlert(true)
+      }
     } else {
-      setShowAlert(true)
+      navigate('/login')
     }
   }
 
