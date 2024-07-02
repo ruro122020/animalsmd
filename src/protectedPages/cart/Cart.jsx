@@ -18,11 +18,17 @@ const Cart = () => {
     getCartProducts()
   }, [])
 
+  const handleProductQuantity = (quantity, cartId) => {
+    //update product quantity in carts table 
+
+  }
+
   if (isLoading) return <p>Loading ...</p>
   return (
     <div>
       <h1>Cart Items</h1>
-      {cartProducts.map(product => <CartProductCard product={product} />)}
+      {cartProducts.map(product => <CartProductCard product={product} handleProductQuantity={handleProductQuantity} />)}
+      <button>Checkout</button>
     </div>
   )
 }
