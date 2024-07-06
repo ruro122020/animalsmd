@@ -13,6 +13,8 @@ import UsersLayer from './protectedPages/UsersLayer'
 import PetAssessmentResults from './pages/petassessment/PetAssessmentResults'
 import MorePetInfo from './protectedPages/dashboard/MorePetInfo'
 import Cart from './protectedPages/cart/Cart'
+import CheckoutForm from './components/checkout/CheckoutForm'
+import Return from './components/checkout/Return'
 
 const routes = [
   {
@@ -43,6 +45,10 @@ const routes = [
           { path: '/user/account', element: <Account /> },
           { path: '/user/profile', element: <Profile /> },
           { path: '/user/cart', element: <Cart /> },
+          { path: '/user/checkout', element: <CheckoutForm /> },
+          { path: '/user/return', element: <Return /> },
+
+
         ]
       },
 

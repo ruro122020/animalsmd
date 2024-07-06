@@ -83,3 +83,12 @@ const formConfig = {
 
 export default formConfig
 ```
+
+
+# ENVIROMENTAL VARIABLES 
+To use .env install dotenv 
+
+```
+# install locally (recommended)
+npm install dotenv --save
+```

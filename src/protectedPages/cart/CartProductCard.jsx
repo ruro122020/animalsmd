@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { deleteData } from '../../api'
 
-const CartProductCard = ({ product, handleProductQuantity }) => {
+const CartProductCard = ({ product, handleProductQuantity, handleProductDelete }) => {
 
   const { id: cartId, product: item, quantity } = product
+
   const [quantityChange, setQuantityChange] = useState(0)
+
   useEffect(() => {
     setQuantityChange(quantity)
   }, [])
@@ -19,7 +22,7 @@ const CartProductCard = ({ product, handleProductQuantity }) => {
       <div>${item.price}</div>
       <input type='number' value={quantityChange} onChange={handleChange} />
       <button onClick={() => handleProductQuantity(quantityChange, cartId)}>Save</button>
-      <button>Delete</button>
+      <button onClick={() => handleProductDelete(cartId)}>Delete</button>
     </div>
   )
 }

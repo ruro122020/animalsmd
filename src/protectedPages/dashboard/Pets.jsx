@@ -40,7 +40,6 @@ const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
     setShowEditForm(true)
     setPet(petToEdit)
   }
-  console.log('pet', pets)
   return (
     <Grid container spacing={2} sx={{ p: 2, marginLeft: 0, marginTop: 0, display: 'flex' }}>
       {pets.map(pet => (
