@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useCartContext } from '../../context/CartContext';
-import { getData } from '../../api';
+import { deleteData, getData } from '../../api';
 
 const Return = () => {
   const [status, setStatus] = useState(null);
@@ -14,11 +14,14 @@ const Return = () => {
       const sessionId = urlParams.get('session_id');
 
       const checkoutStatus = await getData(`/api/user/session-status?session_id=${sessionId}`)
+
       if (checkoutStatus) {
         setStatus(checkoutStatus.status)
         setCustomerEmail(checkoutStatus.customer_email)
         //remove cart items from users cart in the database
+        const deleteCart = await deleteData('/api/user/cart')
         //remove checkoutProducts from localStorage
+        localStorage.removeItem('checkoutProducts')
         //reset cartItemsCount to 0
         setCartItemsCount(0)
       }

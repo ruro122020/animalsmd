@@ -28,12 +28,12 @@ const Cart = () => {
     const productsList = cartProducts.map(cart => {
       return { "product": cart.product, "quantity": cart.quantity }
     })
-
     //to avoid hitting the api to many time the carts products will be stored in locals storage
     //so that it can be used in the CheckoutForm component
     localStorage.setItem('checkoutProducts', JSON.stringify(productsList))
     navigate('/user/checkout')
   }
+
   const handleProductQuantity = async (quantity, cartId) => {
     //update product quantity in carts table 
     const updateCart = await updateData(`/api/user/cart/${cartId}`, { "quantity": quantity })
