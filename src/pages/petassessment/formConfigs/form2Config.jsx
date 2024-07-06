@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 const form2Config = {
   initialValues: {
-    symptoms: ['coughing', 'sneezing', 'loss of appetite']
+    symptoms: []
   },
   formSchema: yup.object().shape({
     symptoms: yup.array().min(2, 'At least 2 symptoms must be selected')

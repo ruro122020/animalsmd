@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { deleteData, getData, postData, updateData } from '../../api'
+import { deleteData, getData, updateData } from '../../api'
 import CartProductCard from './CartProductCard'
 import { useCartContext } from '../../context/CartContext'
-import CheckoutForm from '../../components/checkout/CheckoutForm'
 import { useNavigate } from 'react-router-dom';
+import { Button, Grid } from '@mui/material'
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 const Cart = () => {
   const [cartProducts, setCartProducts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const { setCartItemsCount, setCheckoutProducts } = useCartContext()
+  const { setCartItemsCount } = useCartContext()
   const navigate = useNavigate()
 
 
@@ -35,9 +40,17 @@ const Cart = () => {
   }
 
   const handleProductQuantity = async (quantity, cartId) => {
-    //update product quantity in carts table 
+    //update product quantity in database
     const updateCart = await updateData(`/api/user/cart/${cartId}`, { "quantity": quantity })
-    //NO FURTHER ACTION IS NEEDED AT THIS TIME
+    //update product quantity in cartProducts state
+    const updateCartProducts = cartProducts.map(cart => {
+      if (cart.id === cartId) {
+        return updateCart
+      } else {
+        return cart
+      }
+    })
+    setCartProducts(updateCartProducts)
   }
 
   const handleProductDelete = async (cartId) => {
@@ -49,26 +62,58 @@ const Cart = () => {
     }
   }
 
+  const total = cartProducts.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue.quantity * currentValue.product.price
+  }, 0)
+
   if (isLoading) return <p>Loading ...</p>
   return (
-    <div >
-      <div>
-        {cartProducts.length > 0 ?
-          <div>
-            <h1>Cart Items</h1>
-            {cartProducts.map(product =>
+    <Grid container justifyContent='center' sx={{ padding: '15px', flexDirection: 'column' }}>
+      <h1 style={{ borderBottom: '1px solid lightgrey' }}>Your Cart</h1>
+      <div style={{ width: '100%', display: 'flex' }}>
+        <Grid container rowGap={2} justifyContent='center' sx={{ paddingRight: '15px' }}>
+          {cartProducts.map(product =>
+            <Grid item xs={12} md={12} sx={{ display: 'flex' }} key={product.id}>
               <CartProductCard key={product.id} product={product} handleProductQuantity={handleProductQuantity} handleProductDelete={handleProductDelete} />
-            )}
-            <button onClick={handleCheckout}>Checkout</button>
-          </div>
-          :
-          <div>
-            Empty Cart
-          </div>}
+            </Grid>
+          )}
+        </Grid>
 
+        <Grid sx={{ width: '40%' }} >
+          <Card variant="outlined" sx={{ maxWidth: '100%' }}>
+            <Box sx={{ p: 2 }}>
+              <Typography gutterBottom variant="h5" component="div">
+                SUMMARY
+              </Typography>
+              <Stack>
+                {/* Display the products name, quantity, and total price in here */}
+                {cartProducts.map(({ product, quantity }) => {
+                  return (
+                    <div key={product.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <p>{product.name.toUpperCase()}</p>
+                      <p> x{quantity}</p>
+                      <p>${quantity * product.price}</p>
+                    </div>
+                  )
+                })}
+              </Stack>
+            </Box>
+            <Divider />
+            <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }} >
+              <Box>
+                Total:
+              </Box>
+              <Box>
+                ${total}
+              </Box>
+            </Box>
+            <div style={{ background: 'black' }}>
+              <Button onClick={handleCheckout} sx={{ width: '100%', color: 'white' }}>Checkout</Button>
+            </div>
+          </Card>
+        </Grid>
       </div>
-
-    </div>
+    </Grid >
   )
 }
 
