@@ -8,19 +8,20 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { NavLink, useLocation } from 'react-router-dom';
 
-const pages = [{
-  route: '/user/profile',
-  page: 'Profile'
-},
-{
-  route: '/user/account',
-  page: 'Account'
-},
+const pages = [
+  // {
+  //   route: '/user/profile',
+  //   page: 'Profile'
+  // },
+  // {
+  //   route: '/user/account',
+  //   page: 'Account'
+  // },
 
-{
-  route: '/user/dashboard',
-  page: 'Dashboard'
-}
+  {
+    route: '/user/dashboard',
+    page: 'Dashboard'
+  }
 ]
 const drawerWidth = 200;
 

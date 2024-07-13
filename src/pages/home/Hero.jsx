@@ -24,7 +24,7 @@ const Hero = () => {
       <Typography variant='h1' sx={{
         color: color,
         fontFamily: "Poetsen One"
-      }}>AnimalMD</Typography>
+      }}>AnimalsMD</Typography>
       <Typography
         style={{
           color: color,

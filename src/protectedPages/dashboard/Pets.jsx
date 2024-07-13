@@ -5,11 +5,13 @@ import { Grid } from '@mui/material'
 
 const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
   const [pets, setPets] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const getPets = async () => {
       const fetchedPets = await getData('/api/user/pets')
       if (fetchedPets) {
         setPets(fetchedPets)
+        setIsLoading(false)
       }
     }
     getPets()
@@ -40,6 +42,9 @@ const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
     setShowEditForm(true)
     setPet(petToEdit)
   }
+
+  if (isLoading) return <p>Loading...</p>
+
   return (
     <Grid container spacing={2} sx={{ p: 2, marginLeft: 0, marginTop: 0, display: 'flex' }}>
       {pets.map(pet => (

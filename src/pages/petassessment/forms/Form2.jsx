@@ -4,14 +4,14 @@ import { getData } from '../../../api'
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import CustomButton from '../../../components/form/CustomButton'
 import CustomFormFields from '../../../components/form/CustomFormFields';
 import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
 import { useAuth } from '../../../context/AuthContext'
 import { postData } from '../../../api';
-import { CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Alert } from '@mui/material';
 
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
@@ -21,6 +21,7 @@ const Form2 = () => {
   const { initialValues, formSchema, field } = form2Config
   const updatedFields = { ...field, options: symptoms }
   const [isLoading, setIsLoading] = useOutletContext()
+  const [petExist, setPetExist] = useState(false)
 
   useEffect(() => {
     const getSymptoms = async () => {
@@ -38,6 +39,7 @@ const Form2 = () => {
     }
     getSymptoms()
   }, [])
+
   //when form 2 component gets rendered, symptoms have not been selected yet. 
   //Once the user clicks on 'get results' the petInfo and their symptoms need to be posted.
   //since the component needs to be rerendered for petInfo to have the symptoms, 
@@ -47,9 +49,13 @@ const Form2 = () => {
       //POST PETINFO TO DATABASE
       const res = await postData('/api/user/pets', petInfo)
       if (res) {
-        setPetInfo(res)
-        navigate('/pet-assessment/results')
-        setIsLoading(true)
+        if (res === 409) {
+          setPetExist(true)
+        } else {
+          setPetInfo(res)
+          navigate('/pet-assessment/results')
+          setIsLoading(true)
+        }
       } else if (!isLoggedIn) {
         navigate('/login')
       }
@@ -70,17 +76,27 @@ const Form2 = () => {
   if (isLoading) return <p>loading</p>
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <div style={{ paddingBottom: '12px' }}>
+        {petExist && <div>
+
+          <Alert severity="error">
+            Pet already exist.
+            Click <Link to='/user/dashboard'>here</Link> to view a list of your pets.
+          </Alert>
+        </div>}
+      </div>
       <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
       <FormControl sx={{ paddingTop: '15px', paddingLeft: '20%' }}>
         <FormGroup>
           <CustomFormFields field={updatedFields} formik={formik} />
         </FormGroup>
-      </FormControl >
+      </FormControl>
       <div>
-        <CustomButton type='Submit'>
+        {!petExist && <CustomButton type='Submit'>
           <span style={{ paddingRight: petInfo.symptoms && '10px' }}>Get Results</span>
           {petInfo.symptoms && <CircularProgress thickness={5} size='1rem' />}
-        </CustomButton>
+        </CustomButton>}
+
       </div>
     </form >
 

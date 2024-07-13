@@ -62,57 +62,62 @@ const Cart = () => {
     }
   }
 
-  const total = cartProducts.reduce((previousValue, currentValue) => {
-    return previousValue + currentValue.quantity * currentValue.product.price
-  }, 0)
-
   if (isLoading) return <p>Loading ...</p>
+  console.log(cartProducts)
+  // const total = cartProducts.reduce((previousValue, currentValue) => {
+  //   return previousValue + currentValue.quantity * currentValue.product.price
+  // }, 0)
+
   return (
     <Grid container justifyContent='center' sx={{ padding: '15px', flexDirection: 'column' }}>
       <h1 style={{ borderBottom: '1px solid lightgrey' }}>Your Cart</h1>
-      <div style={{ width: '100%', display: 'flex' }}>
-        <Grid container rowGap={2} justifyContent='center' sx={{ paddingRight: '15px' }}>
-          {cartProducts.map(product =>
-            <Grid item xs={12} md={12} sx={{ display: 'flex' }} key={product.id}>
-              <CartProductCard key={product.id} product={product} handleProductQuantity={handleProductQuantity} handleProductDelete={handleProductDelete} />
-            </Grid>
-          )}
-        </Grid>
+      {cartProducts.length > 0 ?
+        <div style={{ width: '100%', display: 'flex' }}>
+          <Grid container rowGap={2} justifyContent='center' sx={{ paddingRight: '15px' }}>
+            {cartProducts.map(product =>
+              <Grid item xs={12} md={12} sx={{ display: 'flex' }} key={product.id}>
+                <CartProductCard key={product.id} product={product} handleProductQuantity={handleProductQuantity} handleProductDelete={handleProductDelete} />
+              </Grid>
+            )}
+          </Grid>
 
-        <Grid sx={{ width: '40%' }} >
-          <Card variant="outlined" sx={{ maxWidth: '100%' }}>
-            <Box sx={{ p: 2 }}>
-              <Typography gutterBottom variant="h5" component="div">
-                SUMMARY
-              </Typography>
-              <Stack>
-                {/* Display the products name, quantity, and total price in here */}
-                {cartProducts.map(({ product, quantity }) => {
-                  return (
-                    <div key={product.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <p>{product.name.toUpperCase()}</p>
-                      <p> x{quantity}</p>
-                      <p>${quantity * product.price}</p>
-                    </div>
-                  )
-                })}
-              </Stack>
-            </Box>
-            <Divider />
-            <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }} >
-              <Box>
-                Total:
+          <Grid sx={{ width: '40%' }} >
+            <Card variant="outlined" sx={{ maxWidth: '100%' }}>
+              <Box sx={{ p: 2 }}>
+                <Typography gutterBottom variant="h5" component="div">
+                  SUMMARY
+                </Typography>
+                <Stack>
+                  {/* Display the products name, quantity, and total price in here */}
+                  {cartProducts.map(({ product, quantity }) => {
+                    return (
+                      <div key={product.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <p>{product.name.toUpperCase()}</p>
+                        <p> x{quantity}</p>
+                        <p>${quantity * product.price}</p>
+                      </div>
+                    )
+                  })}
+                </Stack>
               </Box>
-              <Box>
-                ${total}
+              <Divider />
+              <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }} >
+                <Box>
+                  Total:
+                </Box>
+                <Box>
+                  {/* ${total} */}
+                </Box>
               </Box>
-            </Box>
-            <div style={{ background: 'black' }}>
-              <Button onClick={handleCheckout} sx={{ width: '100%', color: 'white' }}>Checkout</Button>
-            </div>
-          </Card>
-        </Grid>
-      </div>
+              <div style={{ background: 'black' }}>
+                <Button onClick={handleCheckout} sx={{ width: '100%', color: 'white' }}>Checkout</Button>
+              </div>
+            </Card>
+          </Grid>
+        </div>
+        :
+        <Box>Cart is Empty</Box>}
+
     </Grid >
   )
 }

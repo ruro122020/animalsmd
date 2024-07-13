@@ -4,7 +4,6 @@ import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout
 } from '@stripe/react-stripe-js';
-import { useCartContext } from "../../context/CartContext";
 import { postData } from "../../api";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPEKEY);
@@ -17,7 +16,6 @@ const CheckoutForm = () => {
     const getClientSecret = await postData('/api/user/create-checkout-session', parsedCartList)
     return getClientSecret.clientSecret
   }, []);
-
 
   const options = { fetchClientSecret };
 

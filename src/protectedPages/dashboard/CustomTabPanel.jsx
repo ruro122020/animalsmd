@@ -9,10 +9,9 @@ const CustomTabPanel = (props) => {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      className='COOOOOOOOMPONENTCUSTOMTABPANEL'
     >
       {value === index &&
-        <div className='THE HIDDEN DIIIIVVVV!!!!' >
+        <div>
           {children}
         </div>}
     </div >

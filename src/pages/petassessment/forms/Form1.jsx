@@ -50,7 +50,7 @@ const Form1 = () => {
       style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}
     >
       <div style={{ textAlign: "center" }}>
-        {updatedFields.map(field => <CustomFormFields field={field} formik={formik} />)}
+        {updatedFields.map(field => <CustomFormFields key={field.id} field={field} formik={formik} />)}
       </div>
       <div>
         {/**THIS BUTTON IS SETUP TO DISPLAY THE LOADING WHEEL BUT THE LOADING FEATURE IS NOT WORKING RIGHT NOW */}

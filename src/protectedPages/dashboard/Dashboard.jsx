@@ -27,7 +27,7 @@ const BasicTabs = () => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Pets" {...a11yProps(0)} />
-          <Tab label="Medications" {...a11yProps(1)} />
+          {/* <Tab label="Medications" {...a11yProps(1)} /> */}
           {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
@@ -36,9 +36,9 @@ const BasicTabs = () => {
         {showEditForm && <EditForm pet={pet} setShowEditForm={setShowEditForm} setPet={setPet} />}
         <Pets setShowEditForm={setShowEditForm} setPet={setPet} updatedPet={pet} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      {/* <CustomTabPanel value={value} index={1}>
         Medications
-      </CustomTabPanel>
+      </CustomTabPanel> */}
     </Box>
   );
 }

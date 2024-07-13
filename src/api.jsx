@@ -26,6 +26,9 @@ const postData = async (url, body) => {
     })
 
     const data = await res.json()
+    if (res.status === 409) {
+      return res.status
+    }
     if (!res.ok) {
       throw new Error(data.error)
     }
