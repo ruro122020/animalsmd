@@ -63,10 +63,9 @@ const Cart = () => {
   }
 
   if (isLoading) return <p>Loading ...</p>
-  console.log(cartProducts)
-  // const total = cartProducts.reduce((previousValue, currentValue) => {
-  //   return previousValue + currentValue.quantity * currentValue.product.price
-  // }, 0)
+  const total = cartProducts.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue.quantity * currentValue.product.price
+  }, 0)
 
   return (
     <Grid container justifyContent='center' sx={{ padding: '15px', flexDirection: 'column' }}>
@@ -106,7 +105,7 @@ const Cart = () => {
                   Total:
                 </Box>
                 <Box>
-                  {/* ${total} */}
+                  ${total}
                 </Box>
               </Box>
               <div style={{ background: 'black' }}>
