@@ -1,94 +1,19 @@
+
 # AnimalsMD
 
-To get started:
+AnimalsMD is a resource for pet owners seeking to understand and address their pet's health concerns. The website offers a comprehensive pet assessment tool that provides a preliminary diagnosis based on the symptoms described.
 
-1. clone the repo
-2. cd into the directory 
-3. Run this command in the ubuntu terminal
+Key Features:
 
-```
-npm install
-npm run dv
-```
+Pet Assessment Tool: Users can input their pet's symptoms into the assessment tool, which then generates a diagnosis with potential illnesses, non-invasive remedies, treatments, and medications.
 
-4. Connect front-end application to api application
-Add the following to your vite.config.js file under plugins. Inside the object that is being passed to defineConfig
+Prescription Medication: With veterinary approval, users can conveniently purchase prescription medications directly through the website.
 
-```
-  server: {
-      port: 5173,
-      proxy: {
-        '/api': {
-          target: 'http://localhost:5555',
-          changeOrigin: true,
-          secure:false,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-      },
-    },
-```
-Change the target to the url you api port is running on. 
+Health Records: AnimalsMD allows users to keep a detailed record of all assessments, making it easy to track the health history of both current and previous pets.
 
-Now when you make a fetch, add '/api/your-route' to all your routes
-
-# Animation Library
-
-Running npm install will install all the libraries used in this project. This is more for information purposes. 
-I'm using GSAP to animate the elements in this project. [Here](https://gsap.com/docs/v3/Installation/?tab=npm&module=esm&method=private+registry&tier=free&club=false&require=false&trial=true) are instructions on how to install gsap.
-
-IMPORTANT NOTE: If you want to use GSAP's {useGSAP} plugin, you must install: 
-
-```
-npm install @gsap/react
-```
-
-The useGSAP hook must be used to avoid any memory leaks and kill lingering animation. 
-
-# FORMS
-
-When building forms a config file must be created along with the form component. The config file should have an object with 3 properties:
-  1. initialValues
-  2. formSchema
-  3. field(s)
-
-Example:
-```
-import * as yup from 'yup';
-
-const formConfig = {
-
-  initialValue: {
-    username: '',
-    password: ''
-  },
-
-  fields: [
-    {
-      label: 'Username',
-      name: 'username',
-      type: 'text',
-    },
-    {
-      label: 'Password',
-      name: 'password',
-      type: 'password',
-    }
-  ],
-
-  formSchema: yup.object().shape({
-    username: yup.string().required('*required'),
-    password: yup.string().required('*required')
-  })
-}
-
-export default formConfig
-```
+AnimalsMD empowers pet owners with the information and tools they need to manage their pet's health, ensuring their furry friends receive the best possible care.
 
 
-# ENVIROMENTAL VARIABLES 
-To use .env install dotenv 
+FRONTEND: React, React-Router-DOM, HTML5/CSS3, Material UI, Formik, Yup
 
-```
-# install locally (recommended)
-npm install dotenv --save
-```
+BACKEND: Python, Flask, SQLAlchemy, PostgreSQL
