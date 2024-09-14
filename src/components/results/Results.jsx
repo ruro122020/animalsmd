@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Grid from '@mui/material/Grid'
 import MedicationCard from './MedicationCard'
-import Card from '@mui/material/Card'
 import { CardContent, Typography } from '@mui/material'
 import Divider from '@mui/material/Divider';
 import ProductCard from '../ProductCard'
@@ -37,7 +36,7 @@ const Results = ({ results }) => {
                 <Typography>{description}</Typography>
               </CardContent>
             </div>
-
+            {/**REMEDIES BOX  */}
             <div style={remediesBox}>
               <Typography>REMEDIES</Typography>
               <CardContent>
@@ -69,11 +68,13 @@ const Results = ({ results }) => {
         {products.length > 0 && <Grid item sx={{ paddingTop: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Typography style={productTitle}>Products</Typography>
           <div style={{ padding: '5px', display: 'flex' }}>
-            {products.map(product => (
-              <div key={product.id} style={{ padding: '12px' }}>
-                <ProductCard product={product} />
-              </div>
-            ))}
+            {products.map((product, i) => {
+              {/** we just want to display 2 products so the index is being used to limit the products display to the first 2 products in the array */ }
+              return i < 2 &&
+                <div key={product.id} style={{ padding: '12px' }}>
+                  <ProductCard product={product} />
+                </div>
+            })}
           </div>
         </Grid>}
       </Grid >
