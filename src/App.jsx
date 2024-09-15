@@ -32,9 +32,9 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div>
+      <main>
         <Outlet />
-      </div>
+      </main>
     </>
   )
 }

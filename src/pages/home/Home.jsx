@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <Grid container sx={{ height: '100%' }}>
       <Hero />
-      <HowItWorks />
+      {/* <HowItWorks /> */}
     </Grid>
   )
 }

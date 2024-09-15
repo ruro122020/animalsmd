@@ -19,3 +19,8 @@
   font-weight: 400;
   font-style: normal;
 }
+
+a:hover {
+  color: 'white' !important;
+  background-color: 'black' !important;
+}

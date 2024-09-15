@@ -32,6 +32,7 @@ const Navbar = () => {
   //useAuth is from AuthContext.jsx file
   const { isLoggedIn, logout, updateUser, user } = useAuth()
   const { cartItemsCount, setCartItemsCount } = useCartContext()
+  const [isActive, setIsActive] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -58,15 +59,19 @@ const Navbar = () => {
 
   console.log('user', user)
   return (
-    <Nav fluid rounded className='bg-dark-grey-1'>
+    <Nav fluid className='bg-[#B3C2F2]'>
       <Nav.Brand as={RouterLink} to="/">
         {/* <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="animalsmd" /> */}
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">AnimalsMD</span>
       </Nav.Brand>
       <Nav.Collapse>
-        <Nav.Link as={RouterLink} to="/" className='text-light-grey' >Home</Nav.Link>
-        <Nav.Link as={RouterLink} to="/products" className='text-light-grey'>Products</Nav.Link>
-        {!isLoggedIn && <Nav.Link as={RouterLink} to="/login" className='text-light-grey'>Login</Nav.Link>}
+        <Nav.Link
+          as={RouterLink}
+          to="/"
+          className='focus-within:text-[#735CDD]'
+        >Home</Nav.Link>
+        <Nav.Link as={RouterLink} to="/products" className='focus-within:text-[#735CDD]'>Products</Nav.Link>
+        {!isLoggedIn && <Nav.Link as={RouterLink} to="/login" className='focus-within:text-[#735CDD]'>Login</Nav.Link>}
       </Nav.Collapse>
 
       {isLoggedIn ? <div className="flex md:order-2">
@@ -90,7 +95,7 @@ const Navbar = () => {
         :
         <div className="flex md:order-2">
           {/**Get started on Pet assessment */}
-          <Button className='' onClick={() => navigate('/signup')}>Get started</Button>
+          <Button color='light' className='' onClick={() => navigate('/signup')}>Get started</Button>
           <Nav.Toggle />
         </div>}
     </Nav>
