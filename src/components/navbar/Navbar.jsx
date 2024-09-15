@@ -20,15 +20,19 @@
 
 
 
-import React, { useState } from 'react'
-import { Button, Navbar as Nav } from 'flowbite-react'
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react'
+import { NavLink as RouterLink } from 'react-router-dom'
+import { Avatar, Dropdown, Button, Navbar as Nav } from 'flowbite-react'
+import { useAuth } from '../../context/AuthContext';
+import { useCartContext } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+import { deleteData, getData } from '../../api'
 
 const Navbar = () => {
   //useAuth is from AuthContext.jsx file
   const { isLoggedIn, logout, updateUser, user } = useAuth()
-
   const { cartItemsCount, setCartItemsCount } = useCartContext()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getCartProducts = async () => {
@@ -43,19 +47,29 @@ const Navbar = () => {
   }, [isLoggedIn])
 
 
+  const handleLogout = async () => {
+    const success = await deleteData('/api/logout')
+    if (success) {
+      logout()
+      updateUser(null)
+      navigate('/')
+    }
+  }
 
+  console.log('user', user)
   return (
     <Nav fluid rounded className='bg-dark-grey-1'>
-      <Nav.Brand href="https://flowbite-react.com">
+      <Nav.Brand as={RouterLink} to="/">
         {/* <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="animalsmd" /> */}
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">AnimalsMD</span>
       </Nav.Brand>
-      <div className="flex md:order-2">
-        {/**Get started on Pet assessment */}
-        <Button className=''>Get started</Button>
-        <Nav.Toggle />
-      </div>
-      <div className="flex md:order-2">
+      <Nav.Collapse>
+        <Nav.Link as={RouterLink} to="/" className='text-light-grey' >Home</Nav.Link>
+        <Nav.Link as={RouterLink} to="/products" className='text-light-grey'>Products</Nav.Link>
+        {!isLoggedIn && <Nav.Link as={RouterLink} to="/login" className='text-light-grey'>Login</Nav.Link>}
+      </Nav.Collapse>
+
+      {isLoggedIn ? <div className="flex md:order-2">
         <Dropdown
           arrowIcon={false}
           inline
@@ -64,23 +78,21 @@ const Navbar = () => {
           }
         >
           <Dropdown.Header>
-            <span className="block text-sm">Bonnie Green</span>
-            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+            <span className="block text-sm">{user.name}</span>
+            <span className="block truncate text-sm font-medium">{user.email}</span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate('/user/dashboard')}>Dashboard</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item onClick={() => handleLogout()}>Sign out</Dropdown.Item>
         </Dropdown>
-        <Navbar.Toggle />
+        <Nav.Toggle />
       </div>
-      <Nav.Collapse>
-        <Nav.Link as={Link} href="/" className='text-light-grey' >Home</Nav.Link>
-        <Nav.Link as={Link} href="/products" className='text-light-grey'>Products</Nav.Link>
-        <Nav.Link as={Link} href="/signup" className='text-light-grey'>Signup</Nav.Link>
-        <Nav.Link as={Link} href="/login" className='text-light-grey'>Login</Nav.Link>
-      </Nav.Collapse>
+        :
+        <div className="flex md:order-2">
+          {/**Get started on Pet assessment */}
+          <Button className='' onClick={() => navigate('/signup')}>Get started</Button>
+          <Nav.Toggle />
+        </div>}
     </Nav>
   )
 }
