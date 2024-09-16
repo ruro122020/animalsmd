@@ -15,7 +15,7 @@ const Hero = () => {
     <Grid item xs={12}
       sx={{
         background: '#000000',
-        padding: '12px',
+        padding: '100px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -43,10 +43,12 @@ const Hero = () => {
           width: '73%',
           textAlign: 'center'
         }}>
-        Take our quick and easy assessment to uncover insights into your pet's behavior and preferences.
+        Take our quick and easy assessment to uncover insights into your pet's behavior.
       </Typography>
-      <Button>Get Started</Button>
-      <Button>Learn More</Button>
+      <div style={{ display: 'flex' }}>
+        <Button>Get Started</Button>
+        <Button>Learn More</Button>
+      </div>
       {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Box component="img" sx={{ width: '25%', height: 'auto', objectFit: 'cover', paddingRight: '5px', borderRadius: '15px' }} src={cat} />
         <Box component="img" sx={{ width: '23%', height: 'auto', objectFit: 'cover', paddingRight: '5px', borderRadius: '15px' }} src={bird} />
