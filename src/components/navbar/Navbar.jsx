@@ -63,7 +63,7 @@ const Navbar = () => {
   }
 
   return (
-    <AppBar position="sticky" sx={{ background: '#735CDD' }}>
+    <AppBar position="sticky" sx={{ background: '#000000' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
