@@ -61,7 +61,6 @@ const HowItWorks = () => {
       duration: 4,
       scrollTrigger: elCat
     })
-
   }, [])
 
 

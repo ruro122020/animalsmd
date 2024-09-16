@@ -3,9 +3,6 @@ import { Grid, Typography, Box, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 const color = '#B3C2F2'
-const font = {
-  fontFamily: "Poetsen One",
-}
 
 const Hero = () => {
   const navigate = useNavigate()
@@ -13,6 +10,7 @@ const Hero = () => {
     <Grid
       item
       xs={12}
+
       sx={{
         background: '#000000',
         paddingTop: '100px',
@@ -23,7 +21,7 @@ const Hero = () => {
       }}>
       <Typography variant='h1' sx={{
         color: color,
-
+        fontSize: '90px'
       }}>Discover Your Pet's Diagnosis</Typography>
       <Typography
         style={{

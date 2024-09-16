@@ -17,7 +17,7 @@ import { deleteData, getData } from '../../api'
 import CartIcon from '../CartIcon'
 import { useCartContext } from '../../context/CartContext';
 import { pages, identity, settings } from './links'
-
+import fakeProfilePic from '../../assets/fakeprofilepic.jpg'
 
 const Navbar = () => {
   //useAuth is from AuthContext.jsx file
@@ -205,7 +205,8 @@ const Navbar = () => {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="Your Photo"
-                  // src={user.image_url} 
+                    // src={user.image_url} 
+                    src={fakeProfilePic}
                   />
 
                 </IconButton>
