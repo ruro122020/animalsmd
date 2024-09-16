@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Grid, Typography, Box, Button } from '@mui/material'
 import bird from '../../assets/home-media/bird.jpg'
 import cat from '../../assets/home-media/cat.jpg'
 import lizard from '../../assets/home-media/lizard.jpg'
-
 
 const color = '#B3C2F2'
 const font = {
@@ -11,8 +10,11 @@ const font = {
 }
 
 const Hero = () => {
+
   return (
-    <Grid item xs={12}
+    <Grid
+      item
+      xs={12}
       sx={{
         background: '#000000',
         padding: '100px',
