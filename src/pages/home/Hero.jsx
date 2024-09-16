@@ -1,9 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { Grid, Typography, Box, Button } from '@mui/material'
-import bird from '../../assets/home-media/bird.jpg'
-import cat from '../../assets/home-media/cat.jpg'
-import lizard from '../../assets/home-media/lizard.jpg'
 import { useNavigate } from 'react-router-dom'
+
 const color = '#B3C2F2'
 const font = {
   fontFamily: "Poetsen One",
@@ -17,7 +15,7 @@ const Hero = () => {
       xs={12}
       sx={{
         background: '#000000',
-        padding: '100px',
+        paddingTop: '100px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -31,7 +29,7 @@ const Hero = () => {
         style={{
           color: color,
           fontSize: '24px',
-
+          paddingTop: '30px',
           width: '73%',
           textAlign: 'center'
         }}>
@@ -47,15 +45,9 @@ const Hero = () => {
         }}>
         Take our quick and easy assessment to uncover insights into your pet's behavior.
       </Typography>
-      <div style={{ display: 'flex' }}>
-        <Button onClick={() => navigate('/signup')}>Get Started</Button>
-        <Button>Learn More</Button>
+      <div style={{ display: 'flex', paddingTop: '25px' }}>
+        <Button onClick={() => navigate('/signup')} style={{ fontWeight: 'bold' }}>Get Started</Button>
       </div>
-      {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Box component="img" sx={{ width: '25%', height: 'auto', objectFit: 'cover', paddingRight: '5px', borderRadius: '15px' }} src={cat} />
-        <Box component="img" sx={{ width: '23%', height: 'auto', objectFit: 'cover', paddingRight: '5px', borderRadius: '15px' }} src={bird} />
-        <Box component="img" sx={{ width: '25%', height: 'auto', objectFit: 'cover', borderRadius: '15px' }} src={lizard} />
-      </Box> */}
     </Grid>
   )
 }

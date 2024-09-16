@@ -9,7 +9,6 @@ import lizard from '../../assets/home-media/lizard.jpg'
 const color = '#FFFFFF'
 
 const HowItWorks = () => {
-  const navigate = useNavigate()
 
   return (
     <Grid
@@ -19,14 +18,34 @@ const HowItWorks = () => {
         display: 'flex',
         alignItems: 'center',
         background: '#000000',
-        justifyContent: 'center'
-
+        justifyContent: 'center',
+        paddingTop: '50px'
       }} >
 
       <div style={{ borderTop: '1px solid grey', width: '70%', paddingLeft: '15px', }}>
 
         {/*BLOCK ONE */}
-        <div style={{ display: 'flex', width: '100%', paddingTop: '20px', alignItems: 'center', paddingBottom: '15px' }}>
+        <div style={{ display: 'flex', width: '100%', paddingTop: '20px', justifyContent: 'flex-end', alignItems: 'center', paddingBottom: '15px' }}>
+          {/**the box component is the image */}
+          <div style={{ paddingLeft: '24px', width: '40%' }}>
+            <Typography variant='h4' sx={{
+              color: color,
+              fontFamily: 'Times New Roman, Times, serif',
+              fontWeight: 'bold'
+            }}>Create Account</Typography>
+            <Typography sx={{ fontSize: '20px', color: color, paddingTop: '15px', paddingRight: '12px' }}>
+              AnimalsMD empowers pet owners with the information and tools they need to manage their pet's health, ensuring their furry friends receive the best possible care.
+            </Typography>
+          </div>
+          <Box
+            component="img"
+            src={bird}
+            sx={{ width: '45%', height: 'auto' }} />
+        </div>
+
+        {/*BLOCK TWO */}
+
+        <div style={{ display: 'flex', width: '100%', alignItems: 'center', paddingBottom: '15px' }}>
           {/**the box component is the image */}
           <Box
             component="img"
@@ -45,7 +64,7 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        {/*BLOCK TWO */}
+        {/*BLOCK THREE */}
         <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end', alignItems: 'center', paddingBottom: '15px' }}>
           {/**the box component is the image */}
           <div style={{ paddingLeft: '24px', width: '40%' }}>
@@ -64,7 +83,7 @@ const HowItWorks = () => {
             sx={{ width: '45%', height: 'auto' }} />
         </div>
 
-        {/*BLOCK THREE */}
+        {/*BLOCK  FOUR*/}
         <div style={{ display: 'flex', width: '100%', alignItems: 'center', paddingBottom: '15px' }}>
           {/**the box component is the image */}
           <Box
@@ -83,24 +102,8 @@ const HowItWorks = () => {
         </div>
 
 
-        {/*BLOCK  FOUR*/}
-        <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end', alignItems: 'center', paddingBottom: '15px' }}>
-          {/**the box component is the image */}
-          <div style={{ paddingLeft: '24px', width: '40%' }}>
-            <Typography variant='h4' sx={{
-              color: color,
-              fontFamily: 'Times New Roman, Times, serif',
-              fontWeight: 'bold'
-            }}>Create Account</Typography>
-            <Typography sx={{ fontSize: '20px', color: color, paddingTop: '15px', paddingRight: '12px' }}>
-              AnimalsMD empowers pet owners with the information and tools they need to manage their pet's health, ensuring their furry friends receive the best possible care.
-            </Typography>
-          </div>
-          <Box
-            component="img"
-            src={bird}
-            sx={{ width: '45%', height: 'auto' }} />
-        </div>
+
+
       </div>
     </Grid >
   )
