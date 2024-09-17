@@ -63,9 +63,6 @@ const HowItWorks = () => {
     })
   }, [])
 
-
-
-
   return (
     <Grid
       item

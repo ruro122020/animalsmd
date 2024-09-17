@@ -6,15 +6,20 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import medicineBottle from '../assets/products-media/medicinebottle.jpg'
+import productPicture from '../assets/products-media/productPicture.jpg'
 import { postData } from '../api'
 import { useCartContext } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+
+const color = '#FFFFFF'
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate()
   const { setCartItemsCount } = useCartContext()
+  //prescription is a boolean
   const { name, description, prescription, price, id } = product
   const { user, isLoggedIn } = useAuth()
   const [showAlert, setShowAlert] = useState(false)
@@ -40,32 +45,33 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <Card sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image={medicineBottle}
-        title="medication bottle"
-      />
-      <CardContent>
-        <Typography gutterBottom component="div">
+    <div
+      style={{ border: '1px solid lightgray' }}
+    >
+      <Box
+        component="img"
+        src={productPicture}
+        sx={{ width: '15%', height: 'auto' }} />
+      <div>
+        <Typography >
           {name.toUpperCase()}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {description}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography >
           ${price}
         </Typography>
-        {prescription && <Typography variant="body2" color="text.secondary">
-          *Prescription Needed
-        </Typography>}
         {showAlert && <Alert severity="error">product is already in cart</Alert>}
-      </CardContent>
-      <CardActions>
+      </div>
+      <div>
         {/**if product needs prescription, purchase button is disabled */}
-        <CustomButton isDisabled={prescription} onClick={handleProduct}>Add to Cart</CustomButton>
-      </CardActions>
-    </Card>
+        <Button
+          variant="outlined"
+          sx={{
+          }}
+          onClick={handleProduct}>
+          {prescription ? 'Need Prescription' : 'Add Cart'}
+        </Button>
+      </div>
+    </div >
   )
 }
 
