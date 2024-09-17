@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import CustomButton from '../components/form/CustomButton'
 import { useNavigate } from 'react-router-dom'
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import productPicture from '../assets/products-media/productPicture.jpg'
 import { postData } from '../api'
 import { useCartContext } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-
+import productPicture from '../assets/products-media/productPicture.jpg'
+import {
+  Card,
+  CardHeader,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Button
+} from '@mui/material';
 const color = '#FFFFFF'
 
 const ProductCard = ({ product }) => {
@@ -45,33 +46,36 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <div
-      style={{ border: '1px solid lightgray' }}
-    >
-      <Box
-        component="img"
-        src={productPicture}
-        sx={{ width: '15%', height: 'auto' }} />
-      <div>
-        <Typography >
-          {name.toUpperCase()}
-        </Typography>
-        <Typography >
-          ${price}
-        </Typography>
-        {showAlert && <Alert severity="error">product is already in cart</Alert>}
-      </div>
-      <div>
-        {/**if product needs prescription, purchase button is disabled */}
-        <Button
-          variant="outlined"
-          sx={{
-          }}
-          onClick={handleProduct}>
-          {prescription ? 'Need Prescription' : 'Add Cart'}
-        </Button>
-      </div>
-    </div >
+    <Card
+      className="THIS IS THE ONE!!!"
+      sx={{
+        display: 'flex',
+        flexGrow: '1',
+        boxShadow: '0px 0px 6px 1px lightgray',
+      }}>
+      <CardActionArea>
+        <div>
+          <CardHeader title={name.toUpperCase()} titleTypographyProps={{ fontSize: '14px', textAlign: 'center' }} />
+        </div>
+        <div>
+          <CardMedia
+            sx={{ height: 140 }}
+            image={productPicture}
+            title="Product Image"
+          />
+        </div>
+        <CardContent>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <Typography variant="p" sx={{ color: 'text.secondary', fontSize: '20px' }}>
+              ${price}
+            </Typography>
+            <div>
+              {prescription ? <Box size="small">Need Prescription</Box> : <Button size="small">Buy</Button>}
+            </div>
+          </div>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   )
 }
 
