@@ -3,7 +3,7 @@ import { getData } from '../../api'
 import ProductCard from '../../components/ProductCard'
 import Grid from '@mui/material/Grid'
 import Hero from './Hero'
-
+import { Box, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 //implement the grid system to products. display products in center of page
 const Products = () => {
   const [products, setProducts] = useState()
@@ -31,10 +31,15 @@ const Products = () => {
         <Hero />
       </header>
       <main>
+        <Box sx={{ borderRight: '1px solid lightgrey', }} >
+
+        </Box>
+
+        {/*Thid Grid holds the products items*/}
         <Grid
           container
           spacing={4}
-          sx={{ padding: '100px 50px 0px 50px' }}
+          sx={{ padding: '50px 50px 0px 50px' }}
         >
           {products.map(product => {
             return (

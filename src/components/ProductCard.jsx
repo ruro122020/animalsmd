@@ -57,7 +57,7 @@ const ProductCard = ({ product }) => {
         <div>
           <CardHeader title={name.toUpperCase()} titleTypographyProps={{ fontSize: '14px', textAlign: 'center' }} />
         </div>
-        <div>
+        <div style={{ paddingLeft: '15px', paddingRight: '15px' }}>
           <CardMedia
             sx={{ height: 140 }}
             image={productPicture}
