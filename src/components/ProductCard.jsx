@@ -51,15 +51,14 @@ const ProductCard = ({ product }) => {
       sx={{
         display: 'flex',
         flexGrow: '1',
-        boxShadow: '0px 0px 6px 1px lightgray',
       }}>
       <CardActionArea>
         <div>
           <CardHeader title={name.toUpperCase()} titleTypographyProps={{ fontSize: '14px', textAlign: 'center' }} />
         </div>
-        <div style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <CardMedia
-            sx={{ height: 140 }}
+            sx={{ height: 140, width: 140 }}
             image={productPicture}
             title="Product Image"
           />
