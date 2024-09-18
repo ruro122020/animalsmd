@@ -3,13 +3,13 @@ export const pages = [
     route: '/',
     page: 'Home'
   },
-  // {
-  //   route: '/pet-assessment',
-  //   page: 'Start Assessment'
-  // },
   {
     route: '/products',
     page: 'Products'
+  },
+  {
+    route: '/pet-assessment',
+    page: 'Get Started'
   }
 ]
 

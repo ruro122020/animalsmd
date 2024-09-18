@@ -18,7 +18,6 @@ import CartIcon from '../CartIcon'
 import { useCartContext } from '../../context/CartContext';
 import { pages, identity, settings } from './links'
 import fakeProfilePic from '../../assets/fakeprofilepic.jpg'
-
 const Navbar = () => {
   //useAuth is from AuthContext.jsx file
   const { isLoggedIn, logout, updateUser, user } = useAuth()
@@ -208,7 +207,6 @@ const Navbar = () => {
                     // src={user.image_url} 
                     src={fakeProfilePic}
                   />
-
                 </IconButton>
               </Tooltip>
               <Menu

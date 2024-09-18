@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import CustomButton from '../components/form/CustomButton'
 import { useNavigate } from 'react-router-dom'
 import { postData } from '../api'
@@ -15,6 +15,10 @@ import {
   Box,
   Button
 } from '@mui/material';
+import gsap from 'gsap'
+
+
+
 const color = '#FFFFFF'
 
 const ProductCard = ({ product }) => {
@@ -24,6 +28,24 @@ const ProductCard = ({ product }) => {
   const { name, description, prescription, price, id } = product
   const { user, isLoggedIn } = useAuth()
   const [showAlert, setShowAlert] = useState(false)
+  const cardRef = useRef(null)
+
+
+  useEffect(() => {
+    const card = cardRef.current
+    gsap.fromTo(card, {
+      // opacity: 5,
+      y: 100,
+      opacity: 0
+
+    }, {
+      y: 0,
+      ease: 'power1.in',
+      opacity: 1,
+      duration: 1.5
+    })
+
+  }, [])
 
   const handleProduct = async () => {
     //POST ITEM TO USERS CART IN THE DATABASE
@@ -47,6 +69,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <Card
+      ref={cardRef}
       className="THIS IS THE ONE!!!"
       sx={{
         display: 'flex',
@@ -69,7 +92,7 @@ const ProductCard = ({ product }) => {
               ${price}
             </Typography>
             <div>
-              {prescription ? <Box size="small">Need Prescription</Box> : <Button size="small">Buy</Button>}
+              {prescription ? <Box size="small">Need Prescription</Box> : <Button onClick={handleProduct} size="small">Buy</Button>}
             </div>
           </div>
         </CardContent>

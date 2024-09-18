@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { getData } from '../../api'
 import ProductCard from '../../components/ProductCard'
 import Grid from '@mui/material/Grid'
@@ -22,6 +22,11 @@ const Products = () => {
   const [search, setSearch] = useState('')
   const [value, setValue] = useState('')
   const [sortBy, setSortBy] = useState('')
+  const cardRef = useRef(null)
+  useEffect(() => {
+
+  }, [])
+
   useEffect(() => {
     const getProducts = async () => {
       const productsArr = await getData('/api/products')

@@ -28,7 +28,7 @@ const drawerWidth = 200;
 const SideBarMenu = () => {
   const location = useLocation()
   return (
-    <Box sx={{ borderRight: '1px solid lightgrey', width: drawerWidth }} >
+    <Box sx={{ width: drawerWidth }} >
       <List sx={{ paddingTop: '12px' }}>
         {pages.map(({ route, page }) => (
           <ListItem key={page} >
