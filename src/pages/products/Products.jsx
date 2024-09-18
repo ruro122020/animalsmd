@@ -36,11 +36,7 @@ const Products = () => {
   }, [])
 
 
-
-
-
   if (isLoading) return <p>Loading...</p>
-
 
   const filterProducts = products.filter(product => {
     return search === '' ? product : product.name.toLowerCase().includes(search.toLowerCase())
@@ -68,12 +64,10 @@ const Products = () => {
       <header>
         <Hero />
       </header>
-      <main style={{ display: 'flex', alignContent: 'center', justifyContent: 'center', paddingLeft: '20px', paddingRight: '20px' }}>
-
-
+      <main style={{ display: 'flex', alignContent: 'center', justifyContent: 'center', paddingLeft: '20px', paddingRight: '20px', paddingTop: '30px' }}>
 
         {/**SEARCH INPUT */}
-        <Box sx={{ borderRight: '1px solid grey', width: '15%', textAlign: 'center' }} >
+        <Box sx={{ width: '15%', textAlign: 'center' }} >
           <TextField
             size="small"
             variant="outlined"
@@ -84,6 +78,9 @@ const Products = () => {
                   <SearchIcon />
                 </InputAdornment>
               )
+            }}
+            sx={{
+              paddingBottom: '20px',
             }}
           />
 
