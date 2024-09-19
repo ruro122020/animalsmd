@@ -5,14 +5,19 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   server: {
-      port: 5173,
-      proxy: {
-        '/api': {
-          target: 'http://localhost:5555',
-          changeOrigin: true,
-          secure:false,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: import.meta.env.VITE_API_BASE_URL_PRODUCTION,
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
+  },
 })
+
+//for local development
+//target: 'http://localhost:8000',
+//for production
+//target: 'https://running-kimmi-ruthsweb-5ee6d665.koyeb.app',

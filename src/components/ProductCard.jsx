@@ -33,17 +33,13 @@ const ProductCard = ({ product }) => {
 
   useEffect(() => {
     const card = cardRef.current
-    gsap.fromTo(card, {
-      // opacity: 5,
-      y: 100,
-      opacity: 0
-
-    }, {
-      y: 0,
-      ease: 'power1.in',
-      opacity: 1,
-      duration: 1.5
-    })
+    // gsap.fromTo(card, {
+    //   // opacity: 5,
+    //   opacity: 0
+    // }, {
+    //   opacity: 1,
+    //   duration: 1.5
+    // })
 
   }, [])
 
