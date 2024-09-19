@@ -6,7 +6,7 @@ import {
 } from '@stripe/react-stripe-js';
 import { postData } from "../../api";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPEKEY);
+const stripePromise = loadStripe(process.env.VITE_STRIPEKEY);
 
 const CheckoutForm = () => {
 
