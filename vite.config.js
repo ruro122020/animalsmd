@@ -17,7 +17,3 @@ export default defineConfig({
   },
 })
 
-//for local development
-//target: 'http://localhost:8000',
-//for production
-//target: 'https://running-kimmi-ruthsweb-5ee6d665.koyeb.app',
