@@ -17,7 +17,7 @@ export default ({ mode }) => {
           // To access env vars here use process.env.TEST_VAR
           target: process.env.VITE_API_BASE_URL_PRODUCTION,
           changeOrigin: true,
-          secure: false,
+          // secure: false,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
