@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://running-kimmi-ruthsweb-5ee6d665.koyeb.app/api/$1"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
