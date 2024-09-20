@@ -26,7 +26,7 @@ const Login = () => {
       setError(false)
       //-1 means to redirect users to the previous page
       navigate(-1)
-      navigate('//user/dashboard')
+      navigate('/user/dashboard')
     } else {
       logout()
       console.log('Something went wrong in login.jsx submit function')
