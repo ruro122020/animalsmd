@@ -24,7 +24,6 @@ const Products = () => {
   const [search, setSearch] = useState('')
   const [value, setValue] = useState('')
   const [sortBy, setSortBy] = useState('')
-  const cardRef = useRef(null)
 
   useEffect(() => {
     const getProducts = async () => {
@@ -39,19 +38,7 @@ const Products = () => {
     getProducts()
   }, [])
 
-  useEffect(() => {
-    const card = cardRef.current
 
-    // gsap.fromTo(card, {
-    //   // opacity: 5,
-    //   y: -50,
-    //   opacity: 0
-    // }, {
-    //   opacity: 1,
-    //   duration: 1,
-    //   y: 0
-    // })
-  }, [])
 
   if (isLoading) return <p>Loading...</p>
 
@@ -77,8 +64,8 @@ const Products = () => {
     })
 
   return (
-    <div ref={cardRef} style={{ backgroundColor: '#fcfbf5' }}>
-      <header  >
+    <div style={{ backgroundColor: '#fcfbf5' }}>
+      <header >
         <Hero />
       </header>
       <main style={{ display: 'flex', alignContent: 'center', justifyContent: 'center', paddingLeft: '20px', paddingRight: '20px', paddingTop: '30px' }}>
@@ -123,7 +110,6 @@ const Products = () => {
         {/*Thid Grid holds the products items*/}
 
         <Grid
-          ref={cardRef}
           container
           spacing={4}
           sx={{ padding: '0px 0px 0px 20px', width: '100%' }}
