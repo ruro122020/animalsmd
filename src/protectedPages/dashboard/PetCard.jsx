@@ -28,7 +28,9 @@ export default function PetCard({ pet, onDelete, onEdit }) {
   const handleMorePetInfo = () => {
     navigate(`/user/dashboard/pets/${id}/results`)
   }
-  const renderSymptoms = symptoms.map(({ name }) => <div> <span className='material-symbols-outlined' style={{ fontSize: '12px' }}>pets</span> {name} </div>)
+  const renderSymptoms = symptoms.map(({ name }) => <div key={name}>
+    <Typography level='body-sm'><span className='material-symbols-outlined' style={{ fontSize: '12px' }}>pets</span> {name}
+    </Typography></div>)
 
   return (
     <Card className='pet-card' sx={{
@@ -47,7 +49,7 @@ export default function PetCard({ pet, onDelete, onEdit }) {
         <Typography sx={{ paddingBottom: '12px', paddingTop: '12px' }} level="title-lg">{name.toUpperCase()}</Typography>
         <div>
           <Typography sx={{ paddingBottom: '12px' }}>SYMPTOMS</Typography>
-          <Typography level='body-sm'>{renderSymptoms}</Typography>
+          {renderSymptoms}
         </div>
       </div>
       <div>

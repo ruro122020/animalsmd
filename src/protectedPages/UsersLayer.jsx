@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { Container, Box } from '@mui/material'
 import SideBarMenu from '../components/SideBarMenu'
-import { CartProvider } from '../context/CartContext'
-import MorePetInfo from './dashboard/MorePetInfo'
 import { useAuth } from '../context/AuthContext'
 
 const UsersLayer = () => {

@@ -18,15 +18,16 @@ const MorePetInfo = () => {
 
   useEffect(() => {
     const getPetInfo = async () => {
-      const pet = await getData(`/api/user/pets/${id}`)
-      if (pet) {
-        setPet(pet)
+      const petInfo = await getData(`/api/user/pets/${id}`)
+      if (petInfo) {
+        setPet(petInfo)
       } else {
         console.log('pet was not fetched')
       }
     }
     getPetInfo()
   }, [])
+
 
   //IMPORTANT NOTE: this useEffect is the last to make a fetch to the api,
   //therefore, it will set the isLoading state to false once all the other fetches are done,
