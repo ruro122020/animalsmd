@@ -13,6 +13,9 @@ const MorePetInfo = () => {
   const [petResults, setPetResults] = useState({})
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true)
+  const [petLoaded, setPetLoaded] = useState(false)
+  const [petResultsLoaded, setPetResultsLoaded] = useState(false)
+
   //fetch for users pet by id that is passed
   //fetch for the pets results
 
@@ -21,6 +24,7 @@ const MorePetInfo = () => {
       const petInfo = await getData(`/api/user/pets/${id}`)
       if (petInfo) {
         setPet(petInfo)
+        setPetLoaded(true)
       } else {
         console.log('pet was not fetched')
       }
@@ -37,7 +41,7 @@ const MorePetInfo = () => {
       const petResults = await getData(`/api/user/pets/${id}/results`)
       if (petResults) {
         setPetResults(petResults)
-        setIsLoading(false)
+        setPetResultsLoaded(true)
       } else {
         console.log('pet results not fetched')
       }
@@ -45,6 +49,13 @@ const MorePetInfo = () => {
     getPetResults()
   }, [])
 
+
+  useEffect(() => {
+    console.log(petLoaded, petResultsLoaded)
+    if (petLoaded && petResultsLoaded) {
+      setIsLoading(false)
+    }
+  }, [petLoaded, petResultsLoaded])
   //STYLE OBJECTS
   const container = { padding: '15px' }
   const petBox = { display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '15px' }
