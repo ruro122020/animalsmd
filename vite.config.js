@@ -16,8 +16,8 @@ export default ({ mode }) => {
       proxy: {
         '/api': {
           // To access env vars here use process.env.TEST_VAR
+          target: process.env.VITE_API_BASE_URL_PRODUCTION,
           // target: process.env.VITE_API_BASE_URL_LOCAL,
-          target: 'http://localhost:8000',
           changeOrigin: true,
           // secure: false,
           rewrite: (path) => path.replace(/^\/api/, ''),
