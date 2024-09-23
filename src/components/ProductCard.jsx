@@ -5,16 +5,6 @@ import { postData } from '../api'
 import { useCartContext } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import productPicture from '../assets/products-media/productPicture.jpg'
-import {
-  Card,
-  CardHeader,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-  Box,
-  Button
-} from '@mui/material';
 import gsap from 'gsap'
 
 
@@ -66,36 +56,32 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <Card
-      ref={cardRef}
-      className="THIS IS THE ONE!!!"
-      sx={{
-        display: 'flex',
-        flexGrow: '1',
-      }}>
-      <CardActionArea>
-        <div>
-          <CardHeader title={name.toUpperCase()} titleTypographyProps={{ fontSize: '14px', textAlign: 'center' }} />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <CardMedia
-            sx={{ height: 140, width: 140 }}
-            image={productPicture}
-            title="Product Image"
-          />
-        </div>
-        <CardContent>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-            <Typography variant="p" sx={{ color: 'text.secondary', fontSize: '20px' }}>
-              ${price}
-            </Typography>
-            <div>
-              {prescription ? <Box size="small">Need Prescription</Box> : <Button onClick={handleProduct} size="small">Buy</Button>}
-            </div>
+    <div>
+      {/**HEADER */}
+      <div>
+        <h1>{name.toUpperCase()}</h1>
+      </div>
+
+      {/**IMAGE */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <img
+          src={productPicture}
+          title="Product Image"
+        />
+      </div>
+      {/**CONTENT */}
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <p >
+            ${price}
+          </p>
+          <div>
+            {prescription ? <p size="small">Need Prescription</p> : <button onClick={handleProduct} size="small">Buy</button>}
           </div>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+        </div>
+      </div>
+
+    </div>
   )
 }
 

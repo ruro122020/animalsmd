@@ -62,21 +62,21 @@ const PetAssessmentResults = () => {
 
   if (results.length > 0) {
     return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <>
         <Results results={results} direction='column' />
         <div style={{ display: 'flex' }}>
-          <Button onClick={handleDelete}>Start Over</Button>
-          <Button onClick={() => navigate('/user/dashboard')}>Save</Button>
+          <button onClick={handleDelete}>Start Over</button>
+          <button onClick={() => navigate('/user/dashboard')}>Save</button>
         </div>
-      </Box>
+      </>
     )
   } else {
     deleteDBPetInfo()
     return (
-      <Box sx={{ textAlign: 'center' }}>
-        <Alert severity='error'>No Results Found</Alert>
-        <Button onClick={() => navigate('/pet-assessment')}>Start Over</Button>
-      </Box>
+      <div sx={{ textAlign: 'center' }}>
+        <h5 severity='error'>No Results Found</h5>
+        <button onClick={() => navigate('/pet-assessment')}>Start Over</button>
+      </div>
     )
 
   }

@@ -1,20 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getData } from '../../api'
 import ProductCard from '../../components/ProductCard'
-import Grid from '@mui/material/Grid'
 import Hero from './Hero'
-import {
-  Box,
-  TextField,
-  InputAdornment,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio
-} from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
-import gsap from 'gsap'
+
 
 
 //implement the grid system to products. display products in center of page
@@ -71,62 +59,66 @@ const Products = () => {
       <main style={{ display: 'flex', alignContent: 'center', justifyContent: 'center', paddingLeft: '20px', paddingRight: '20px', paddingTop: '30px' }}>
 
         {/**SEARCH INPUT */}
-        <Box sx={{ width: '15%', textAlign: 'center' }} >
-          <TextField
-            size="small"
-            variant="outlined"
+        <div sx={{ width: '15%', textAlign: 'center' }} >
+          <label>Search</label>
+          <input
+            type='text'
+            value={search}
             onChange={(e) => setSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              )
-            }}
-            sx={{
-              paddingBottom: '20px',
-            }}
-
           />
 
           {/**SORT BY ALPHEBET INPUT */}
-          <FormControl>
-            <FormLabel id="demo-controlled-radio-buttons-group">Sort</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-            >
-              <FormControlLabel onClick={(e) => setSortBy(e.target.value)} value="A-Z" control={<Radio />} label="A-Z" />
-              <FormControlLabel onClick={(e) => setSortBy(e.target.value)} value="price-low-high" control={<Radio />} label="Price - Low to High" />
-              <FormControlLabel onClick={(e) => setSortBy(e.target.value)} value="price-high-low" control={<Radio />} label="Price - High to Low" />
-            </RadioGroup>
-          </FormControl>
-        </Box>
+          <div>
+            <fieldset>
+              <legend>Sort</legend>
+              <div>
+                <input
+                  type="radio"
+                  name="sort"
+                  id="A-Z"
+                  value="A-Z"
+                  onClick={(e) => setSortBy(e.target.value)}
+                />
+                <label for="A-Z">A-Z</label>
+              </div>
 
+              <div>
+                <input
+                  type="radio"
+                  id="price-low-high"
+                  name="sort"
+                  value="price-low-high"
+                  onClick={(e) => setSortBy(e.target.value)}
+                />
+                <label for="price-low-high">Price - Low to High</label>
+              </div>
 
+              <div>
+                <input
+                  type="radio"
+                  id="price-high-low"
+                  name="sort"
+                  value="price-high-low"
+                  onClick={(e) => setSortBy(e.target.value)}
+                />
+                <label for="price-high-low">Price - High to Low</label>
+              </div>
+
+            </fieldset>
+          </div>
+        </div>
 
         {/*Thid Grid holds the products items*/}
-
-        <Grid
-          container
-          spacing={4}
-          sx={{ padding: '0px 0px 0px 20px', width: '100%' }}
-        >
+        <div>
           {filterProducts.map(product => {
             return (
-              <Grid
-                key={product.id}
-                item
-                xs={12} sm={6} md={4} lg={3} xl={2}
-                sx={{ display: 'flex' }}
-              >
+              <div
+                key={product.id}>
                 <ProductCard product={product} />
-              </Grid>
+              </div>
             )
           })}
-        </Grid>
+        </div>
 
       </main>
     </div >

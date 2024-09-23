@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Grid } from '@mui/material'
 import CustomButton from '../../components/form/CustomButton'
 import { useAuth } from '../../context/AuthContext'
 import { postData } from '../../api'
@@ -32,7 +31,7 @@ const Signup = () => {
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
 
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+    <div>
       <h1>Sign Up</h1>
       <form onSubmit={formik.handleSubmit}>
         {error && <div style={{ color: 'red', paddingBottom: '4px' }}>User Already Exist</div>}
@@ -48,7 +47,7 @@ const Signup = () => {
         <CustomLink route='/login'>Login</CustomLink>
 
       </p>
-    </Grid>
+    </div>
   )
 }
 
