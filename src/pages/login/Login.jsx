@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
-import { useFormik } from 'formik'
-import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { Grid } from '@mui/material'
 import CustomButton from '../../components/form/CustomButton'
 import CustomLink from '../../components/form/CustomLink'
 import { postData } from '../../api'
@@ -37,7 +34,7 @@ const Login = () => {
   const formik = CustomFormik(initialValue, formSchema, handleSubmit)
 
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+    <div>
       <h1>Login</h1>
       <form onSubmit={formik.handleSubmit}>
         {error && <div style={{ color: 'red', paddingBottom: '4px' }}>Invalid Credentials</div>}
@@ -53,7 +50,7 @@ const Login = () => {
         Don't have an account?
         <CustomLink route='/signup'>Signup</CustomLink>
       </p>
-    </Grid>
+    </div>
   )
 }
 
