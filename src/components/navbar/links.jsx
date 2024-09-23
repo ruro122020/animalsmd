@@ -24,7 +24,7 @@ export const identity = [
   }
 ]
 /**The routes are the same for these links to direct the user to the user's layer were the profile, account, and dashboard pages are rendered */
-export const settings = [
+export const profile = [
   // {
   //   route: '/user/profile',
   //   page: 'Profile',
