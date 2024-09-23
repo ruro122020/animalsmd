@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePetAssessment } from '../../../context/PetAssessmentContext'
 import { getData } from '../../../api'
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
