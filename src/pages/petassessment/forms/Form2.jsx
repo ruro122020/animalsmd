@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { usePetAssessment } from '../../../context/PetAssessmentContext'
 import { getData } from '../../../api'
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import FormGroup from '@mui/material/FormGroup';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import CustomButton from '../../../components/form/CustomButton'
 import CustomFormFields from '../../../components/form/CustomFormFields';
@@ -11,7 +8,6 @@ import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
 import { useAuth } from '../../../context/AuthContext'
 import { postData } from '../../../api';
-import { Box, CircularProgress, Alert } from '@mui/material';
 
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
@@ -74,29 +70,30 @@ const Form2 = () => {
   const formik = CustomFormik(initialValues, formSchema, handleSubmit)
 
   if (isLoading) return <p>loading</p>
+
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+
+      {/**If pet already exist this section will popup */}
       <div style={{ paddingBottom: '12px' }}>
         {petExist && <div>
-
-          <Alert severity="error">
-            Pet already exist.
-            Click <Link to='/user/dashboard'>here</Link> to view a list of your pets.
-          </Alert>
+          Pet already exist.
+          Click <Link to='/user/dashboard'>here</Link> to view a list of your pets.
         </div>}
       </div>
-      <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
-      <FormControl sx={{ paddingTop: '15px', paddingLeft: '20%' }}>
-        <FormGroup>
-          <CustomFormFields field={updatedFields} formik={formik} />
-        </FormGroup>
-      </FormControl>
-      <div>
-        {!petExist && <CustomButton type='Submit'>
-          <span style={{ paddingRight: petInfo.symptoms && '10px' }}>Get Results</span>
-          {petInfo.symptoms && <CircularProgress thickness={5} size='1rem' />}
-        </CustomButton>}
+      {/***********************************************/}
 
+      {/***** SYMPTOMS SECTION */}
+      <div>
+        <label>SYMPTOMS</label>
+        <CustomFormFields field={updatedFields} formik={formik} />
+        {/************************/}
+      </div>
+      {/**GET RESULTS SECTION */}
+      <div>
+        <CustomButton type='Submit'>
+          <span style={{ paddingRight: petInfo.symptoms && '10px' }}>Get Results</span>
+        </CustomButton>
       </div>
     </form >
 
