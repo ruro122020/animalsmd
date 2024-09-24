@@ -1,17 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { usePetAssessment } from '../../../context/PetAssessmentContext'
 import { getData } from '../../../api'
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import FormGroup from '@mui/material/FormGroup';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
-import CustomButton from '../../../components/form/CustomButton'
-import CustomFormFields from '../../../components/form/CustomFormFields';
-import CustomFormik from '../../../formik/CustomFormik';
 import form2Config from '../formConfigs/form2Config';
 import { useAuth } from '../../../context/AuthContext'
 import { postData } from '../../../api';
-import { Box, CircularProgress, Alert } from '@mui/material';
+import { useFormik } from 'formik'
 
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment()
@@ -22,7 +16,7 @@ const Form2 = () => {
   const updatedFields = { ...field, options: symptoms }
   const [isLoading, setIsLoading] = useOutletContext()
   const [petExist, setPetExist] = useState(false)
-
+  const [selected, setSelected] = useState([])
   useEffect(() => {
     const getSymptoms = async () => {
       if (petInfo.type) {
@@ -39,7 +33,6 @@ const Form2 = () => {
     }
     getSymptoms()
   }, [])
-
   //when form 2 component gets rendered, symptoms have not been selected yet. 
   //Once the user clicks on 'get results' the petInfo and their symptoms need to be posted.
   //since the component needs to be rerendered for petInfo to have the symptoms, 
@@ -67,36 +60,41 @@ const Form2 = () => {
 
   }, [petInfo.symptoms])
 
-  const handleSubmit = async (values, resetForm) => {
-    setPetInfo({ ...petInfo, symptoms: values.symptoms })
-    resetForm()
+  const handleChange = (e) => {
+    console.log('e.target', e.target)
+    if (e.target.checked) {
+      setSelected(prevState => [...prevState, e.target.value])
+    } else {
+      setSelected(selected.filter(symptom => symptom !== e.target.value))
+    }
   }
-  const formik = CustomFormik(initialValues, formSchema, handleSubmit)
 
+  const formik = useFormik({
+    initialValues: form2Config.initialValues,
+    validationSchema: form2Config.formSchema,
+    onSubmit: (values, { resetForm }) => {
+      console.log('here')
+    }
+  })
   if (isLoading) return <p>loading</p>
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <div style={{ paddingBottom: '12px' }}>
-        {petExist && <div>
 
-          <Alert severity="error">
-            Pet already exist.
-            Click <Link to='/user/dashboard'>here</Link> to view a list of your pets.
-          </Alert>
-        </div>}
-      </div>
-      <FormLabel component="legend" sx={{ textAlign: 'center' }}>SYMPTOMS</FormLabel>
-      <FormControl sx={{ paddingTop: '15px', paddingLeft: '20%' }}>
-        <FormGroup>
-          <CustomFormFields field={updatedFields} formik={formik} />
-        </FormGroup>
-      </FormControl>
+      <fieldset>
+        <legend>Choose your pet's symptoms</legend>
+        {formik.touched.symptoms && formik.errors.symptoms &&
+          <div>{formik.errors.symptoms}</div>
+        }
+        {symptoms.map(symptom =>
+          <div key={symptom}>
+            <input type="checkbox" id={symptom} name={'symptom'} value={symptom} checked={selected.includes(symptom)} onChange={handleChange} />
+            <label htmlFor={symptom}>{symptom}</label>
+          </div>
+        )}
+
+      </fieldset>
       <div>
-        {!petExist && <CustomButton type='Submit'>
-          <span style={{ paddingRight: petInfo.symptoms && '10px' }}>Get Results</span>
-          {petInfo.symptoms && <CircularProgress thickness={5} size='1rem' />}
-        </CustomButton>}
-
+        <button type='submit'>Get Results</button>
       </div>
     </form >
 

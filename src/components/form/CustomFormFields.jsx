@@ -43,13 +43,14 @@ const CustomFormFields = ({ field, formik }) => {
   if (field.type === 'checkbox') {
     //return input type checkbox
     const { options, name, labelPlacement } = field
+
     return <>
       {hasError && <div style={{ paddingLeft: '8%' }}><CustomError error={hasError} message={formik.errors[field.name]} /></div>}
       <CustomCheckboxGroup
         options={options}
         name={name}
         labelPlacement={labelPlacement}
-        onChange={formik.handleChange} />
+      />
     </>
   }
 

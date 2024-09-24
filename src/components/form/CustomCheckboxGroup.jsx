@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FormControl, FormGroup, Grid, FormControlLabel, Checkbox } from '@mui/material'
 
 /**
@@ -15,22 +15,32 @@ import { FormControl, FormGroup, Grid, FormControlLabel, Checkbox } from '@mui/m
  * 
  * This Approach was needed because TextField component from material ui can NOT be used as a checkbox
  */
-const CustomCheckboxGroup = ({ options, name, labelPlacement, onChange }) => {
+const CustomCheckboxGroup = ({ options, name, labelPlacement }) => {
+
+
+
+  const handleChange = () => { }
+
   return (
-    <Grid container>
+    <fieldset>
+      <legend>Choose your pet's symptoms</legend>
+
       {options.map(option =>
-        <Grid item xs={12} md={6} key={option}>
-          <FormControlLabel
+        <div key={option}>
+          {/* <FormControlLabel
             control={<Checkbox color='secondary' />}
             label={option}
             labelPlacement={labelPlacement}
             onChange={onChange}
             name={name}
             value={option}
-          />
-        </Grid>
+          /> */}
+          <input type="checkbox" id={option} name={option} value={option} onChange={handleChange} />
+          <label htmlFor={option}>{option}</label>
+        </div>
       )}
-    </Grid>
+
+    </fieldset>
 
   )
 }
