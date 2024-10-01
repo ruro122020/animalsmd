@@ -1,85 +1,74 @@
-
-
 const getData = async (url) => {
   try {
-    const res = await fetch(url)
-    const data = await res.json()
+    const res = await fetch(url);
+    const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.error)
+      throw new Error(data.error);
     }
-    return data
+    return data;
   } catch (err) {
-    console.log(err)
-    return false
+    console.log(err);
   }
-}
+};
 
 const postData = async (url, body) => {
   try {
     const res = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(body)
-    })
+      body: JSON.stringify(body),
+    });
 
-    const data = await res.json()
+    const data = await res.json();
     if (res.status === 409) {
-      return res.status
+      return res.status;
     }
     if (!res.ok) {
-      throw new Error(data.error)
+      throw new Error(data.error);
     }
 
-    return data
+    return data;
   } catch (error) {
-    console.log(error)
-    return false
+    console.log(error);
+    return false;
   }
-
-}
+};
 
 const updateData = async (url, body) => {
-
   try {
     const res = await fetch(url, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(body)
-    })
+      body: JSON.stringify(body),
+    });
 
-    const data = await res.json()
+    const data = await res.json();
     if (!res.ok) {
-      throw new Error(data.error)
+      throw new Error(data.error);
     }
-    return data
+    return data;
   } catch (error) {
-    console.log(error)
-    return false
+    console.log(error);
+    return false;
   }
-
-}
+};
 
 const deleteData = async (url) => {
   try {
-    const res = await fetch(url, { method: 'DELETE' })
+    const res = await fetch(url, { method: "DELETE" });
     if (!res.ok) {
-      throw new Error(res.status)
+      throw new Error(res.status);
     }
-    return true
+    return true;
   } catch (err) {
-    console.log(err)
-    return false
+    console.log(err);
+    return false;
   }
-}
+};
 
-export {
-  getData,
-  postData,
-  updateData,
-  deleteData
-}
+export { getData, postData, updateData, deleteData };
