@@ -61,7 +61,6 @@ const Navbar = () => {
           </div>
         </div>
         {isLoggedIn && cartItemsCount > 0 && <CartIcon />}
-        <CartIcon />
       </div>
     </div>
   );

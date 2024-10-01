@@ -37,12 +37,14 @@ const ProductCard = ({ product }) => {
   const handleProduct = async () => {
     //POST ITEM TO USERS CART IN THE DATABASE
     const cartObj = {
-      userc_id: user.id,
+      user_id: user.id,
       product_id: id,
       quantity: 1,
     };
+    console.log("cart", cartObj);
     if (isLoggedIn) {
       const product = await postData("/api/user/cart", cartObj);
+      console.log("product", product);
       if (product) {
         setCartItemsCount((prevState) => prevState + 1);
       } else {
@@ -52,6 +54,7 @@ const ProductCard = ({ product }) => {
       navigate("/login");
     }
   };
+  console.log("user", user);
 
   return (
     <div>
