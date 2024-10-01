@@ -1,45 +1,43 @@
-import React, { useState } from 'react'
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 const pages = [
-  // {
-  //   route: '/user/profile',
-  //   page: 'Profile'
-  // },
-  // {
-  //   route: '/user/account',
-  //   page: 'Account'
-  // },
+  {
+    route: "/user/profile",
+    page: "Profile",
+  },
+  {
+    route: "/user/account",
+    page: "Account",
+  },
 
   {
-    route: '/user/dashboard',
-    page: 'Dashboard'
-  }
-]
-const drawerWidth = 200;
+    route: "/user/dashboard",
+    page: "Dashboard",
+  },
+];
 
 const SideBarMenu = () => {
-  const location = useLocation()
+  const location = useLocation();
   return (
-    <Box sx={{ width: drawerWidth }} >
-      <List sx={{ paddingTop: '12px' }}>
+    <div>
+      <ul>
         {pages.map(({ route, page }) => (
-          <ListItem key={page} >
-            <ListItemButton selected={location.pathname === route} as={NavLink} to={route}>
-              <ListItemText primary={page} />
-            </ListItemButton>
-          </ListItem>
+          <li key={page}>
+            <NavLink
+              //selected not working. tailwind might have a active prefix for this
+              selected={location.pathname === route}
+              to={route}
+            >
+              <div>
+                <span>{page}</span>
+              </div>
+            </NavLink>
+          </li>
         ))}
-      </List>
-    </Box>
-  )
-}
+      </ul>
+    </div>
+  );
+};
 
 export default SideBarMenu;

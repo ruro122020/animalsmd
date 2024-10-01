@@ -39,14 +39,18 @@ const Navbar = () => {
           <div>
             {/**Main Navigation Links */}
             {pages.map(({ route, page }) => (
-              <NavLink to={route}>{page}</NavLink>
+              <NavLink key={page} to={route}>
+                {page}
+              </NavLink>
             ))}
 
             {/** User Profile Links. This section is displayed when user is not logged in. */}
 
             {isLoggedIn &&
               profile.map(({ route, page }) => (
-                <NavLink to={route}>{page}</NavLink>
+                <NavLink key={page} to={route}>
+                  {page}
+                </NavLink>
               ))}
 
             {/**Logout Button */}
@@ -55,7 +59,9 @@ const Navbar = () => {
             {/* SignUp/Login Links. This section is displayed when user is not logged in. */}
             {!isLoggedIn &&
               identity.map(({ route, page }) => (
-                <NavLink to={route}>{page}</NavLink>
+                <NavLink key={page} to={route}>
+                  {page}
+                </NavLink>
               ))}
             {/************************************************************************/}
           </div>

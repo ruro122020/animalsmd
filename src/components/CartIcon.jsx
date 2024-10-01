@@ -1,5 +1,4 @@
 import React from "react";
-import ShoppingCartCheckoutSharpIcon from "@mui/icons-material/ShoppingCartCheckoutSharp";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
 import { MdOutlineShoppingCart } from "react-icons/md";
