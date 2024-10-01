@@ -60,7 +60,6 @@ const Form2 = () => {
   }, [petInfo.symptoms]);
 
   const handleChange = (e) => {
-    console.log("e.target", e.target);
     if (e.target.checked) {
       formik.setFieldValue(
         "symptoms",
@@ -80,7 +79,8 @@ const Form2 = () => {
     initialValues: form2Config.initialValues,
     validationSchema: form2Config.formSchema,
     onSubmit: (values, { resetForm }) => {
-      //
+      setPetInfo({ ...petInfo, symptoms: values.symptoms });
+      resetForm();
     },
   });
   if (isLoading) return <p>loading</p>;
