@@ -39,12 +39,6 @@ const form1Config = {
       name: "weight",
       type: "text",
     },
-    // {
-    //   label: "Type",
-    //   options: [],
-    //   name: "type",
-    //   type: "select",
-    // },
   ],
 };
 

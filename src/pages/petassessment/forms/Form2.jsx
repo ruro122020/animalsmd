@@ -6,7 +6,6 @@ import form2Config from "../formConfigs/form2Config";
 import { useAuth } from "../../../context/AuthContext";
 import { postData } from "../../../api";
 import { useFormik } from "formik";
-import * as yup from "yup";
 
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment();
