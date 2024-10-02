@@ -46,12 +46,14 @@ const Signup = () => {
             <label>
               <span>{label}</span>
             </label>
-            <input
-              type={type}
-              name={name}
-              value={formik.values[name]}
-              onChange={formik.handleChange}
-            />
+            <div>
+              <input
+                type={type}
+                name={name}
+                value={formik.values[name]}
+                onChange={formik.handleChange}
+              />
+            </div>
           </div>
         ))}
         <button type="submit">Submit</button>

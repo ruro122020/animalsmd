@@ -1,9 +1,7 @@
 import React from "react";
 import editFormConfig from "./editFormConfig";
-// import CustomFormik from '../../formik/CustomFormik'
-import CustomFormFields from "../../components/form/CustomFormFields";
 import { updateData } from "../../api";
-import CustomButton from "../../components/form/CustomButton";
+import { useFormik } from "formik";
 
 const EditForm = ({ pet, setShowEditForm, setPet }) => {
   const { formSchema, fields } = editFormConfig;
@@ -13,24 +11,38 @@ const EditForm = ({ pet, setShowEditForm, setPet }) => {
     weight: pet.weight,
   };
 
-  const handleSubmit = async (values, resetForm) => {
-    //need to create route to update pets in database
-    const updatedPet = await updateData(`/api/user/pets/${pet.id}`, values);
-    //update pet in frontend
-    if (updatedPet) {
-      const { name, age, weight } = updatedPet;
-      setPet({ ...pet, name: name, age: age, weight: weight });
-      resetForm();
-      setShowEditForm(false);
-    }
-  };
-  // const formik = CustomFormik(initialValues, formSchema, handleSubmit)
-
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: formSchema,
+    onSubmit: async (values, { resetForm }) => {
+      //need to create route to update pets in database
+      const updatedPet = await updateData(`/api/user/pets/${pet.id}`, values);
+      //update pet in frontend
+      if (updatedPet) {
+        const { name, age, weight } = updatedPet;
+        setPet({ ...pet, name: name, age: age, weight: weight });
+        resetForm();
+        setShowEditForm(false);
+      }
+    },
+  });
   return (
     <form onSubmit={formik.handleSubmit}>
       <div>
-        {fields.map((field) => (
-          <CustomFormFields field={field} formik={formik} />
+        {fields.map(({ label, name, type }) => (
+          <div>
+            <label>
+              <span>{label}</span>
+            </label>
+            <div>
+              <input
+                type={type}
+                name={name}
+                value={formik.values[name]}
+                onChange={formik.handleChange}
+              />
+            </div>
+          </div>
         ))}
       </div>
       <div
@@ -41,11 +53,9 @@ const EditForm = ({ pet, setShowEditForm, setPet }) => {
         }}
       >
         <div style={{ paddingRight: "12px" }}>
-          <CustomButton type="Submit">Submit</CustomButton>
+          <button type="Submit">Submit</button>
         </div>
-        <CustomButton onClick={() => setShowEditForm(false)}>
-          Cancel
-        </CustomButton>
+        <button onClick={() => setShowEditForm(false)}>Cancel</button>
       </div>
     </form>
   );
