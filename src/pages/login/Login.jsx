@@ -43,6 +43,9 @@ const Login = () => {
         )}
         {fields.map(({ label, name, type }) => (
           <div key={name} style={{ paddingBottom: "12px" }}>
+            {formik.touched[name] && formik.errors[name] && (
+              <div>{formik.errors[name]}</div>
+            )}
             <label>
               <span>{label}</span>
             </label>

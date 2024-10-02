@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import CustomButton from "../../components/form/CustomButton";
 import { useAuth } from "../../context/AuthContext";
 import { postData } from "../../api";
-import { useNavigate } from "react-router-dom";
-import CustomLink from "../../components/form/CustomLink";
-import CustomFormFields from "../../components/form/CustomFormFields";
+import { NavLink, useNavigate } from "react-router-dom";
 import formConfig from "./formConfig";
+import { useFormik } from "formik";
 
 const Signup = () => {
   const { updateUser, login } = useAuth();
@@ -13,22 +11,23 @@ const Signup = () => {
   const [error, setError] = useState(false);
   const { initialValues, formSchema, fields } = formConfig;
 
-  const handleSubmit = async (values, resetForm) => {
-    const responseUser = await postData("/api/signup", values);
-    if (responseUser) {
-      login();
-      updateUser(responseUser);
-      resetForm();
-      navigate(-2);
-      setError(false);
-    } else {
-      console.log("Something went wrong in signup.jsx submit function");
-      setError(true);
-    }
-  };
-
-  // const formik = CustomFormik(initialValues, formSchema, handleSubmit)
-
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: formSchema,
+    onSubmit: async (values, { resetForm }) => {
+      const responseUser = await postData("/api/signup", values);
+      if (responseUser) {
+        login();
+        updateUser(responseUser);
+        resetForm();
+        navigate(-2);
+        setError(false);
+      } else {
+        console.log("Something went wrong in signup.jsx submit function");
+        setError(true);
+      }
+    },
+  });
   return (
     <div>
       <h1>Sign Up</h1>
@@ -38,16 +37,28 @@ const Signup = () => {
             User Already Exist
           </div>
         )}
-        {fields.map((field) => (
-          <div key={field.name}>
-            <CustomFormFields field={field} formik={formik} />
+
+        {fields.map(({ label, name, type }) => (
+          <div key={name}>
+            {formik.touched[name] && formik.errors[name] && (
+              <div>{formik.errors[name]}</div>
+            )}
+            <label>
+              <span>{label}</span>
+            </label>
+            <input
+              type={type}
+              name={name}
+              value={formik.values[name]}
+              onChange={formik.handleChange}
+            />
           </div>
         ))}
-        <CustomButton type="submit">Submit</CustomButton>
+        <button type="submit">Submit</button>
       </form>
       <p>
         Already have an account?
-        <CustomLink route="/login">Login</CustomLink>
+        <NavLink to="/login">Login</NavLink>
       </p>
     </div>
   );
