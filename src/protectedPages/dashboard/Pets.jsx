@@ -1,61 +1,58 @@
-import React, { useState, useEffect } from 'react'
-import { getData } from '../../api'
-import PetCard from './PetCard'
-import { Grid } from '@mui/material'
+import React, { useState, useEffect } from "react";
+import { getData } from "../../api";
+import PetCard from "./PetCard";
 
 const Pets = ({ setShowEditForm, setPet, updatedPet }) => {
-  const [pets, setPets] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [pets, setPets] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getPets = async () => {
-      const fetchedPets = await getData('/api/user/pets')
+      const fetchedPets = await getData("/api/user/pets");
       if (fetchedPets) {
-        setPets(fetchedPets)
-        setIsLoading(false)
+        setPets(fetchedPets);
+        setIsLoading(false);
       }
-    }
-    getPets()
-  }, [])
+    };
+    getPets();
+  }, []);
 
   //update pets array with updatedPet object if updatedPet exist
   useEffect(() => {
     if (updatedPet) {
-      const clonePets = [...pets]
-      const newPetsList = clonePets.map(pet => {
+      const clonePets = [...pets];
+      const newPetsList = clonePets.map((pet) => {
         if (pet.id === updatedPet.id) {
-          return updatedPet
+          return updatedPet;
         } else {
-          return pet
+          return pet;
         }
-      })
-      setPets(newPetsList)
+      });
+      setPets(newPetsList);
     }
-  }, [updatedPet])
+  }, [updatedPet]);
 
   const handleDelete = (petToDelete) => {
-    const clonePets = [...pets]
-    const newListOfPets = clonePets.filter(pet => pet.id !== petToDelete.id)
-    setPets(newListOfPets)
-  }
+    const clonePets = [...pets];
+    const newListOfPets = clonePets.filter((pet) => pet.id !== petToDelete.id);
+    setPets(newListOfPets);
+  };
 
   const handleEdit = (petToEdit) => {
-    setShowEditForm(true)
-    setPet(petToEdit)
-  }
+    setShowEditForm(true);
+    setPet(petToEdit);
+  };
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <p>Loading...</p>;
 
   return (
-    <Grid container spacing={2} sx={{ p: 2, marginLeft: 0, marginTop: 0, display: 'flex' }}>
-      {pets.map(pet => (
-        <Grid item key={pet.id} sx={{ display: 'flex' }} >
+    <div>
+      {pets.map((pet) => (
+        <div key={pet.id}>
           <PetCard pet={pet} onDelete={handleDelete} onEdit={handleEdit} />
-        </Grid>
+        </div>
       ))}
-    </Grid>
-  )
-}
+    </div>
+  );
+};
 
-
-
-export default Pets
+export default Pets;
