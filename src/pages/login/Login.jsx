@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import CustomButton from "../../components/form/CustomButton";
-import CustomLink from "../../components/form/CustomLink";
 import { postData } from "../../api";
-import CustomFormFields from "../../components/form/CustomFormFields";
 import formConfig from "./formConfig";
 import { useFormik } from "formik";
 
