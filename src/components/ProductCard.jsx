@@ -54,7 +54,6 @@ const ProductCard = ({ product }) => {
       navigate("/login");
     }
   };
-  console.log("user", user);
 
   return (
     <div>

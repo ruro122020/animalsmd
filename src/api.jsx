@@ -9,6 +9,7 @@ const getData = async (url) => {
     return data;
   } catch (err) {
     console.log(err);
+    return { error: "Error Fetching Data" };
   }
 };
 
