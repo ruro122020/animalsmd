@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProductCard from "../../components/ProductCard";
 import Hero from "./Hero";
 import useProducts from "../../components/hooks/useProducts";
+import filterBySearch from "../../utils/filterBySearch";
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -11,13 +12,8 @@ const Products = () => {
   if (isLoading) return <p>Loading...</p>;
   if (productsError) return <p>Product Error: {productsError}</p>;
 
-  const filterProducts = products
-    .filter((product) => {
-      return search === ""
-        ? product
-        : product.name.toLowerCase().includes(search.toLowerCase());
-    })
-    .sort((productA, productB) => {
+  const filterProducts = filterBySearch(products, search).sort(
+    (productA, productB) => {
       if (sortBy === "A-Z") {
         const nameA = productA.name.toUpperCase();
         const nameB = productB.name.toUpperCase();
@@ -33,25 +29,17 @@ const Products = () => {
       } else if (sortBy === "price-high-low") {
         return productB.price - productA.price;
       }
-    });
+    }
+  );
 
   return (
     <div style={{ backgroundColor: "#fcfbf5" }}>
       <header>
         <Hero />
       </header>
-      <main
-        style={{
-          display: "flex",
-          alignContent: "center",
-          justifyContent: "center",
-          paddingLeft: "20px",
-          paddingRight: "20px",
-          paddingTop: "30px",
-        }}
-      >
+      <main>
         {/**SEARCH INPUT */}
-        <div sx={{ width: "15%", textAlign: "center" }}>
+        <div>
           <label>Search</label>
           <input
             type="text"
@@ -99,7 +87,7 @@ const Products = () => {
           </div>
         </div>
 
-        {/*Thid Grid holds the products items*/}
+        {/*This div holds the products items*/}
         <div>
           {filterProducts.map((product) => {
             return (

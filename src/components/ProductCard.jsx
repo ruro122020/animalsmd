@@ -41,7 +41,6 @@ const ProductCard = ({ product }) => {
       product_id: id,
       quantity: 1,
     };
-    console.log("cart", cartObj);
     if (isLoggedIn) {
       const product = await postData("/api/user/cart", cartObj);
       console.log("product", product);
@@ -59,22 +58,21 @@ const ProductCard = ({ product }) => {
     <div>
       {/**HEADER */}
       <div>
-        <h1>{name.toUpperCase()}</h1>
+        <h5>{name.toUpperCase()}</h5>
       </div>
 
       {/**IMAGE */}
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <img src={productPicture} title="Product Image" />
+      <div>
+        <img
+          src={productPicture}
+          title="Product Image"
+          width={100}
+          height={100}
+        />
       </div>
       {/**CONTENT */}
       <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-          }}
-        >
+        <div>
           <p>${price}</p>
           <div>
             {prescription ? (
