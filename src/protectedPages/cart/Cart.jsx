@@ -3,12 +3,6 @@ import { deleteData, getData, updateData } from "../../api";
 import CartProductCard from "./CartProductCard";
 import { useCartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { Button, Grid } from "@mui/material";
-import Card from "@mui/material/Card";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
 
 const Cart = () => {
   const [cartProducts, setCartProducts] = useState([]);
@@ -70,45 +64,30 @@ const Cart = () => {
   }, 0);
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      sx={{ padding: "15px", flexDirection: "column" }}
-    >
-      <h1 style={{ borderBottom: "1px solid lightgrey" }}>Your Cart</h1>
+    <div>
+      <h1>Your Cart</h1>
       {cartProducts.length > 0 ? (
-        <div style={{ width: "100%", display: "flex" }}>
-          <Grid
-            container
-            rowGap={2}
-            justifyContent="center"
-            sx={{ paddingRight: "15px" }}
-          >
+        <div>
+          <div>
             {cartProducts.map((product) => (
-              <Grid
-                item
-                xs={12}
-                md={12}
-                sx={{ display: "flex" }}
-                key={product.id}
-              >
+              <div>
                 <CartProductCard
                   key={product.id}
                   product={product}
                   handleProductQuantity={handleProductQuantity}
                   handleProductDelete={handleProductDelete}
                 />
-              </Grid>
+              </div>
             ))}
-          </Grid>
+          </div>
 
-          <Grid sx={{ width: "40%" }}>
-            <Card variant="outlined" sx={{ maxWidth: "100%" }}>
-              <Box sx={{ p: 2 }}>
-                <Typography gutterBottom variant="h5" component="div">
+          <div sx={{ width: "40%" }}>
+            <div variant="outlined" sx={{ maxWidth: "100%" }}>
+              <div sx={{ p: 2 }}>
+                <span gutterBottom variant="h5" component="div">
                   SUMMARY
-                </Typography>
-                <Stack>
+                </span>
+                <div>
                   {/* Display the products name, quantity, and total price in here */}
                   {cartProducts.map(({ product, quantity }) => {
                     return (
@@ -125,30 +104,23 @@ const Cart = () => {
                       </div>
                     );
                   })}
-                </Stack>
-              </Box>
-              <Divider />
-              <Box
-                sx={{ p: 2, display: "flex", justifyContent: "space-between" }}
-              >
-                <Box>Total:</Box>
-                <Box>${total}</Box>
-              </Box>
-              <div style={{ background: "black" }}>
-                <Button
-                  onClick={handleCheckout}
-                  sx={{ width: "100%", color: "white" }}
-                >
-                  Checkout
-                </Button>
+                </div>
               </div>
-            </Card>
-          </Grid>
+              <hr />
+              <div>
+                <div>Total:</div>
+                <div>${total}</div>
+              </div>
+              <div>
+                <button onClick={handleCheckout}>Checkout</button>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
-        <Box>Cart is Empty</Box>
+        <div>Cart is Empty</div>
       )}
-    </Grid>
+    </div>
   );
 };
 

@@ -30,7 +30,7 @@ const EditForm = ({ pet, setShowEditForm, setPet }) => {
     <form onSubmit={formik.handleSubmit}>
       <div>
         {fields.map(({ label, name, type }) => (
-          <div>
+          <div key={label}>
             <label>
               <span>{label}</span>
             </label>

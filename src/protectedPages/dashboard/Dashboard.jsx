@@ -1,47 +1,46 @@
-import React, { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Pets from './Pets';
-import EditForm from '../../protectedPages/dashboard/EditForm';
-import CustomTabPanel from './CustomTabPanel'
+import React, { useState } from "react";
+import Pets from "./Pets";
+import EditForm from "../../protectedPages/dashboard/EditForm";
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-const BasicTabs = () => {
-  const [value, setValue] = React.useState(0);
-  const [showEditForm, setShowEditForm] = useState(false)
-  const [pet, setPet] = useState(null)
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+const Dashboard = () => {
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [pet, setPet] = useState(null);
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Pets" {...a11yProps(0)} />
-          {/* <Tab label="Medications" {...a11yProps(1)} /> */}
-          {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
-        </Tabs>
-      </Box>
+    <div>
+      {/*
+       * This section are suppose to be tabs for users to switch between pets, medication, pet history, etc
+       */}
+      <div>
+        <div>
+          <button>Pets</button>
+          <button>Medications</button>
+        </div>
+      </div>
+      {/************************************************************** */}
+      <div>
+        {showEditForm && (
+          <EditForm
+            pet={pet}
+            setShowEditForm={setShowEditForm}
+            setPet={setPet}
+          />
+        )}
 
-      <CustomTabPanel value={value} index={0} >
-        {showEditForm && <EditForm pet={pet} setShowEditForm={setShowEditForm} setPet={setPet} />}
-        <Pets setShowEditForm={setShowEditForm} setPet={setPet} updatedPet={pet} />
-      </CustomTabPanel>
-      {/* <CustomTabPanel value={value} index={1}>
-        Medications
-      </CustomTabPanel> */}
-    </Box>
+        {/**Here we are rending a list of the users pets for the pets tab */}
+
+        <Pets
+          setShowEditForm={setShowEditForm}
+          setPet={setPet}
+          updatedPet={pet}
+        />
+      </div>
+
+      {/***Here we will render the medications for the medications tab
+       * Create a Medications component and pass as props the pets medication
+       */}
+    </div>
   );
-}
+};
 
-
-export default BasicTabs
+export default Dashboard;
