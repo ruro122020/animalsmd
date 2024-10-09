@@ -3,34 +3,43 @@ import ProductCard from "../../components/ProductCard";
 import Hero from "./Hero";
 import useProducts from "../../components/hooks/useProducts";
 import filterBySearch from "../../utils/filterBySearch";
-
+import filterByAlphabeticalOrder from "../../utils/filterByAlphabeticalOrder";
 const Products = () => {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const { products, isLoading, error: productsError } = useProducts();
-
   if (isLoading) return <p>Loading...</p>;
   if (productsError) return <p>Product Error: {productsError}</p>;
 
-  const filterProducts = filterBySearch(products, search).sort(
-    (productA, productB) => {
-      if (sortBy === "A-Z") {
-        const nameA = productA.name.toUpperCase();
-        const nameB = productB.name.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      } else if (sortBy === "price-low-high") {
-        return productA.price - productB.price;
-      } else if (sortBy === "price-high-low") {
-        return productB.price - productA.price;
-      }
-    }
-  );
+  let filteredProducts = filterBySearch(products, search);
+
+  if (sortBy === "A-Z") {
+    filteredProducts = filterByAlphabeticalOrder(products);
+  } else if (sortBy === "price-low-high") {
+    //sortbyprice('price-low-high')
+  } else if (sortBy === "price-high-low") {
+    //sortbyprice('price-high-low)
+  }
+
+  // .sort(
+  //   (productA, productB) => {
+  //     if (sortBy === "A-Z") {
+  //       const nameA = productA.name.toUpperCase();
+  //       const nameB = productB.name.toUpperCase();
+  //       if (nameA < nameB) {
+  //         return -1;
+  //       }
+  //       if (nameA > nameB) {
+  //         return 1;
+  //       }
+  //       return 0;
+  //     } else if (sortBy === "price-low-high") {
+  //       return productA.price - productB.price;
+  //     } else if (sortBy === "price-high-low") {
+  //       return productB.price - productA.price;
+  //     }
+  //   }
+  // );
 
   return (
     <div style={{ backgroundColor: "#fcfbf5" }}>
@@ -89,7 +98,7 @@ const Products = () => {
 
         {/*This div holds the products items*/}
         <div>
-          {filterProducts.map((product) => {
+          {filteredProducts.map((product) => {
             return (
               <div key={product.id}>
                 <ProductCard product={product} />
