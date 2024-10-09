@@ -4,10 +4,14 @@ import Hero from "./Hero";
 import useProducts from "../../components/hooks/useProducts";
 import filterBySearch from "../../utils/filterBySearch";
 import filterByAlphabeticalOrder from "../../utils/filterByAlphabeticalOrder";
+import filterByPrice from "../../utils/filterByPrice";
+
 const Products = () => {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const { products, isLoading, error: productsError } = useProducts();
+
+  //first check if products data has been loaded
   if (isLoading) return <p>Loading...</p>;
   if (productsError) return <p>Product Error: {productsError}</p>;
 
@@ -16,30 +20,10 @@ const Products = () => {
   if (sortBy === "A-Z") {
     filteredProducts = filterByAlphabeticalOrder(products);
   } else if (sortBy === "price-low-high") {
-    //sortbyprice('price-low-high')
+    filteredProducts = filterByPrice(products, "price-low-high");
   } else if (sortBy === "price-high-low") {
-    //sortbyprice('price-high-low)
+    filteredProducts = filterByPrice(products, "price-high-low");
   }
-
-  // .sort(
-  //   (productA, productB) => {
-  //     if (sortBy === "A-Z") {
-  //       const nameA = productA.name.toUpperCase();
-  //       const nameB = productB.name.toUpperCase();
-  //       if (nameA < nameB) {
-  //         return -1;
-  //       }
-  //       if (nameA > nameB) {
-  //         return 1;
-  //       }
-  //       return 0;
-  //     } else if (sortBy === "price-low-high") {
-  //       return productA.price - productB.price;
-  //     } else if (sortBy === "price-high-low") {
-  //       return productB.price - productA.price;
-  //     }
-  //   }
-  // );
 
   return (
     <div style={{ backgroundColor: "#fcfbf5" }}>
