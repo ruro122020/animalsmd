@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { getData } from "../services/api";
 
 const useGetMethod = ({ url }) => {
@@ -19,7 +19,7 @@ const useGetMethod = ({ url }) => {
       } else if (response.status === "failed") {
         console.log("response failed", response);
         setIsLoading(false);
-        setError(response);
+        setError(response.error);
       }
     };
     fetchData();

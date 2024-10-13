@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import useGetMethod from "../../../../components/useGetMethod";
+import useGetMethod from "../../../../hooks/useGetMethod";
 
 const URL = "/api/user/pets";
 

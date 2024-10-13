@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { getData } from "../../../services/api";
+import useGetMethod from "../../../hooks/useGetMethod";
+
+const URL = "/api/products";
 
 const useProducts = () => {
-  const [products, setProducts] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { data: products, isLoading, error } = useGetMethod({ url: URL });
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const productsArr = await getData("/api/products");
-      if (!productsArr.error) {
-        setProducts(productsArr);
-        setIsLoading(false);
-      } else {
-        //if there is an error, the getData function returns a message
-        console.log("productArr in else", productsArr);
-        setIsLoading(false);
-        setError(productsArr.error);
-      }
-    };
-    getProducts();
-  }, []);
   return { products, isLoading, error };
 };
 
