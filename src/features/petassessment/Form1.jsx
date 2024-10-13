@@ -1,43 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import { getData } from "../../services/api";
+import React from "react";
 import { usePetAssessment } from "../petassessment/context/PetAssessmentContext";
 import { useNavigate } from "react-router-dom";
 import form1Config from "./utils/formConfigs/form1Config";
-import { useOutletContext } from "react-router-dom";
 import { useFormik } from "formik";
+import useSpecies from "./hooks/useSpecies";
 
 const Form1 = () => {
-  const [species, setSpecies] = useState([]);
   const { setPetInfo } = usePetAssessment();
   const navigate = useNavigate();
   const { initialValues, formSchema, fields } = form1Config;
-  const [isLoading, setIsLoading] = useOutletContext();
-
-  //Fetches species list
-  useEffect(() => {
-    const getSpecies = async () => {
-      const species = await getData("/api/species");
-      console.log("species", species);
-      if (species) {
-        const speciesList = species.map((obj) => {
-          //capitalize the first letter of each species name
-          const splitTypeName = obj.type_name.split(" ");
-          const reformatWord = splitTypeName.map((word) => {
-            const capLetter = word.slice(0, 1).toUpperCase();
-            const restOfWord = word.slice(1);
-            return capLetter + restOfWord;
-          });
-          //return the species name with first letter being capitalized
-          return reformatWord.join(" ");
-        });
-
-        setSpecies(speciesList);
-      } else {
-        console.log("species is false, please check api file");
-      }
-    };
-    getSpecies();
-  }, []);
+  const { species } = useSpecies();
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -45,7 +17,6 @@ const Form1 = () => {
     onSubmit: (values, { resetForm }) => {
       setPetInfo(values);
       resetForm();
-      setIsLoading(true);
       navigate("/pet-assessment/form2");
     },
   });
