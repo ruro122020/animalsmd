@@ -15,11 +15,11 @@ const EditForm = ({ pet, setShowEditForm, setPet }) => {
     initialValues: initialValues,
     validationSchema: formSchema,
     onSubmit: async (values, { resetForm }) => {
-      //need to create route to update pets in database
+      //update pets in database
       const updatedPet = await updateData(`/api/user/pets/${pet.id}`, values);
       //update pet in frontend
-      if (updatedPet) {
-        const { name, age, weight } = updatedPet;
+      if (updatedPet.status === "success") {
+        const { name, age, weight } = updatedPet.data;
         setPet({ ...pet, name: name, age: age, weight: weight });
         resetForm();
         setShowEditForm(false);
