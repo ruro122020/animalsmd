@@ -2,10 +2,10 @@ import * as yup from "yup";
 
 const form1Config = {
   initialValues: {
-    name: "",
-    type: "",
-    age: "",
-    weight: "",
+    name: "mika",
+    type: "dog",
+    age: "12",
+    weight: "3",
   },
   formSchema: yup.object().shape({
     type: yup.string().required("*required"),

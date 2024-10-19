@@ -27,6 +27,10 @@ const useSpecies = () => {
       if (species.status === "success") {
         const speciesList = capitalizeFirstLetterWord(species.data);
         setSpecies(speciesList);
+        setIsLoading(false);
+      } else if (species.status === "failed") {
+        setIsLoading(false);
+        setError(species.error);
       }
     };
     getSpecies();

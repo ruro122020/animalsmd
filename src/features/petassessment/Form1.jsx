@@ -4,17 +4,26 @@ import { useNavigate } from "react-router-dom";
 import form1Config from "./utils/formConfigs/form1Config";
 import { useFormik } from "formik";
 import useSpecies from "./hooks/useSpecies";
+import { useAuth } from "../authentication/context/AuthContext";
 
 const Form1 = () => {
   const { setPetInfo } = usePetAssessment();
   const navigate = useNavigate();
   const { initialValues, formSchema, fields } = form1Config;
   const { species } = useSpecies();
-
+  const { isLoggedIn } = useAuth();
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
+      if (!isLoggedIn) {
+        // the onsubmit does not immediately halt the rest of the code execution.
+        //So even though the navigation happens, the rest of the code still runs.
+        //to avoid this, the return stops the rest of the code from executing
+        navigate("/login");
+        return;
+      }
+
       setPetInfo(values);
       resetForm();
       navigate("/pet-assessment/form2");
