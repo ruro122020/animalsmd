@@ -13,7 +13,7 @@ const useSpeciesSymptoms = (speciesType) => {
         setSymptoms(symptomsData.data.symptoms);
         setIsLoading(false);
       } else if (symptomsData.status === "failed") {
-        console.log("fetched failed", symptomsData);
+        console.log("fetch symptoms failed", symptomsData);
         setError(symptomsData.error);
       }
     };

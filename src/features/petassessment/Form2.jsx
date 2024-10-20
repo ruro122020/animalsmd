@@ -8,7 +8,7 @@ import useSpeciesSymptoms from "./hooks/useSpeciesSymptoms";
 import { Link } from "react-router-dom";
 
 const Form2 = () => {
-  const { petInfo } = usePetAssessment();
+  const { petInfo, setPetInfo } = usePetAssessment();
   const navigate = useNavigate();
   const { symptoms, isLoading, error } = useSpeciesSymptoms(petInfo.type);
   const [hasPet, setHasPet] = useState(false);
@@ -17,6 +17,7 @@ const Form2 = () => {
     //POST PETINFO TO DATABASE
     const response = await postData("/api/user/pets", body);
     if (response.status === "success") {
+      setPetInfo(response.data);
       navigate("/pet-assessment/results");
     } else if (response.status === "failed") {
       if (response.code === 409) {

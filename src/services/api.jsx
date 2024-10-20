@@ -51,16 +51,9 @@ const updateData = async (url, body) => {
 };
 
 const deleteData = async (url) => {
-  try {
-    const res = await fetch(url, { method: "DELETE" });
-    if (!res.ok) {
-      throw new Error(res.status);
-    }
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
+  const res = await fetch(url, { method: "DELETE" });
+  const data = await res.json();
+  return data;
 };
 
 export { getData, postData, updateData, deleteData };
