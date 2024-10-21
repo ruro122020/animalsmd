@@ -6,6 +6,10 @@ const usePetResults = (id) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const updateResults = (storageResults) => {
+    setResults(storageResults);
+  };
+
   useEffect(() => {
     const getResults = async () => {
       const getResults = await getData(`/api/user/pets/${id}/results`);
@@ -20,7 +24,7 @@ const usePetResults = (id) => {
     };
     getResults();
   }, []);
-  return { results, isLoading, error };
+  return { results, isLoading, error, updateResults };
 };
 
 export default usePetResults;
