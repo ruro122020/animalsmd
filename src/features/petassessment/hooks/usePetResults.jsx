@@ -3,7 +3,7 @@ import { getData } from "../../../services/api";
 
 const usePetResults = (id) => {
   const [results, setResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const updateResults = (storageResults) => {
@@ -13,6 +13,7 @@ const usePetResults = (id) => {
   useEffect(() => {
     const getResults = async () => {
       const getResults = await getData(`/api/user/pets/${id}/results`);
+      setIsLoading(true);
       if (getResults.status === "success") {
         setResults(getResults.data);
         setIsLoading(false);
