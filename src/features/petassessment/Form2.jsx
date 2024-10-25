@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 import form2Config from "./utils/formConfigs/form2Config";
 import { useFormik } from "formik";
 import useSpeciesSymptoms from "./hooks/useSpeciesSymptoms";
-import { Link } from "react-router-dom";
 
 const Form2 = () => {
   const { petInfo, setPetInfo } = usePetAssessment();
   const navigate = useNavigate();
   const { symptoms, isLoading, error } = useSpeciesSymptoms(petInfo.type);
-  const [hasPet, setHasPet] = useState(false);
 
   const postPetInfo = async (body) => {
     //POST PETINFO TO DATABASE
@@ -20,11 +18,7 @@ const Form2 = () => {
       setPetInfo(response.data);
       navigate("/pet-assessment/results");
     } else if (response.status === "failed") {
-      if (response.code === 409) {
-        setHasPet(true);
-      } else if (response.code === 400) {
-        console.log(response.error);
-      }
+      console.log(response.error);
     }
   };
 
@@ -61,12 +55,6 @@ const Form2 = () => {
       onSubmit={formik.handleSubmit}
       style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
     >
-      {hasPet && (
-        <p>
-          Pet already exist. Click <Link to="/user/dashboard">here</Link> to
-          view pet.
-        </p>
-      )}
       <fieldset>
         <legend>Choose your pet's symptoms</legend>
         {formik.touched.symptoms && formik.errors.symptoms && (

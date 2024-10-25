@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { usePetAssessment } from "../petassessment/context/PetAssessmentContext";
 import { useNavigate } from "react-router-dom";
 import form1Config from "./utils/formConfigs/form1Config";
 import { useFormik } from "formik";
 import useSpecies from "./hooks/useSpecies";
 import { useAuth } from "../authentication/context/AuthContext";
+import { Link } from "react-router-dom";
+import { getData } from "../../services/api";
 
 const Form1 = () => {
   const { setPetInfo } = usePetAssessment();
@@ -12,10 +14,26 @@ const Form1 = () => {
   const { initialValues, formSchema, fields } = form1Config;
   const { species } = useSpecies();
   const { isLoggedIn } = useAuth();
+  const [hasPet, setHasPet] = useState(false);
+
+  const petExist = async (petName) => {
+    const usersPets = await getData("api/user/pets");
+    if (usersPets.status === "success") {
+      const pet = usersPets.data.find(
+        (pet) => pet.name === petName.toLowerCase()
+      );
+      if (pet) {
+        setHasPet(true);
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: formSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       if (!isLoggedIn) {
         // the onsubmit does not immediately halt the rest of the code execution.
         //So even though the navigation happens, the rest of the code still runs.
@@ -23,10 +41,12 @@ const Form1 = () => {
         navigate("/login");
         return;
       }
-
-      setPetInfo(values);
-      resetForm();
-      navigate("/pet-assessment/form2");
+      const doesExist = await petExist(values.name);
+      if (!doesExist) {
+        setPetInfo(values);
+        resetForm();
+        navigate("/pet-assessment/form2");
+      }
     },
   });
 
@@ -35,6 +55,12 @@ const Form1 = () => {
       onSubmit={formik.handleSubmit}
       style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
     >
+      {hasPet && (
+        <p>
+          Pet already exist. Click <Link to="/user/dashboard">here</Link> to
+          view pet.
+        </p>
+      )}
       <div style={{ textAlign: "center" }}>
         {fields.map(({ label, name, type }) => (
           <div key={name}>
